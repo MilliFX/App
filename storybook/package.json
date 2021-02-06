@@ -1,5 +1,23 @@
 {
   "name": "@millifx/storybook",
   "version": "0.0.0",
-  "private": true
+  "private": true,
+  "scripts": {
+    "start": "start-storybook -p 6006",
+    "build": "yarn run build:storybook && yarn run build:docs",
+    "build:storybook": "build-storybook -o ../app/build/storybook",
+    "build:docs": "build-storybook --docs -o ../app/build/docs",
+    "test": "react-scripts test --coverage"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "^6.1.17",
+    "@storybook/addon-actions": "^6.1.17",
+    "@storybook/addon-essentials": "^6.1.17",
+    "@storybook/addon-links": "^6.1.17",
+    "@storybook/addon-storyshots": "^6.1.17",
+    "@storybook/node-logger": "^6.1.17",
+    "@storybook/preset-create-react-app": "^3.1.5",
+    "@storybook/react": "^6.1.17",
+    "react-scripts": "4.0.2"
+  }
 }
