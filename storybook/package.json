@@ -1,13 +1,16 @@
 {
   "name": "@millifx/storybook",
   "version": "0.0.0",
+  "author": "Jack Song",
   "private": true,
   "scripts": {
     "start": "start-storybook -p 6006",
     "build": "yarn run build:storybook && yarn run build:docs",
     "build:storybook": "build-storybook -o ../app/build/storybook",
     "build:docs": "build-storybook --docs -o ../app/build/docs",
-    "test": "react-scripts test --coverage"
+    "test": "react-scripts test --watchAll=false",
+    "format": "echo ''",
+    "lint": "echo ''"
   },
   "dependencies": {
     "@storybook/addon-a11y": "^6.1.17",

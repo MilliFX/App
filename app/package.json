@@ -2,6 +2,8 @@
   "name": "@millifx/app",
   "version": "0.1.0",
   "private": true,
+  "author": "Jack Song",
+  "license": "MIT",
   "dependencies": {
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -19,7 +21,8 @@
     "workbox-range-requests": "^5.1.3",
     "workbox-routing": "^5.1.3",
     "workbox-strategies": "^5.1.3",
-    "workbox-streams": "^5.1.3"
+    "workbox-streams": "^5.1.3",
+    "@millifx/error-boundary": "^0.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.4",
@@ -33,7 +36,6 @@
     "@typescript-eslint/parser": "^4.14.2",
     "eslint": "^7.2.0",
     "eslint-config-airbnb": "^18.2.1",
-    "eslint-config-airbnb-typescript": "^12.0.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.3",
@@ -46,10 +48,24 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
-    "format": "prettier --write src/**/*.ts{,x}",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}"
+    "format": "prettier --write src/**/*.ts{,x} --write",
+    "lint": "tsc && eslint --fix"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "**/*.{ts,tsx}",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!src/**/*.d.ts",
+      "!src/index.tsx",
+      "!src/service-worker.ts",
+      "!src/serviceWorkerRegistration.ts",
+      "!src/reportWebVitals.ts",
+      "!src/components/**/*.tsx",
+      "!src/**/*.stories.tsx"
+    ]
   },
   "eslintConfig": {
     "extends": [
