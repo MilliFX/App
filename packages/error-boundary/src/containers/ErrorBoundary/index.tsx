@@ -20,6 +20,8 @@ class ErrorBoundary extends Component<Props, State> {
     Sentry.init({
       dsn: SENTRY_DSN,
       release: `@millifx/error-boundary@${process.env.npm_package_version}`,
+      debug: process.env.NODE_ENV !== "production",
+      environment: process.env.NODE_ENV,
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 1.0,
     });
