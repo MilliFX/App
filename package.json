@@ -4,5 +4,13 @@
   "workspaces": [
     "app",
     "storybook"
-  ]
+  ],
+  "scripts": {
+    "start": "yarn workspace @millifx/app run start",
+    "storybook": "yarn workspace @millifx/storybook run start",
+    "build": "yarn workspaces run build",
+    "test": "yarn workspaces run test --coverage",
+    "format": "yarn workspaces run format",
+    "lint": "yarn workspaces run lint"
+  }
 }
