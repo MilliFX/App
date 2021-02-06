@@ -1,0 +1,8 @@
+{
+  "name": "@millifx/monorepo",
+  "private": true,
+  "workspaces": [
+    "app",
+    "storybook"
+  ]
+}
