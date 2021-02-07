@@ -1,5 +1,7 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
+import { Button } from "antd";
+// import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -11,14 +13,7 @@ const AppWithRouter = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Button type="primary">Learn React</Button>
       </header>
     </div>
   );
