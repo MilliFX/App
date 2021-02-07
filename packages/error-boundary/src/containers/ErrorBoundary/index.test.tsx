@@ -5,12 +5,14 @@ import { ERROR_MESSAGE, SENTRY_DSN } from "../../utils/constants";
 import * as Sentry from "@sentry/browser";
 
 describe("<ErrorBoundary />", () => {
+  const mockVersion = "commitSHA";
+
   describe("when <ErrorBoundary /> is used", () => {
     it("should call Sentry.init()", () => {
       const spy = jest.spyOn(Sentry, "init");
 
       render(
-        <ErrorBoundary>
+        <ErrorBoundary version={mockVersion}>
           <div>App</div>
         </ErrorBoundary>
       );
@@ -26,7 +28,7 @@ describe("<ErrorBoundary />", () => {
 
     it(`should show GenericComponent`, () => {
       const { getByText } = render(
-        <ErrorBoundary>
+        <ErrorBoundary version={mockVersion}>
           <Throws />
         </ErrorBoundary>
       );
@@ -38,7 +40,7 @@ describe("<ErrorBoundary />", () => {
       const spy = jest.spyOn(Sentry, "captureException");
 
       render(
-        <ErrorBoundary>
+        <ErrorBoundary version={mockVersion}>
           <Throws />
         </ErrorBoundary>
       );

@@ -7,6 +7,7 @@ import { SENTRY_DSN } from "../../utils/constants";
 
 interface Props {
   children: ReactNode;
+  version: string;
 }
 
 interface State {
@@ -19,7 +20,7 @@ class ErrorBoundary extends Component<Props, State> {
 
     Sentry.init({
       dsn: SENTRY_DSN,
-      release: `@millifx/error-boundary@${process.env.npm_package_version}`,
+      release: props.version,
       debug: process.env.NODE_ENV !== "production",
       environment: process.env.NODE_ENV,
       integrations: [new Integrations.BrowserTracing()],

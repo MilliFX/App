@@ -4,7 +4,7 @@ import logo from "./logo.svg";
 import "./App.css";
 
 // const AppWithErrorBoundary = (
-//   <ErrorBoundary>
+//   <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
 //     <App />
 //   </ErrorBoundary>
 // )
