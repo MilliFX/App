@@ -1,9 +1,9 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
-import { Button } from "antd";
 // import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
 import "./App.css";
+import { InvitationForm } from "./components/InvitationForm";
 
 const AppWithRouter = () => {
   return (
@@ -13,7 +13,7 @@ const AppWithRouter = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <Button type="primary">Learn React</Button>
+        <InvitationForm />
       </header>
     </div>
   );
