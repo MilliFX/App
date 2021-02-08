@@ -1,8 +1,6 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
-// import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
-import "./App.css";
 import { InvitationForm } from "./components/InvitationForm";
 
 const AppWithRouter = () => {
