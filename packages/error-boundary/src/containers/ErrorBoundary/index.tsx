@@ -7,7 +7,7 @@ import { SENTRY_DSN } from "../../utils/constants";
 
 interface Props {
   children: ReactNode;
-  version: string;
+  version?: string;
 }
 
 interface State {

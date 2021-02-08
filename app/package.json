@@ -50,7 +50,7 @@
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "yarn run build:app && yarn run build:explorer",
-    "build:app": "REACT_APP_COMMIT=$COMMIT_REF react-scripts build",
+    "build:app": "react-scripts build",
     "build:explorer": "yarn run analyze --html ./build/explorer.html",
     "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",

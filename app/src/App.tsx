@@ -1,15 +1,9 @@
 import React from "react";
-// import ErrorBoundary from "@millifx/error-boundary";
+import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
 import "./App.css";
 
-// const AppWithErrorBoundary = (
-//   <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
-//     <App />
-//   </ErrorBoundary>
-// )
-
-const App = () => {
+const AppWithRouter = () => {
   return (
     <div className="App">
       <header className="App-header">
@@ -29,5 +23,11 @@ const App = () => {
     </div>
   );
 };
+
+const App = () => (
+  <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
+    <AppWithRouter />
+  </ErrorBoundary>
+);
 
 export default App;
