@@ -2,9 +2,9 @@
   "name": "@millifx/monorepo",
   "private": true,
   "workspaces": [
+    "packages/*",
     "app",
-    "storybook",
-    "packages/*"
+    "storybook"
   ],
   "scripts": {
     "start": "yarn workspace @millifx/app run start",

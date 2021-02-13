@@ -1,6 +1,6 @@
 {
   "name": "@millifx/storybook",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Jack Song",
   "private": true,
   "scripts": {
