@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "start": "start-storybook -p 6006",
-    "build": "build:skip",
+    "build": "yarn run build:skip",
     "build:skip": "echo 'Skipping Storybook'",
     "build:storybook": "build-storybook -o ../app/build/storybook",
     "build:docs": "build-storybook --docs -o ../app/build/docs",
