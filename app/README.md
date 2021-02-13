@@ -2,9 +2,8 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/89f54884-5339-49bc-ad32-c6a96750ce4c/deploy-status)](https://app.netlify.com/sites/millifx/deploys)
 [![Storybook](https://cdn.jsdelivr.net/gh/storybookjs/brand@master/badge/badge-storybook.svg)](https://millifx.netlify.app/storybook/index.html)
-[![Known Vulnerabilities](https://snyk.io/test/github/MilliFX/App/badge.svg)](https://snyk.io/test/github/MilliFX/App)
-<a href="https://twitter.com/intent/follow?screen_name=jacktator">
-<img src="https://badgen.net/twitter/follow/jacktator?icon=twitter&label=%40jacktator" alt="Official Twitter Handle" />
+<a href="https://twitter.com/intent/follow?screen_name=millifx">
+<img src="https://badgen.net/twitter/follow/millifx?icon=twitter&label=%40millifx" alt="Official Twitter Handle" />
 </a>
 
 React Application which showcases Investment Performance.
