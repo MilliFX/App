@@ -1,0 +1,6 @@
+src/
+coverage/
+node_modules/
+.eslintrc.js
+.tsconfig.json
+.tsconfig.types.json
