@@ -56,6 +56,7 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
+    "@millifx/utils": "^0.0.1",
     "@sentry/react": "^6.1.0",
     "@sentry/tracing": "^6.1.0",
     "react": "^17.0.1",

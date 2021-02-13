@@ -2,6 +2,8 @@
   "name": "@millifx/monorepo",
   "private": true,
   "workspaces": [
+    "packages/utils",
+    "packages/error-boundary",
     "packages/*",
     "app",
     "storybook"
