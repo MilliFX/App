@@ -6,7 +6,8 @@ module.exports = {
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.[tj]sx?$": "ts-jest",
+    "^.+\\.[tj]s$": "ts-jest"
   },
 
   // Runs special logic, such as cleaning up components

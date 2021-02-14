@@ -6,7 +6,8 @@ module.exports = {
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.[tj]sx?$": "ts-jest",
+    "^.+\\.[tj]s$": "ts-jest"
   },
 
   // Test spec file resolution pattern
@@ -23,6 +24,6 @@ module.exports = {
     "!**/node_modules/**",
     "!**/dist/**",
     "!src/**/*.d.ts",
-    // "!src/index.ts"
+    "!src/index.ts"
   ]
 };
