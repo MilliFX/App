@@ -16,5 +16,11 @@
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
     "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test"
+  },
+  "devDependencies": {
+    "eslint": "^7.2.0",
+    "prettier": "^2.2.1",
+    "eslint-config-airbnb": "^18.2.1",
+    "@types/jest": "^26.0.15"
   }
 }
