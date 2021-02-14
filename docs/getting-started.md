@@ -12,8 +12,7 @@ After you've cloned the project, run `yarn install` from the project root.
 Before starting the app, packages needs to be built.
 > yarn build
 
-
-If you've updated any packag, rerun `yarn build` to see the latest changes.
+Note: If you've updated any packag, rerun `yarn build` to see the latest changes.
 
 ### Start The App
 
