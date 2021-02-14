@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  install:
+  install_build_lint_format_and_test:
     docker:
       - image: circleci/node:12.9.1-browsers
     working_directory: ~/repo
@@ -11,73 +11,61 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: yarn install
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn format
+      - run: yarn test
       - save_cache:
           key: v1-dependencies-{{ checksum "package.json" }}
           paths:
             - node_modules
             - ~/.npm
             - ~/.cache
-  lint:
-    docker:
-      - image: circleci/node:12.9.1-browsers
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
-      - run: yarn run lint
-
-  format:
-    docker:
-      - image: circleci/node:12.9.1-browsers
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
-      - run: yarn run format
-
-  test: 
-    docker:
-      - image: circleci/node:12.9.1-browsers
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
-      - run: yarn run test
-
-  build:
-    docker:
-      - image: circleci/node:12.9.1-browsers
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          - v1-dependencies-
-      - run: yarn install
-      - run: yarn run build
+#  lint:
+#    docker:
+#      - image: circleci/node:12.9.1-browsers
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "package.json" }}
+#          - v1-dependencies-
+#      - run: yarn install
+#      - run: yarn lint
+#
+#  format:
+#    docker:
+#      - image: circleci/node:12.9.1-browsers
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "package.json" }}
+#          - v1-dependencies-
+#      - run: yarn install
+#      - run: yarn format
+#
+#  test:
+#    docker:
+#      - image: circleci/node:12.9.1-browsers
+#    working_directory: ~/repo
+#    steps:
+#      - checkout
+#      - restore_cache:
+#          keys:
+#          - v1-dependencies-{{ checksum "package.json" }}
+#          - v1-dependencies-
+#      - run: yarn install
+#               - run: yarn format
+#      - run: yarn test
 
 orbs:
   jira: circleci/jira@1.3.1
 
 # Orchestrate our job run sequence
 workflows:
-  build_and_test:
+  install_build_lint_format_and_test:
     jobs:
-      - install
-      - lint
-      - format
-      - test
-      - build
+      - install_build_lint_format_and_test
