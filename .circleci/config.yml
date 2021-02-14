@@ -78,6 +78,6 @@ orbs:
 
 # Orchestrate our job run sequence
 workflows:
-  install_build_lint_format_and_test:
+  install_build_lint_format_test_and_size:
     jobs:
-      - install_build_lint_format_and_test
+      - install_build_lint_format_test_and_size
