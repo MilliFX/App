@@ -16,7 +16,8 @@
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
     "size": "yarn workspaces run size",
-    "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test && yarn run size"
+    "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test && yarn run size",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
@@ -34,15 +35,11 @@
     "prettier": "^2.2.1",
     "size-limit": "^4.9.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
       "yarn run format",
       "yarn run lint"
-    ]
+    ],
+    "*.js": "eslint --cache --fix"
   }
 }
