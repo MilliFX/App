@@ -46,7 +46,7 @@
     "build": "yarn run build:app && yarn run build:explorer",
     "build:app": "craco build",
     "build:explorer": "yarn run analyze --html ./build/explorer.html",
-    "test": "craco test --watchAll=false",
+    "test": "react-scripts test --watchAll=false",
     "eject": "craco eject",
     "format": "prettier --write src/**/*.ts{,x}",
     "lint": "tsc && eslint --fix",

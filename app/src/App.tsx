@@ -3,6 +3,12 @@ import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
 import { InvitationForm } from "./components/InvitationForm";
 
+const App = () => (
+  <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
+    <AppWithRouter />
+  </ErrorBoundary>
+);
+
 const AppWithRouter = () => {
   return (
     <div className="App">
@@ -16,11 +22,5 @@ const AppWithRouter = () => {
     </div>
   );
 };
-
-const App = () => (
-  <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
-    <AppWithRouter />
-  </ErrorBoundary>
-);
 
 export default App;
