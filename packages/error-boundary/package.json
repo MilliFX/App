@@ -16,7 +16,7 @@
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
     "format": "prettier --write src/**/*.ts{,x} --write",
-    "lint": "tsc --noEmit --project tsconfig.json && eslint --fix"
+    "lint": "tsc --noEmit --project tsconfig.es.json && eslint --fix"
   },
   "eslintConfig": {
     "extends": [
