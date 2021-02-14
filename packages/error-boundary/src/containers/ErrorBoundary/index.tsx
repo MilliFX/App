@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Component, ErrorInfo, ReactNode } from "react";
-import * as Sentry from "@sentry/browser";
+import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import GenericError from "../../components/GenericError";
 import { SENTRY_DSN } from "../../utils/constants";

@@ -1,6 +1,7 @@
 src/
 coverage/
 node_modules/
-..eslintrc.js
-.tsconfig.json
+.eslintrc.js
+.tsconfig.es.json
 .tsconfig.types.json
+jest.config.js

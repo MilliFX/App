@@ -1,8 +1,8 @@
 import * as React from "react";
 import { render } from "@testing-library/react";
 import ErrorBoundary from "./index";
-import { ERROR_MESSAGE, SENTRY_DSN } from "../../utils/constants";
-import * as Sentry from "@sentry/browser";
+import { ERROR_MESSAGE } from "../../utils/constants";
+import * as Sentry from "@sentry/react";
 
 describe("<ErrorBoundary />", () => {
   const mockVersion = "commitSHA";
