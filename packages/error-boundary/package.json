@@ -12,7 +12,7 @@
   ],
   "scripts": {
     "build": "yarn run build:package && yarn run build:types",
-    "build:package": "tsc --project tsconfig.json",
+    "build:package": "tsc --project tsconfig.es.json",
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
     "format": "prettier --write src/**/*.ts{,x} --write",
