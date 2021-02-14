@@ -1,7 +1,13 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
 import logo from "./logo.svg";
-import "./App.css";
+import { InvitationForm } from "./components/InvitationForm";
+
+const App = () => (
+  <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
+    <AppWithRouter />
+  </ErrorBoundary>
+);
 
 const AppWithRouter = () => {
   return (
@@ -11,23 +17,10 @@ const AppWithRouter = () => {
         <p>
           Edit <code>src/App.tsx</code> and save to reload.
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <InvitationForm />
       </header>
     </div>
   );
 };
-
-const App = () => (
-  <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
-    <AppWithRouter />
-  </ErrorBoundary>
-);
 
 export default App;

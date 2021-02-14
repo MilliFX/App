@@ -25,7 +25,6 @@ class ErrorBoundary extends Component<Props, State> {
     Sentry.init({
       dsn: SENTRY_DSN,
       release: props.version,
-      debug: process.env.NODE_ENV !== "production",
       environment: env,
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 1.0,
