@@ -21,3 +21,45 @@ It is also an installable, Offline-First PWA, allowing users to use it even when
 ## Application Architecture
 
 ![](./architecture.png).
+
+## Testing & Strategy
+
+### Component = Presentational / Dumb Components
+
+Presentational / Dumb Components are written and presented in Storybook.
+
+Components are covered by Snapshots to ensure consistency.
+
+### Container = Container / Smart Components
+
+Container / Smart Components are written with network Requests
+
+Containers are covered by Unit Test and Mock Data.
+
+### Provider = Redux-Like Statement Management Provider
+
+Given it's a simple application, `redux` package would be too heavy an overkill on the bundle size.
+
+Instead, React Hooks are used to achieve Redux-Like features
+
+- Context and Provider
+- `useReducer`
+- `utils`
+
+Reducers and Utils are covered by Unit Tests.
+
+## Error Handling
+
+All Network Errors are handled within the `Provider`.
+
+Any unhandled error, are caught by a catch-all `ErrorBoundary`, which reports to Sentry.
+
+## Optimization
+
+Bundles are code-split into small chucks and lazy loading is used.
+
+## PWA and Offline-First
+
+All files and responses are cached using approriate strategies.
+
+Once user has visited the app once, he'll be able to use it offline.

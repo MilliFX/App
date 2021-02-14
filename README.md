@@ -18,6 +18,13 @@ This project was created with [Yarn Workspace](https://classic.yarnpkg.com/en/do
 
 This app is structured as mono repo.
 
+## Getting Started
+
+1. When you first cloned the project, run `yarn install` from your root repository. 
+1. Run `yarn build` to build packages. Rerun `yarn build` if you've updated packages
+1. Run `yarn start` to start the app
+1. Run `yarn storybook` to start storybook
+
 ## The App
 
 The App specific code is placed in the `./app` folder.
@@ -26,37 +33,13 @@ For more info, please see [`./app/README.md`](./app/README.md)
 
 ## The Storybook
 
-[The Storybook](./storybook/README.md) is created to host components and docs.
+[The Storybook](./storybook) is created to host components and docs.
 
-## The Packages (TODO)
+## The Packages
 
-Presentational Components are created and placed into separate packages.
-
-# Testing & Strategy
-
-## Component = Presentational / Dumb Components
-
-Presentational / Dumb Components are written and presented in Storybook.
-
-Components are covered by Snapshots to ensure consistency.
-
-## Container = Container / Smart Components
-
-Container / Smart Components are written with network Requests
-
-Containers are covered by Unit Test and Mock Data.
-
-## Provider = Redux-Like Statement Management Provider
-
-Given it's a simple application, `redux` package would be too heavy an overkill on the bundle size.
-
-Instead, React Hooks are used to achieve Redux-Like features
-
-- Context and Provider
-- `useReducer`
-- `utils`
-
-Reducers and Utils are covered by Unit Tests.
+Packages are created to host shared features. E.g.
+1. [@millifx/error-boundary](./packages/error-boundary/README.md)
+1. [@millifx/utils](./packages/utils/README.md)
 
 # Code Quality
 
@@ -64,31 +47,22 @@ Code Quality is automatically checked at `pre-commit`
 - ESLint
 - Prettier
 
-# Error Handling
-
-All Network Errors are handled within the `Provider`.
-
-Any unhandled error, are caught by a catch-all `ErrorBoundary`, which reports to Sentry.
-
-# Optimization
-
-Bundles are code-split into small chucks and lazy loading is used.
-
-# PWA and Offline-First
-
-All files and responses are cached using approriate strategies.
-
-Once user has visited the app once, he'll be able to use it offline.
-
-![](./app/architecture.png)
-
 # Security
 
-SNYK
+[snyk.io](https://app.snyk.io/org/millifx/projects)
 
-# CICD
+# Continuous Integration
 
-Netlify
+Circle CI 
+[![CircleCI](https://circleci.com/bb/millifx/app.svg?style=svg&circle-token=44a3e372915cf1eece9ae25c18e25db1df49e6ac)](https://app.circleci.com/pipelines/bitbucket/millifx/app)
+
+# Continuous Delivery
+
+Production: 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/89f54884-5339-49bc-ad32-c6a96750ce4c/deploy-status)](https://app.netlify.com/sites/millifx/deploys)
+
+Staging: 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/c5d4bb2c-5cb5-43c3-b92f-d36f52666b10/deploy-status)](https://app.netlify.com/sites/millifx-stg/deploys)
 
 # UX Monitoring (TODO)
 
