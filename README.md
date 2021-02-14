@@ -20,10 +20,52 @@ This app is structured as mono repo.
 
 ## Getting Started
 
-1. When you first cloned the project, run `yarn install` from your root repository. 
-1. Run `yarn build` to build packages. Rerun `yarn build` if you've updated packages
-1. Run `yarn start` to start the app
-1. Run `yarn storybook` to start storybook
+### Installation
+
+After you've cloned the project, run `yarn install` from the project root.
+> yarn install
+
+### Build
+
+Before starting the app, packages needs to be built. 
+> yarn build
+
+
+If you've updated any packag, rerun `yarn build` to see the latest changes.
+
+### Start The App
+
+> yarn start
+
+### Start Storybook
+
+> yarn storybook
+
+### Testing
+
+To run test in specific app/storybok/package
+
+> cd ./app && yarn test
+
+To run all tests
+
+> yarn test
+
+### Formatting Code
+
+> yarn format
+
+### Linting Code
+
+> yarn lint
+
+### Checking Code Size
+
+> yarn size
+
+### Simulate Continuous Integrations
+
+> yarn ci
 
 ## The App
 
