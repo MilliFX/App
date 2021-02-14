@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.es.json",
+  "compilerOptions": {
+    "outDir": "./dist/es"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}

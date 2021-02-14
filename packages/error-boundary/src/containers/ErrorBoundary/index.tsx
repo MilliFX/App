@@ -4,6 +4,7 @@ import * as Sentry from "@sentry/react";
 import { Integrations } from "@sentry/tracing";
 import GenericError from "../../components/GenericError";
 import { SENTRY_DSN } from "../../utils/constants";
+import { getEnv } from "@millifx/utils";
 
 interface Props {
   children: ReactNode;
@@ -18,11 +19,14 @@ class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const hostName = window.location.host;
+    const env = getEnv(hostName);
+
     Sentry.init({
       dsn: SENTRY_DSN,
       release: props.version,
       debug: process.env.NODE_ENV !== "production",
-      environment: process.env.NODE_ENV,
+      environment: env,
       integrations: [new Integrations.BrowserTracing()],
       tracesSampleRate: 1.0,
     });

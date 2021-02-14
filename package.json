@@ -2,6 +2,8 @@
   "name": "@millifx/monorepo",
   "private": true,
   "workspaces": [
+    "packages/utils",
+    "packages/error-boundary",
     "packages/*",
     "app",
     "storybook"
@@ -12,6 +14,7 @@
     "build": "yarn workspaces run build",
     "test": "yarn workspaces run test --coverage",
     "format": "yarn workspaces run format",
-    "lint": "yarn workspaces run lint"
+    "lint": "yarn workspaces run lint",
+    "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test"
   }
 }
