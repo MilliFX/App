@@ -58,8 +58,10 @@
   "dependencies": {
     "@millifx/utils": "^0.0.1",
     "@sentry/react": "^6.1.0",
-    "@sentry/tracing": "^6.1.0",
-    "react": "^17.0.1",
-    "typescript": "^4.1.5"
+    "@sentry/tracing": "^6.1.0"
+  },
+  "peerDependencies": {
+    "react": "^17.0.0",
+    "typescript": "^4.0.0"
   }
 }

@@ -1,6 +1,11 @@
-import {Environment} from "./enums";
-import {getEnv} from "./index";
-import {HOSTNAME_DEVELOPMENT, HOSTNAME_LOCAL, HOSTNAME_PRODUCTION, HOSTNAME_STAGING} from "../utils/constants";
+import { Environment } from "./enums";
+import { getEnv } from "./index";
+import {
+  HOSTNAME_DEVELOPMENT,
+  HOSTNAME_LOCAL,
+  HOSTNAME_PRODUCTION,
+  HOSTNAME_STAGING,
+} from "../utils/constants";
 
 describe("@millifx/utils", () => {
   describe("getEnv()", () => {
