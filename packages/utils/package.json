@@ -16,8 +16,15 @@
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
     "format": "prettier --write src/**/*.ts{,x} --write",
-    "lint": "tsc --noEmit --project tsconfig.json && eslint --fix"
+    "lint": "tsc --noEmit --project tsconfig.json && eslint --fix",
+    "size": "size-limit"
   },
+  "size-limit": [
+    {
+      "limit": "500 B",
+      "path": "./dist/es/index.js"
+    }
+  ],
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -37,7 +44,8 @@
     ]
   },
   "devDependencies": {
-    "ts-jest": "^26.5.1"
+    "ts-jest": "^26.5.1",
+    "@size-limit/preset-small-lib": "^4.9.2"
   },
   "peerDependencies": {
     "typescript": "^4.0.0"
