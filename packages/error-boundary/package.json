@@ -15,7 +15,7 @@
     "build:package": "tsc --project tsconfig.json",
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
-    "format": "prettier --write src/**/*.ts{,x} --write",
+    "format": "prettier --write src/**/*.ts{,x}",
     "lint": "tsc --noEmit --project tsconfig.json && eslint --fix",
     "size": "size-limit"
   },
