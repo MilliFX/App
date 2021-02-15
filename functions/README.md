@@ -23,3 +23,9 @@ To add a new function, please copy the [hello](./src/hello) and modify.
 ## Test
 
 > yarn test
+
+## Note
+
+Given that serverless functions are ran in Node environment, only **CommonJS** modules are supported.
+
+TypeScript source scripts will need to be transpiled into `/dist/cjs`. 

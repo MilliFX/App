@@ -47,3 +47,16 @@ To run all tests
 ### Simulate Continuous Integrations
 
 > yarn ci
+
+### Local Serverless Functions (Netlify)
+
+To start a [local Netlify Server](https://docs.netlify.com/cli/get-started/#usage-data-collection):
+> yarn serve
+
+### Invoke Serverless Functions
+
+To invoke a [local Netlify Functions](https://github.com/netlify/cli/blob/master/docs/netlify-dev.md#netlify-functions):
+> yarn serve
+
+Then, open a new terminal, run
+> yarn invoke
