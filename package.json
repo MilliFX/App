@@ -11,8 +11,10 @@
   "scripts": {
     "start": "yarn workspace @millifx/app run start",
     "storybook": "yarn workspace @millifx/storybook run start",
-    "build:dev": "yarn workspaces run build",
-    "build": "yarn workspaces run build && yarn workspace @millifx/storybook run build:prod",
+    "build": "yarn workspaces run build",
+    "build:dev": "yarn build",
+    "build:stg": "yarn build:dev && yarn workspace @millifx/storybook run build:prod",
+    "build:prod": "yarn build:stg",
     "test": "yarn workspaces run test --coverage",
     "format": "yarn workspaces run format",
     "lint": "yarn workspaces run lint",
