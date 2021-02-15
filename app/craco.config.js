@@ -11,7 +11,7 @@ module.exports = {
             modifyVars: {
               hack: `true; @import "${path.resolve(
                 __dirname,
-                "./src/",
+                "../",
                 "theme.less"
               )}";`,
             },

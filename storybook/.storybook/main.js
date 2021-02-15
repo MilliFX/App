@@ -9,11 +9,6 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-essentials",
     '@storybook/addon-a11y',
-    {
-      "name": "./addons/millifx/preset",
-      // "options": {
-      //   cracoConfigFile: "../../../../app/craco.config.js",
-      // }
-    }
+    "./preset"
   ]
 }
