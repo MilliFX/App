@@ -1,4 +1,4 @@
-# MilliFX App
+# MilliFX Repo
 
 | Environment | Continuous Integration  | Continuous Deployment  |
 |-------------|---|---|
@@ -13,13 +13,21 @@
 [UI Library](https://app.millifx.com/storybook/index.html) | [UI Docs](https://app.millifx.com/docs/index.html)
 | [Bundle Explorer](https://app.millifx.com/explorer.html)
 
-# Mono Repo
+## Mono Repo
 
 This app is structured as mono repo, for more info, please visit [Monorepo](./docs/monorepo.md);
 
 ## Getting Started
 
 To get started, please visit [Getting Started](./docs/getting-started.md);
+
+## Theming
+
+For MVP, the App is using [Themed Ant Design](https://ant.design/docs/react/customize-theme). 
+
+The theme can be customized using [Ant Design Theme Builder](https://insiight.github.io/ant-design-theme-builder/#/button).
+
+Once done, click on **View Code**, copy and paste the generated code to `theme.less`.
 
 # Code Quality
 
