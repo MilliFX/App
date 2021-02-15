@@ -36,5 +36,8 @@
     "husky": "^5.0.9",
     "prettier": "^2.2.1",
     "size-limit": "^4.9.2"
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   }
 }
