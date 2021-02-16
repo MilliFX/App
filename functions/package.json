@@ -21,7 +21,6 @@
   },
   "size-limit": [
     {
-      "limit": "500 B",
       "path": "./dist/cjs/index.js"
     }
   ],
