@@ -15,6 +15,13 @@
   # or the root directory if a base has not been set.
   functions = "functions/dist/cjs/"
 
+[dev]
+  command = "yarn app"
+  port = 8888
+  targetPort = 3000
+  autoLaunch = true
+  framework = "#custom"
+
 [[redirects]]
   from = "/api/myfxbook/*"
   to = "https://www.myfxbook.com/api/:splat"

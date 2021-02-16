@@ -10,7 +10,8 @@
     "storybook"
   ],
   "scripts": {
-    "start": "yarn workspace @millifx/app run start",
+    "start": "netlify dev",
+    "app": "yarn workspace @millifx/app run start",
     "storybook": "yarn workspace @millifx/storybook run start",
     "build": "yarn workspaces run build",
     "build:dev": "yarn build",
@@ -21,8 +22,8 @@
     "lint": "yarn workspaces run lint",
     "size": "yarn workspaces run size",
     "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test && yarn run size",
-    "serve": "netlify dev",
-    "emulate": "netlify functions:invoke",
+    "cd": "yarn install --force && yarn build:prod",
+    "invoke": "netlify functions:invoke",
     "postinstall": "husky install"
   },
   "devDependencies": {

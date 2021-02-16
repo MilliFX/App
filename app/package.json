@@ -39,6 +39,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "source-map-explorer": "^2.5.2"
   },
+  "proxy": "http://localhost:8888",
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "craco start",

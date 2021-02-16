@@ -19,13 +19,31 @@ This app is structured as mono repo, for more info, please visit [Monorepo](./do
 
 ## Getting Started
 
-To get started, please visit [Getting Started](./docs/getting-started.md);
+First, install dependencies
+
+> yarn install
+
+To get started, you can start **App with Serverless Functions** by running:
+
+> yarn start
+
+You will see 2 browser window open:
+
+| Component | URL | Description |
+|-----------|-----|---|
+|App|http://localhost:3000|The React App|
+|Functions|http://localhost:8888|The Netlify Functions|
+
+### More Commands
+
+For more info, please visit [Getting Started](./docs/getting-started.md);
 
 ## Theming
 
-For MVP, the App is using [Themed Ant Design](https://ant.design/docs/react/customize-theme). 
+For MVP, the App is using [Themed Ant Design](https://ant.design/docs/react/customize-theme).
 
-The theme can be customized using [Ant Design Theme Builder](https://insiight.github.io/ant-design-theme-builder/#/button).
+The theme can be customized
+using [Ant Design Theme Builder](https://insiight.github.io/ant-design-theme-builder/#/button).
 
 Once done, click on **View Code**, copy and paste the generated code to `theme.less`.
 
