@@ -21,7 +21,6 @@
   },
   "size-limit": [
     {
-      "limit": "100 MS",
       "path": "./dist/es/index.js",
       "import": "{ createComponent }"
     }

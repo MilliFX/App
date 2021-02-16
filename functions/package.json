@@ -1,18 +1,18 @@
 {
-  "name": "@millifx/utils",
+  "name": "@millifx/functions",
   "version": "0.0.1",
   "author": "Jack Song",
   "license": "MIT",
-  "description": "An utils package for MilliFX",
+  "description": "Serverless functions for MilliFX",
   "sideEffects": false,
-  "main": "dist/es/index.js",
+  "main": "dist/cjs/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:package && yarn run build:types",
-    "build:package": "tsc --project tsconfig.json",
+    "build": "yarn run build:function && yarn run build:types",
+    "build:function": "tsc --project tsconfig.json",
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
     "format": "prettier --write src/**/*.ts{,x}",
@@ -21,12 +21,14 @@
   },
   "size-limit": [
     {
-      "path": "./dist/es/index.js"
+      "path": "./dist/cjs/index.js"
     }
   ],
   "devDependencies": {
-    "ts-jest": "^26.5.1",
-    "@size-limit/preset-small-lib": "^4.9.2"
+    "@size-limit/preset-small-lib": "^4.9.2",
+    "@types/aws-lambda": "^8.10.72",
+    "aws-lambda": "^1.0.6",
+    "ts-jest": "^26.5.1"
   },
   "peerDependencies": {
     "typescript": "^4.0.0"

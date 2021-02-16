@@ -2,6 +2,7 @@
   "name": "@millifx/monorepo",
   "private": true,
   "workspaces": [
+    "functions",
     "packages/utils",
     "packages/error-boundary",
     "packages/*",
@@ -9,7 +10,8 @@
     "storybook"
   ],
   "scripts": {
-    "start": "yarn workspace @millifx/app run start",
+    "start": "netlify dev",
+    "app": "yarn workspace @millifx/app run start",
     "storybook": "yarn workspace @millifx/storybook run start",
     "build": "yarn workspaces run build",
     "build:dev": "yarn build",
@@ -20,6 +22,8 @@
     "lint": "yarn workspaces run lint",
     "size": "yarn workspaces run size",
     "ci": "yarn install --force && yarn build && yarn lint && yarn format && yarn test && yarn run size",
+    "cd": "yarn install --force && yarn build:prod",
+    "invoke": "netlify functions:invoke",
     "postinstall": "husky install"
   },
   "devDependencies": {
@@ -34,7 +38,12 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "husky": "^5.0.9",
+    "netlify-cli": "^3.8.1",
     "prettier": "^2.2.1",
-    "size-limit": "^4.9.2"
+    "size-limit": "^4.9.2",
+    "typescript": "^4.0.0"
+  },
+  "resolutions": {
+    "babel-loader": "8.1.0"
   }
 }

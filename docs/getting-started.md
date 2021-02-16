@@ -1,32 +1,52 @@
 # Getting Started
 
-## Commands
-
-### Installation
+## Installation
 
 After you've cloned the project, run `yarn install` from the project root.
+
 > yarn install
 
-### Build
+## Development
 
-Before starting the app, packages needs to be built.
-> yarn build
+### Start The App with Serverless Functions
 
-Note: If you've updated any packag, rerun `yarn build` to see the latest changes.
-
-### Start The App
+To get started, you can start **App with Serverless Functions** by running:
 
 > yarn start
 
+This command starts a [Netlify Local Server](https://docs.netlify.com/cli/get-started/#run-a-local-development-environment)
+
 ### Start Storybook
+
+**To develop components**, you can start Storybook.
 
 > yarn storybook
 
+### Start The App Only
+
+To develop **app only**, you can start Create React App .
+
+> yarn app
+
+### Invoke Serverless Functions
+
+To invoke a [local Netlify Functions](https://github.com/netlify/cli/blob/master/docs/netlify-dev.md#netlify-functions):
+> yarn start
+
+Then, open a new terminal, run
+> yarn invoke
+
+## Build
+
+Before starting the app, packages needs to be built.
+
+> yarn build
+
+Note: If you've made changes to `./packages`, rerun `yarn build` to see the latest changes.
+
+## Quality Assurance
+
 ### Testing
-
-To run test in specific app/storybok/package
-
-> cd ./app && yarn test
 
 To run all tests
 
@@ -44,6 +64,14 @@ To run all tests
 
 > yarn size
 
-### Simulate Continuous Integrations
+## Continuous Integrations
+
+To Simulate Continuous Integrations
 
 > yarn ci
+
+## Continuous Delivery
+
+To Simulate Continuous Delivery
+
+> yarn cd

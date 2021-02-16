@@ -1,5 +1,5 @@
 const path = require("path");
-const CracoLessPlugin = require('craco-less');
+const CracoLessPlugin = require("craco-less");
 
 module.exports = {
   plugins: [
@@ -11,9 +11,9 @@ module.exports = {
             modifyVars: {
               hack: `true; @import "${path.resolve(
                 __dirname,
-                "./src/",
+                "../",
                 "theme.less"
-              )}";`
+              )}";`,
             },
             javascriptEnabled: true,
           },
@@ -22,16 +22,16 @@ module.exports = {
     },
   ],
   babel: {
-    "presets": ["@babel/preset-env", "@babel/preset-react"],
-    "plugins": [
+    presets: ["@babel/preset-env", "@babel/preset-react"],
+    plugins: [
       [
         "import",
         {
-          "libraryName": "antd",
-          "libraryDirectory": "es",
-          "style": true
-        }
-      ]
-    ]
-  }
-}
+          libraryName: "antd",
+          libraryDirectory: "es",
+          style: true,
+        },
+      ],
+    ],
+  },
+};

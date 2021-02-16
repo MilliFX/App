@@ -1,0 +1,6 @@
+codecov:
+  branch: "main"
+  bot: jacktator
+comment:
+  layout: "reach, diff, flags, files"  # Remove items here to change the format
+  require_changes: true
