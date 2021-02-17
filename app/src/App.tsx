@@ -1,9 +1,9 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
 import { Account } from "@millifx/utils";
-import { Breadcrumb, Layout, Menu } from "antd";
+import { Breadcrumb, Col, Layout, Menu, Row } from "antd";
 import { InvitationForm } from "./components/InvitationForm";
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Footer, Content } = Layout;
 
 const sampleAccount: Account = {
   id: 5875672,
@@ -24,9 +24,8 @@ const AppWithRouter = () => {
   const { name, gain } = sampleAccount;
 
   return (
-    <Layout className="layout">
+    <Layout>
       <Header>
-        <div className="logo" />
         <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
           <Menu.Item key="1">nav 1</Menu.Item>
           <Menu.Item key="2">nav 2</Menu.Item>
@@ -34,19 +33,23 @@ const AppWithRouter = () => {
         </Menu>
       </Header>
       <Content style={{ padding: "0 50px" }}>
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
-        <div className="site-layout-content">
-          <h2>{name}</h2>
-          <p>Gain: {gain}</p>
-          <InvitationForm />
-        </div>
+        <Row>
+          <Col span={12} offset={6}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>Home</Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <div>
+              <h2>{name}</h2>
+              <p>Gain: {gain}</p>
+              <InvitationForm />
+            </div>
+          </Col>
+        </Row>
       </Content>
       <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2018 Created by Ant UED
+        Ant Design ©2020 Created by MilliFX
       </Footer>
     </Layout>
   );
