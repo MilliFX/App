@@ -1,1 +1,2 @@
-export { getEnv, Environment } from "./getEnv";
+export * from "./getEnv";
+export * from "./types";
