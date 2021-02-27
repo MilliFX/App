@@ -26,6 +26,10 @@ First, install dependencies
 
 > yarn install
 
+Secondly, build the monorepo
+
+> yarn build
+
 To get started, you can start **App with Serverless Functions** by running:
 
 > yarn start
