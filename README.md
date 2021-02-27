@@ -50,7 +50,7 @@ For MVP, the App is using [Themed Ant Design](https://ant.design/docs/react/cust
 The theme can be customized
 using [Ant Design Theme Builder](https://insiight.github.io/ant-design-theme-builder/#/button).
 
-Once done, click on **View Code**, copy and paste the generated code to `theme.less`.
+Once done, click on **View Code**, copy and paste the generated code to `theme.less`
 
 # Code Quality
 
