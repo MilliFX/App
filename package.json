@@ -4,6 +4,7 @@
   "workspaces": [
     "functions",
     "packages/utils",
+    "packages/chart",
     "packages/error-boundary",
     "packages/*",
     "app",
