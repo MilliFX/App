@@ -54,6 +54,7 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
+    "@ant-design/charts": "^1.0.19",
     "@millifx/utils": "^0.0.1"
   },
   "peerDependencies": {
