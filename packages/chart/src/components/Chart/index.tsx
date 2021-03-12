@@ -7,49 +7,72 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
-  const equity = data.map((daily)=>{
+
+  var maxColumn: number = data[0].profit
+
+  // extract equity data
+  interface GroupData {
+    date: string;
+    value: number;
+    label: string;
+  }
+  const equity = data.map((daily:Daily):GroupData=>{
+    if (Math.abs(daily.profit) > maxColumn) {
+      maxColumn = Math.abs(daily.profit)
+    }
     return { 
       date: daily.date,
       value: daily.equity,
       label: 'equity'
     }
   })
-  const balance = data.map(daily=>{
+  // extract balance data
+  const balance = data.map((daily:Daily):GroupData=>{
     return {
       date: daily.date,
       value: daily.balance,
       label: 'balance'
     }
   })
+  // merge
   const newData = [...equity,...balance]
   const config = {
-    data: [newData, data],
-    height: 400,
+    data: [data, newData],
+    appendPadding: 30,
     xField: 'date',
-    yField: ['value', 'profit'],
+    yField: ['profit','value'],
+    
     geometryOptions: [
       {
-        geometry: 'line',
-        padding: 'auto',
-        smooth: false,
-        seriesField: 'label'
+        geometry: 'column',
+        
       },
       {
-        geometry: 'column',
+        geometry: 'line',
+        smooth: false,
+        seriesField: 'label',
+        color: ['#E85E5E', '#E8C55E'],
+        
+        point: {
+        },
+        cursor: 'pointer',
       },
+    ],
+    xAxis: {
+      grid: { line: {
+        style: { stroke: '#eee' }
+      }}
+    },
+    yAxis: [
+      {
+        min: -maxColumn,
+        tickCount: 10,
+      },
+      
     ]
   };
   return (
     <>
-      {/* <ul>
-        {newData.map((daily)=>{
-          return (
-            <li>
-              {daily.date} {daily.value} {daily.label}
-            </li>
-          )
-        })}
-      </ul> */}
       <DualAxes {...config} />
     </>
   );
