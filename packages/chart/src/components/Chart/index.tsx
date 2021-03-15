@@ -37,16 +37,16 @@ const Chart = ({ data }: ChartProps) => {
           ],
             xAxes:[{
               // distribution:'series',
-              type:'time',
-              unitStepSize:1,
-              time:{
-                displayFormats:{
-                  'week': 'MMM DD, `YY'
-                },
-                unit:'week',
-                // min:data[0].date,
-                // max:data[data.length-1].date, 
-              },
+              // type:'time',
+              // unitStepSize:1,
+              // time:{
+              //   displayFormats:{
+              //     'week': 'MMM DD, `YY'
+              //   },
+              //   unit:'week',
+              //   min:data[0].date,
+              //   max:data[data.length-1].date, 
+              // },
               // time:{
               //   unit:'week',
               //   stepSize:7,
