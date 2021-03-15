@@ -54,10 +54,6 @@ const Chart = ({ data }: ChartProps) => {
         
         point: {
           shape: 'circle',
-          // function shape(label:GroupData) {
-          //   console.log(label)
-          //   return 'circle'
-          // },
           size: 4.5,
         
         },
@@ -77,32 +73,32 @@ const Chart = ({ data }: ChartProps) => {
       }
       
     ],
-    // tooltip: {
-    //   showCrosshairs: true,
-    //   crosshairs: {
-    //     type: 'x',
-    //   },
-    //   showMarkers: true,
-    //   marker: {
-    //     symbol: 'circle'
-    //   }
-    // },
+    tooltip: {
+      showCrosshairs: true,
+      crosshairs: {
+        type: 'x',
+      },
+      showMarkers: true,
+      marker: {
+        symbol: 'circle'
+      }
+    },
    
-    // legend: {
-    //   layout: 'horizontal',
-    //   position: "bottom",
-    // },
+    legend: {
+      layout: 'horizontal',
+      position: "bottom",
+    },
     
-    // interactions: [
+    interactions: [
     
-    //   // {
-    //   //   type: 'active-region'
-    //   // },
-    //   // {
-    //   //   type: 'marker-active'
-    //   // }
+      // {
+      //   type: 'active-region'
+      // },
+      // {
+      //   type: 'marker-active'
+      // }
       
-    // ]
+    ]
   };
   return (
     <>
