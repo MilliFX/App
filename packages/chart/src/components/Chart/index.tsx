@@ -16,6 +16,7 @@ const Chart = ({ data }: ChartProps) => {
     value: number;
     label: string;
   }
+
   const equity = data.map((daily:Daily):GroupData=>{
     if (Math.abs(daily.profit) > maxColumn) {
       maxColumn = Math.abs(daily.profit)
@@ -41,11 +42,9 @@ const Chart = ({ data }: ChartProps) => {
     appendPadding: 30,
     xField: 'date',
     yField: ['profit','value'],
-    
     geometryOptions: [
       {
         geometry: 'column',
-        
       },
       {
         geometry: 'line',
@@ -54,22 +53,56 @@ const Chart = ({ data }: ChartProps) => {
         color: ['#E85E5E', '#E8C55E'],
         
         point: {
+          shape: 'circle',
+          // function shape(label:GroupData) {
+          //   console.log(label)
+          //   return 'circle'
+          // },
+          size: 4.5,
+        
         },
-        cursor: 'pointer',
+        
       },
     ],
     xAxis: {
+      type: 'timeCat',
       grid: { line: {
         style: { stroke: '#eee' }
       }}
     },
     yAxis: [
-      {
+        {
         min: -maxColumn,
         tickCount: 10,
-      },
+      }
       
-    ]
+    ],
+    // tooltip: {
+    //   showCrosshairs: true,
+    //   crosshairs: {
+    //     type: 'x',
+    //   },
+    //   showMarkers: true,
+    //   marker: {
+    //     symbol: 'circle'
+    //   }
+    // },
+   
+    // legend: {
+    //   layout: 'horizontal',
+    //   position: "bottom",
+    // },
+    
+    // interactions: [
+    
+    //   // {
+    //   //   type: 'active-region'
+    //   // },
+    //   // {
+    //   //   type: 'marker-active'
+    //   // }
+      
+    // ]
   };
   return (
     <>
