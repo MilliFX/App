@@ -6,10 +6,18 @@ interface ChartProps {
   data: Daily[];
 }
 
+const month: string[] = [
+  'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+  'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
+]
+
 const Chart = ({ data }: ChartProps) => {
-
+  const [interval, setInterval] = React.useState(1)
   var maxColumn: number = data[0].profit
-
+  const handleDuration = (duration:string) => {
+    duration === 'week' ? setInterval(5) : duration === 'month' ?
+    setInterval(20) : setInterval(1)
+  }
   // extract equity data
   interface GroupData {
     date: string;
@@ -42,6 +50,7 @@ const Chart = ({ data }: ChartProps) => {
     appendPadding: 30,
     xField: 'date',
     yField: ['profit','value'],
+
     geometryOptions: [
       {
         geometry: 'column',
@@ -55,16 +64,16 @@ const Chart = ({ data }: ChartProps) => {
         point: {
           shape: 'circle',
           size: 4.5,
-        
         },
         
       },
     ],
     xAxis: {
-      type: 'timeCat',
+      tickInterval: interval,
       grid: { line: {
         style: { stroke: '#eee' }
-      }}
+      }},
+      
     },
     yAxis: [
         {
@@ -73,8 +82,22 @@ const Chart = ({ data }: ChartProps) => {
       }
       
     ],
+    meta: {
+      date: {
+        formatter: function formatter(d:string) {
+          const date:Date = new Date(d)
+          return `${month[date.getMonth()]} ${date.getDate()}, '${date.getFullYear().toString().slice(2,4)}`
+          // return `${month[parseInt(date[0])-1]} ${date[1]}, '${date[2]}`
+        }
+      }
+    }, 
+    legend: {
+
+      position: 'bottom',
+      // layout: 'horizontal',
+    },
     tooltip: {
-      showCrosshairs: true,
+        showCrosshairs: true,
       crosshairs: {
         type: 'x',
       },
@@ -83,25 +106,16 @@ const Chart = ({ data }: ChartProps) => {
         symbol: 'circle'
       }
     },
-   
-    legend: {
-      layout: 'horizontal',
-      position: "bottom",
-    },
     
-    interactions: [
-    
-      // {
-      //   type: 'active-region'
-      // },
-      // {
-      //   type: 'marker-active'
-      // }
-      
-    ]
   };
   return (
     <>
+      <div className="row" style={{ textAlign: 'center' }}>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('day')}>1 Day</button>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('week')}>1 week</button>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('month')}>1 month</button>
+      </div>
+      
       <DualAxes {...config} />
     </>
   );
