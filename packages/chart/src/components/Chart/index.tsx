@@ -32,8 +32,8 @@ const Chart = ({ data }: ChartProps) => {
   const [state, setState] = useState(dailyData);
   const [visi, setVisi] = useState(true);
   const [week, setWeek] = useState([]);
-
   const [hintValue, setHintValue] = useState<any>();
+  const grid=22;
   const palette = [
     "#33cc33",
     "#F15C17",
@@ -44,8 +44,19 @@ const Chart = ({ data }: ChartProps) => {
     "#ADDDE1",
     "#6b6b76",
   ];
+  //mobile responsive
+  const maxMobileWidth = 768;
   const chartHeight = 500 > window.innerHeight ? window.innerHeight : 500;
-  const chartWidth = window.innerWidth * 0.8;
+  const chartWidth =
+    window.innerWidth > maxMobileWidth
+      ? window.innerWidth * 0.8
+      : window.innerWidth;
+  const tickPadLeft = window.innerWidth > maxMobileWidth ? 0 : -25;
+  const tickPadRight = window.innerWidth > maxMobileWidth ? 0 : -2;
+  const mobileMargin = window.innerWidth > maxMobileWidth ? 0 : -45;
+  const secondY =
+    window.innerWidth > maxMobileWidth ? chartWidth * 0.95 : chartWidth * 0.9;
+  const tickAngle=window.innerWidth > maxMobileWidth ? 0 : 90;
   const profitMax = state.reduce((prev, current) =>
     prev.profit > current.profit ? prev : current
   ).profit;
@@ -100,10 +111,10 @@ const Chart = ({ data }: ChartProps) => {
     }
     return acc;
   }, []);
-  //Data for week
-  // let current = new Date();
-  // let today = current.toLocaleDateString('en-US',{weekday: 'long'});
 
+  // console.log(monthData)
+  // console.log(collection)
+  //Data for week
   const weekData = data.map((daily) => ({
     ...daily,
     date:
@@ -116,6 +127,7 @@ const Chart = ({ data }: ChartProps) => {
     profit: daily.profit,
   }));
 
+  //there must be a better way to rewrite code below
   const myAarray: any = [];
 
   {
@@ -137,89 +149,96 @@ const Chart = ({ data }: ChartProps) => {
 
   return (
     <>
-      <FlexibleXYPlot
-        xType="ordinal"
-        width={chartWidth}
-        height={chartHeight}
-        colorRange={palette}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginLeft: mobileMargin,
+          zIndex: 1,
+        }}
       >
-        <XAxis
-          attr="x"
-          attrAxis="y"
-          orientation="bottom"
-          style={axisStyle}
-          tickFormat={(d: any) => (d.length > 5 ? "" : d)}
-        />
-        <YAxis
-          style={axisStyle}
-          attr="y"
-          attrAxis="x"
-          orientation="left"
-          tickTotal={5}
-          tickFormat={(d: any) => "$" + d}
-          left={10}
-        />
-        {/* <HorizontalGridLines /> */}
-        <VerticalGridLines
-          tickValues={week}
-          left={22}
-          //tickFormat={(d: any) => (d.length==0)?'':d}
-        />
-        <LineMarkSeries
-          data={state.map((daily) => ({
-            x: daily.date,
-            y: daily.equity,
-          }))}
-          color={palette[2]}
-          onValueMouseOut={onValueMouseOut}
-          onValueMouseOver={onValueMouseOver}
-        />
-        <LineMarkSeries
-          data={state.map((daily) => ({
-            x: daily.date,
-            y: daily.balance,
-          }))}
-          color={palette[3]}
-          onValueMouseOut={onValueMouseOut}
-          onValueMouseOver={onValueMouseOver}
-        />
-        <VerticalBarSeries
-          barWidth={0.5}
-          yDomain={[0, Math.round(profitMax * 1.9)]}
-          data={state.map((daily) => ({
-            x: daily.date,
-            y: daily.profit,
-            color: daily.profit > 0 ? 1 : 2,
-          }))}
-          style={{ opacity: 0.5 }}
-          onValueMouseOut={onValueMouseOut}
-          onValueMouseOver={onValueMouseOver}
-        />
+        <FlexibleXYPlot
+          xType="ordinal"
+          width={chartWidth}
+          height={chartHeight}
+          colorRange={palette}
+        >
+          <XAxis
+            attr="x"
+            attrAxis="y"
+            orientation="bottom"
+            style={axisStyle}
+            tickLabelAngle={tickAngle}
+            tickFormat={(d: any) => (d.length > 5 ? "" : d)} 
+          />
+          <YAxis
+            style={axisStyle}
+            attr="y"
+            attrAxis="x"
+            orientation="left"
+            tickTotal={5}
+            tickPadding={tickPadLeft}
+            tickFormat={(d: any) => (d < 1000 ? "$" + d : "$" + d / 1000 + "k")}
+            left={0}
+          />
 
-        <YAxis
-          style={axisStyle}
-          yDomain={[0, Math.round(profitMax * 1.9)]}
-          attr="y"
-          attrAxis="x"
-          orientation="left"
-          tickTotal={5}
-          tickFormat={(d: any) => "$" + d}
-          left={chartWidth * 0.95}
-        />
-
-        {hintValue ? (
-          <Hint value={hintValue}>
-            <div style={{ background: palette[5], color: palette[2] }}>
-              <p>
-                Date:{hintValue.x}
-                <br />
-                {Math.round(hintValue.y)}
-              </p>
-            </div>
-          </Hint>
-        ) : null}
-      </FlexibleXYPlot>
-
+          {chartWidth > maxMobileWidth && (
+            <VerticalGridLines tickValues={week} left={grid} />
+          )}
+          <LineMarkSeries
+            data={state.map((daily) => ({
+              x: daily.date,
+              y: daily.equity,
+            }))}
+            color={palette[2]}
+            onValueMouseOut={onValueMouseOut}
+            onValueMouseOver={onValueMouseOver}
+          />
+          <LineMarkSeries
+            data={state.map((daily) => ({
+              x: daily.date,
+              y: daily.balance,
+            }))}
+            color={palette[3]}
+            onValueMouseOut={onValueMouseOut}
+            onValueMouseOver={onValueMouseOver}
+          />
+          <VerticalBarSeries
+            barWidth={0.5}
+            yDomain={[0, Math.round(profitMax * 1.9)]}
+            data={state.map((daily) => ({
+              x: daily.date,
+              y: daily.profit,
+              color: daily.profit > 0 ? 1 : 2,
+            }))}
+            style={{ opacity: 0.5 }}
+            onValueMouseOut={onValueMouseOut}
+            onValueMouseOver={onValueMouseOver}
+          />
+          <YAxis
+            style={axisStyle}
+            yDomain={[0, Math.round(profitMax * 1.9)]}
+            tickPadding={tickPadRight}
+            attr="y"
+            attrAxis="x"
+            orientation="left"
+            tickTotal={5}
+            tickFormat={(d: any) => (d < 1000 ? "$" + d : "$" + d / 1000 + "k")}
+            left={secondY}
+          />
+          {hintValue ? (
+            <Hint value={hintValue}>
+              <div style={{ background: palette[5], color: palette[2] }}>
+                <p>
+                  Date:{hintValue.x}
+                  <br />
+                  {Math.round(hintValue.y)}
+                </p>
+              </div>
+            </Hint>
+          ) : null}
+        </FlexibleXYPlot>
+      </div>
       <div
         style={{
           background: palette[5],
