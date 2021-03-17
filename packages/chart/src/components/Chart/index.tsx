@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Daily } from '../../utils/constants';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   ResponsiveContainer,
@@ -20,7 +20,7 @@ interface ChartProps {
 }
 
 enum MonthENUM {
-  'Jan',
+  'Jan' = 1,
   'Feb',
   'Mar',
   'Apr',
@@ -39,7 +39,6 @@ const XFormat = (data: string) => {
   const Month = dateArr[0];
   const Day = dateArr[1];
   const Year = dateArr[2];
-  // console.log(MonthENUM[parseInt(Month)])
   const dateResult = `${MonthENUM[parseInt(Month)]} ${Day}, '${Year.slice(2, 4)}`
   return dateResult;
 }
@@ -57,19 +56,52 @@ const Chart = ({ data }: ChartProps) => {
 
 
 
-  const DataByMonth = [];
+  const [renderData, setRenderData] = useState(data)
+  const [dataMonthly, setDataMonthly] = useState<any>([])
+  const [mbtn,setMbtn] = useState(false);
+  const [wbtn,setWbtn] = useState(false);
+  const [dbtn,setDbtn] = useState(false);
 
-  // useEffect(() => {
 
 
-  //   data.map((el)=>{
-  //     el.date.split('/');
-  //     if(el.date ){
 
-  //     }
-  // })
+  useEffect(() => {
 
-  // }, [])
+    const DataByMonth: any = [];
+    // const DataByWeek = [];
+
+    const MonthDataProcess = async () => {
+      
+      let MonthTemp = 0;
+      let MonthObj: any = [];
+      
+      data.map((el, index) => {
+        let Month = parseInt(el.date.slice(0, 2));
+        if (MonthTemp !== Month) {
+          MonthObj[Month] = [index];
+          MonthTemp = Month;
+          if (MonthObj[Month - 1]) {
+            MonthObj[Month - 1].push(index - 1);
+          }
+        }
+      })
+      MonthObj[MonthTemp].push(data.length - 1);
+
+      MonthObj.map((el: any) => {
+        if (el[0] === el[1]) {
+          DataByMonth.push([data[el[0]]]);
+        } else {
+          DataByMonth.push(data.slice(el[0], el[1] + 1));
+        }
+      })
+      console.log(DataByMonth);
+      setDataMonthly(DataByMonth);
+    }
+    MonthDataProcess();
+
+    console.log(dataMonthly);
+
+  }, [])
 
   // const [duration, setDuration] = React.useState(data);
 
@@ -97,21 +129,26 @@ const Chart = ({ data }: ChartProps) => {
     console.log("week")
 
   }
-
-
-  const TempA = (data: any) => {
-    return data.height > 0 ? { ...data, fill: "#A7CF93" } : { ...data, fill: "#D85648" }
-  }
-
   const handleDurationByMonth = () => {
+    setMbtn(true);
+    console.log("week");
 
-    console.log("month")
-    if (true) {
-      RenderData.map((el) => {
-        el.date.split('/')
-      })
-    }
   }
+
+
+  // const TempA = (data: any) => {
+  //   return data.height > 0 ? { ...data, fill: "#A7CF93" } : { ...data, fill: "#D85648" }
+  // }
+
+  // const handleDurationByMonth = () => {
+
+  //   console.log("month")
+  //   if (true) {
+  //     RenderData.map((el) => {
+  //       el.date.split('/')
+  //     })
+  //   }
+  // }
 
 
   return (
@@ -143,7 +180,13 @@ const Chart = ({ data }: ChartProps) => {
       <div style={{ display: "flex", justifyContent: "space-around", alignItems: 'center' }}>
         <button onClick={handleDurationByDay}>By Day</button>
         <button onClick={() => handleDurationByWeek}>By week</button>
-        <button onClick={() => handleDurationByMonth}>By Month</button>
+        <button style={{display:mbtn?'block':'none'}}>
+          previous
+        </button>
+        <button onClick={handleDurationByMonth}>By Month</button>
+        <button style={{display:mbtn?'block':'none'}}>
+          next
+        </button>
       </div>
 
     </div>
