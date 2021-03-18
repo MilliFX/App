@@ -6,28 +6,51 @@ interface ChartProps {
   data: Daily[];
 }
 
+interface GroupData {
+    date: string;
+    value: number;
+    label: string;
+}
+
 const month: string[] = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec',
 ]
 
 const Chart = ({ data }: ChartProps) => {
-  const [interval, setInterval] = React.useState(1)
-  var maxColumn: number = data[0].profit
-  const handleDuration = (duration:string) => {
-    duration === 'week' ? setInterval(5) : duration === 'month' ?
-    setInterval(20) : setInterval(1)
-  }
-  // extract equity data
-  interface GroupData {
-    date: string;
-    value: number;
-    label: string;
+  const [newData, setNewdata] = React.useState(data)
+  
+  // set Data according to duration
+  const handleDuration = (duration: string) => {
+    if (duration === 'Daily') {
+      setNewdata(data)
+    } else if (duration === 'Week') {
+      setNewdata(weekData);
+    } else {
+      setNewdata(monthData)
+    }
   }
 
-  const equity = data.map((daily:Daily):GroupData=>{
-    if (Math.abs(daily.profit) > maxColumn) {
-      maxColumn = Math.abs(daily.profit)
+  var maxColumn: number = data[0].profit
+
+  // extract week data from daily data
+  const weekData = data.filter((daily:Daily)=>{
+    return new Date(daily.date).getDay() === 1
+  })
+
+  //extract month data from weekData
+  const monthData = weekData.reduce((arr, b)=> {
+    const found = arr.find(a=>a.date.slice(0,2) === b.date.slice(0,2))
+    if (!found) {
+      arr.push(b)
+    }
+    return arr
+  },[weekData[0]])
+
+  // extract equity
+  const equity = newData.map((daily: Daily): GroupData=>{
+    if (daily.profit > maxColumn) {
+      maxColumn = daily.profit
     }
     return { 
       date: daily.date,
@@ -35,18 +58,20 @@ const Chart = ({ data }: ChartProps) => {
       label: 'equity'
     }
   })
+
   // extract balance data
-  const balance = data.map((daily:Daily):GroupData=>{
+  const balance = newData.map((daily:Daily):GroupData=>{
     return {
       date: daily.date,
       value: daily.balance,
       label: 'balance'
     }
   })
-  // merge
-  const newData = [...equity,...balance]
+
+  // merge value
+  const yValue = [...equity,...balance]
   const config = {
-    data: [data, newData],
+    data: [newData, yValue],
     appendPadding: 30,
     xField: 'date',
     yField: ['profit','value'],
@@ -54,6 +79,7 @@ const Chart = ({ data }: ChartProps) => {
     geometryOptions: [
       {
         geometry: 'column',
+        maxColumnWidth: 20,
       },
       {
         geometry: 'line',
@@ -69,7 +95,7 @@ const Chart = ({ data }: ChartProps) => {
       },
     ],
     xAxis: {
-      tickInterval: interval,
+
       grid: { line: {
         style: { stroke: '#eee' }
       }},
@@ -85,14 +111,13 @@ const Chart = ({ data }: ChartProps) => {
     meta: {
       date: {
         formatter: function formatter(d:string) {
-          const date:Date = new Date(d)
+          const date = new Date(d)
           return `${month[date.getMonth()]} ${date.getDate()}, '${date.getFullYear().toString().slice(2,4)}`
           // return `${month[parseInt(date[0])-1]} ${date[1]}, '${date[2]}`
         }
       }
     }, 
     legend: {
-
       position: 'bottom',
       // layout: 'horizontal',
     },
@@ -110,10 +135,11 @@ const Chart = ({ data }: ChartProps) => {
   };
   return (
     <>
+    {/* {console.log(newData)} */}
       <div className="row" style={{ textAlign: 'center' }}>
-        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('day')}>1 Day</button>
-        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('week')}>1 week</button>
-        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('month')}>1 month</button>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('Daily')}>1 Day</button>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('Week')}>1 week</button>
+        <button  type="button" style={{ margin: '10px' }} onClick={()=>handleDuration('Month')}>1 month</button>
       </div>
       
       <DualAxes {...config} />
