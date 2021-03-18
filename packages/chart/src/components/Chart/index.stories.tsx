@@ -8,4 +8,4 @@ export default {
 };
 
 export const Chart = () => <Component data={mockData} />;
-export const Chart7D = () => <Component data={mockData} />;
+

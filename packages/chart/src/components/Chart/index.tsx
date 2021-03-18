@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Daily } from '../../utils/constants';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useRef } from 'react';
 
 import {
   ResponsiveContainer,
@@ -55,12 +55,13 @@ const RightYFormat = (data: number): any => {
 const Chart = ({ data }: ChartProps) => {
 
 
-
+  const [index, setIndex] = useState(0);
+  const indexRef = useRef(0);
   const [renderData, setRenderData] = useState(data)
   const [dataMonthly, setDataMonthly] = useState<any>([])
-  const [mbtn,setMbtn] = useState(false);
-  const [wbtn,setWbtn] = useState(false);
-  const [dbtn,setDbtn] = useState(false);
+  const [mbtn, setMbtn] = useState(false);
+  const [wbtn, setWbtn] = useState(false);
+  const [dbtn, setDbtn] = useState(false);
 
 
 
@@ -71,10 +72,10 @@ const Chart = ({ data }: ChartProps) => {
     // const DataByWeek = [];
 
     const MonthDataProcess = async () => {
-      
+
       let MonthTemp = 0;
       let MonthObj: any = [];
-      
+
       data.map((el, index) => {
         let Month = parseInt(el.date.slice(0, 2));
         if (MonthTemp !== Month) {
@@ -94,12 +95,12 @@ const Chart = ({ data }: ChartProps) => {
           DataByMonth.push(data.slice(el[0], el[1] + 1));
         }
       })
-      console.log(DataByMonth);
+      // console.log(DataByMonth);
       setDataMonthly(DataByMonth);
     }
     MonthDataProcess();
 
-    console.log(dataMonthly);
+    // console.log(dataMonthly);
 
   }, [])
 
@@ -131,31 +132,51 @@ const Chart = ({ data }: ChartProps) => {
   }
   const handleDurationByMonth = () => {
     setMbtn(true);
-    console.log("week");
+    console.log("month");
+    // console.log(dataMonthly[0]);
+    setIndex(0);
+    setRenderData(dataMonthly[0]);
 
   }
+  const handleMonthChange = (data: string) => {
 
+    if (data === 'next') {
+      console.log(indexRef.current);
+      if (indexRef.current < dataMonthly.length-1) {
 
-  // const TempA = (data: any) => {
-  //   return data.height > 0 ? { ...data, fill: "#A7CF93" } : { ...data, fill: "#D85648" }
-  // }
+          indexRef.current  = indexRef.current+1;
+          // console.log(index)
+          console.log(indexRef.current);
+          setRenderData(dataMonthly[indexRef.current]);      
+      } else {
+        console.log('object')
+        alert('this is the most latest month');
+      }
+      // console.log(index);
+    } 
 
-  // const handleDurationByMonth = () => {
-
-  //   console.log("month")
-  //   if (true) {
-  //     RenderData.map((el) => {
-  //       el.date.split('/')
-  //     })
-  //   }
-  // }
+    if (data === 'prev') {
+      // console.log(index);
+      console.log(indexRef.current);
+      if (indexRef.current > 0) {
+        console.log(indexRef.current);
+          
+          indexRef.current = indexRef.current-1;
+          // setIndex((preState) => preState - 1);
+          console.log(indexRef.current);
+          setRenderData(dataMonthly[indexRef.current]);       
+      } else {
+        alert('this is the most previous month');
+      }
+    }
+  }
 
 
   return (
     <div style={{ width: '100%', height: 500 }}>
       <ResponsiveContainer height="99%" width="100%">
         <ComposedChart
-          data={RenderData}
+          data={renderData}
         >
           <CartesianGrid stroke="#f5f5f5" strokeDasharray="3 5" />
           <XAxis dataKey="date" scale="band" tickFormatter={XFormat} />
@@ -165,7 +186,7 @@ const Chart = ({ data }: ChartProps) => {
           <Tooltip />
           <Legend />
           <Bar yAxisId="profit" dataKey="profit" barSize={500}>
-            {RenderData.map((entry) => (
+            {renderData.map((entry) => (
               <Cell
                 key={entry.date}
                 fill={entry.profit > 0 ? "#A7CF93" : "#D85648"}
@@ -180,11 +201,11 @@ const Chart = ({ data }: ChartProps) => {
       <div style={{ display: "flex", justifyContent: "space-around", alignItems: 'center' }}>
         <button onClick={handleDurationByDay}>By Day</button>
         <button onClick={() => handleDurationByWeek}>By week</button>
-        <button style={{display:mbtn?'block':'none'}}>
+        <button style={{ display: mbtn ? 'block' : 'none' }} onClick={() => handleMonthChange('prev')}>
           previous
         </button>
         <button onClick={handleDurationByMonth}>By Month</button>
-        <button style={{display:mbtn?'block':'none'}}>
+        <button style={{ display: mbtn ? 'block' : 'none' }} onClick={() => handleMonthChange('next')}>
           next
         </button>
       </div>
