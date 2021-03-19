@@ -6,13 +6,11 @@ import {
   FlexibleXYPlot,
   LineMarkSeries,
   VerticalBarSeries,
+  ChartLabel,
   VerticalGridLines,
-  HorizontalGridLines,
   DiscreteColorLegend,
 } from "react-vis";
 import "../../../node_modules/react-vis/dist/style.css";
-// import * as React from "react";
-
 import { useState } from "react";
 
 interface ChartProps {
@@ -28,12 +26,15 @@ const Chart = ({ data }: ChartProps) => {
     equity: daily.equity,
     profit: daily.profit,
   }));
-
+  const lableText = "* AP-113__React-Vis__Shaw";
+  const monthText = "* Average Balance and Equity for month";
   const [state, setState] = useState(dailyData);
   const [visi, setVisi] = useState(true);
   const [week, setWeek] = useState([]);
   const [hintValue, setHintValue] = useState<any>();
-  const grid=22;
+  const [text, setText] = useState(lableText);
+  const [show, setShow] = useState(false);
+  const grid = 22;
   const palette = [
     "#33cc33",
     "#F15C17",
@@ -56,7 +57,7 @@ const Chart = ({ data }: ChartProps) => {
   const mobileMargin = window.innerWidth > maxMobileWidth ? 0 : -45;
   const secondY =
     window.innerWidth > maxMobileWidth ? chartWidth * 0.95 : chartWidth * 0.9;
-  const tickAngle=window.innerWidth > maxMobileWidth ? 0 : 90;
+  const tickAngle = window.innerWidth > maxMobileWidth ? 0 : 90;
   const profitMax = state.reduce((prev, current) =>
     prev.profit > current.profit ? prev : current
   ).profit;
@@ -112,8 +113,24 @@ const Chart = ({ data }: ChartProps) => {
     return acc;
   }, []);
 
-  // console.log(monthData)
-  // console.log(collection)
+  const count = (ary: any, classifier: any) => {
+    classifier = classifier || String;
+    return ary.reduce((counter: any, item: any) => {
+      var p = classifier(item);
+      counter[p] = counter.hasOwnProperty(p) ? counter[p] + 1 : 1;
+      return counter;
+    }, {});
+  };
+
+  const countByDate = count(collection, (item: any) => {
+    return item.date;
+  });
+
+  for (let i = 0; i < monthData.length; i++) {
+    monthData[i].equity = monthData[i].equity / countByDate[month[i]];
+    monthData[i].balance = monthData[i].balance / countByDate[month[i]];
+  }
+
   //Data for week
   const weekData = data.map((daily) => ({
     ...daily,
@@ -169,7 +186,7 @@ const Chart = ({ data }: ChartProps) => {
             orientation="bottom"
             style={axisStyle}
             tickLabelAngle={tickAngle}
-            tickFormat={(d: any) => (d.length > 5 ? "" : d)} 
+            tickFormat={(d: any) => (d.length > 5 ? "" : d)}
           />
           <YAxis
             style={axisStyle}
@@ -203,6 +220,25 @@ const Chart = ({ data }: ChartProps) => {
             onValueMouseOut={onValueMouseOut}
             onValueMouseOver={onValueMouseOver}
           />
+          <ChartLabel
+            text={text}
+            // className="alt-x-label"
+            includeMargin={true}
+            xPercent={0.1}
+            yPercent={0.1}
+            style={{ style: { "font-size": 20, "white-space": "pre-wrap" } }}
+          />
+          {/* only for line break lol */}
+          {show && (
+            <ChartLabel
+              text="* Sum up for profit"
+              // className="alt-x-label"
+              includeMargin={true}
+              xPercent={0.1}
+              yPercent={0.2}
+              style={{ style: { "font-size": 20, "white-space": "pre-wrap" } }}
+            />
+          )}
           <VerticalBarSeries
             barWidth={0.5}
             yDomain={[0, Math.round(profitMax * 1.9)]}
@@ -259,6 +295,8 @@ const Chart = ({ data }: ChartProps) => {
           onClick={() => {
             setState(monthData);
             setVisi(!visi);
+            setText(monthText);
+            setShow(!show);
           }}
           style={{ visibility: visi ? "visible" : "hidden" }}
         >
@@ -269,6 +307,8 @@ const Chart = ({ data }: ChartProps) => {
             setState(weekData);
             setVisi(!visi);
             setWeek(weekAarray);
+            setText(lableText);
+            setShow(false);
           }}
           style={{ visibility: visi ? "visible" : "hidden" }}
         >
@@ -280,10 +320,12 @@ const Chart = ({ data }: ChartProps) => {
             setState(dailyData);
             setVisi(!visi);
             setWeek([]);
+            setText(lableText);
+            setShow(false);
           }}
           style={{ visibility: visi ? "hidden" : "visible" }}
         >
-          Go back
+          weekday
         </button>
       </div>
     </>
