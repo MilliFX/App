@@ -54,7 +54,8 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
-    "@millifx/utils": "^0.0.1"
+    "@millifx/utils": "^0.0.1",
+    "victory": "^35.4.11"
   },
   "peerDependencies": {
     "react": "^17.0.0",
