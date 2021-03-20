@@ -14,9 +14,16 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
-  const profit = data.map(({ profit }) => profit);
+  const [chartData, setChartData] = React.useState(data);
 
-  const labelRatio = Math.max(...profit) / 6;
+  const sliceChartData = (start: string, end: string) =>{
+    const result = data.filter((daily) => {
+      return Date.parse(daily.date) > Date.parse(start) && Date.parse(daily.date) < Date.parse(end)
+    })
+    //console.log(result)
+    setChartData(result);
+  }
+
 
   return (
     <>
@@ -25,14 +32,14 @@ const Chart = ({ data }: ChartProps) => {
           labelComponent={<VictoryTooltip />}
           barWidth={5}
           style={{ data: { fill: "#a7ce93" } }}
-          data={data}
+          data={chartData}
           x="date"
-          y={(data) => data.profit * 200}
+          y={(chartData) => chartData.profit * 200}
           labels={(data) => "$" + data.datum.profit.toFixed(2)}
         />
         <VictoryLine
           style={{ data: { stroke: "#de7165", strokeWidth: 1 } }}
-          data={data}
+          data={chartData}
           x="date"
           y="balance"
         />
@@ -40,14 +47,14 @@ const Chart = ({ data }: ChartProps) => {
           labelComponent={<VictoryTooltip />}
           style={{ data: { fill: "#de7165" } }}
           size={2}
-          data={data}
+          data={chartData}
           x="date"
           y="balance"
           labels={(data) => "$" + data.datum.balance.toFixed(2)}
         />
         <VictoryLine
           style={{ data: { stroke: "#f8df93", strokeWidth: 1 } }}
-          data={data}
+          data={chartData}
           x="date"
           y="equity"
         />
@@ -55,7 +62,7 @@ const Chart = ({ data }: ChartProps) => {
           labelComponent={<VictoryTooltip />}
           style={{ data: { fill: "#f8df93" } }}
           size={2}
-          data={data}
+          data={chartData}
           x="date"
           y="equity"
           labels={(data) => "$" + data.datum.equity.toFixed(2)}
@@ -64,7 +71,7 @@ const Chart = ({ data }: ChartProps) => {
         <VictoryAxis
           style={{ tickLabels: { fontSize: 5 } }}
           standalone={false}
-          tickValues={data.map(({ date }) => [date])}
+          tickValues={chartData.map(({ date }) => [date])}
           tickFormat={(date) => {
             const d = new Date(date);
             if (d.getDay() === 1) {
@@ -79,16 +86,18 @@ const Chart = ({ data }: ChartProps) => {
         <VictoryAxis
           dependentAxis
           orientation="left"
-          style={{ tickLabels: { fontSize: 5 } }}
+          style={{ tickLabels: { fontSize: 0 } }}
           standalone={false}
         />
         {/* Y Axis */}
         <VictoryAxis
           dependentAxis
-          style={{ tickLabels: { fontSize: 5 } }}
+          style={{ tickLabels: { fontSize: 0 } }}
           orientation="right"
         />
       </VictoryChart>
+
+      <button type="button" onClick={()=>sliceChartData("02/01/2021", "02/12/2021")}>Week 1</button>
     </>
   );
 };
