@@ -1,3 +1,10 @@
 {
-    "typescript.tsdk": "/Users/jessie/Study/web development/App/node_modules/typescript/lib"
+    "typescript.tsdk": "/Users/jessie/Study/web development/App/node_modules/typescript/lib",
+    "eslint.options": {
+        "parserOptions": {
+            "project": [
+                "${workspaceFolder}/tsconfig.json"
+            ],
+        }
+    }
 }
