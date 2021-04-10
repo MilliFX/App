@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Daily } from '../../utils/constants';
 import { useEffect, useState,useRef } from 'react';
-
+import { IData, monthEnum} from './typings';
 import {
   ResponsiveContainer,
   ComposedChart,
@@ -19,27 +19,16 @@ interface ChartProps {
   data: Daily[];
 }
 
-enum MonthENUM {
-  'Jan' = 1,
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
-}
+
+
+
 
 const XFormat = (data: string) => {
   const dateArr = data.split('/')
   const Month = dateArr[0];
   const Day = dateArr[1];
   const Year = dateArr[2];
-  const dateResult = `${MonthENUM[parseInt(Month)]} ${Day}, '${Year.slice(2, 4)}`
+  const dateResult = `${monthEnum[parseInt(Month)]} ${Day}, '${Year.slice(2, 4)}`
   return dateResult;
 }
 
@@ -58,23 +47,22 @@ const Chart = ({ data }: ChartProps) => {
   const [index, setIndex] = useState(0);
   const indexRef = useRef(0);
   const [renderData, setRenderData] = useState(data)
-  const [dataMonthly, setDataMonthly] = useState<any>([])
+  const [dataMonthly, setDataMonthly] = useState([]);
   const [mbtn, setMbtn] = useState(false);
-  const [wbtn, setWbtn] = useState(false);
-  const [dbtn, setDbtn] = useState(false);
+  // const [wbtn, setWbtn] = useState(false);
+  // const [dbtn, setDbtn] = useState(false);
 
 
 
 
   useEffect(() => {
 
-    const DataByMonth: any = [];
-    // const DataByWeek = [];
+    const DataByMonth: IData[][] = [];
 
     const MonthDataProcess = async () => {
 
       let MonthTemp = 0;
-      let MonthObj: any = [];
+      const MonthObj:any[] = [];
 
       data.map((el, index) => {
         let Month = parseInt(el.date.slice(0, 2));
@@ -88,6 +76,8 @@ const Chart = ({ data }: ChartProps) => {
       })
       MonthObj[MonthTemp].push(data.length - 1);
 
+      console.log(MonthObj);
+
       MonthObj.map((el: any) => {
         if (el[0] === el[1]) {
           DataByMonth.push([data[el[0]]]);
@@ -95,35 +85,19 @@ const Chart = ({ data }: ChartProps) => {
           DataByMonth.push(data.slice(el[0], el[1] + 1));
         }
       })
-      // console.log(DataByMonth);
+      console.log(DataByMonth);
       setDataMonthly(DataByMonth);
     }
     MonthDataProcess();
 
-    // console.log(dataMonthly);
-
+    
   }, [])
 
-  // const [duration, setDuration] = React.useState(data);
-
-
-
-
-  let RenderData = data;
-
-
-
-  const handleYDurationChange = (days: number): void => {
-    console.log(days);
-    const start = data.length - days;
-    const end = data.length - 1;
-    const newDuration = data.slice(start, end)
-    // setDuration(newDuration);
-  }
+  
 
   const handleDurationByDay = () => {
     console.log("day")
-    RenderData = data;
+    setRenderData(data);
   }
 
   const handleDurationByWeek = () => {
@@ -132,8 +106,6 @@ const Chart = ({ data }: ChartProps) => {
   }
   const handleDurationByMonth = () => {
     setMbtn(true);
-    console.log("month");
-    // console.log(dataMonthly[0]);
     setIndex(0);
     setRenderData(dataMonthly[0]);
 
@@ -141,29 +113,21 @@ const Chart = ({ data }: ChartProps) => {
   const handleMonthChange = (data: string) => {
 
     if (data === 'next') {
-      console.log(indexRef.current);
+     
       if (indexRef.current < dataMonthly.length-1) {
-
           indexRef.current  = indexRef.current+1;
-          // console.log(index)
-          console.log(indexRef.current);
           setRenderData(dataMonthly[indexRef.current]);      
       } else {
-        console.log('object')
         alert('this is the most latest month');
       }
-      // console.log(index);
+     
     } 
 
     if (data === 'prev') {
-      // console.log(index);
+      
       console.log(indexRef.current);
       if (indexRef.current > 0) {
-        console.log(indexRef.current);
-          
           indexRef.current = indexRef.current-1;
-          // setIndex((preState) => preState - 1);
-          console.log(indexRef.current);
           setRenderData(dataMonthly[indexRef.current]);       
       } else {
         alert('this is the most previous month');
@@ -173,7 +137,7 @@ const Chart = ({ data }: ChartProps) => {
 
 
   return (
-    <div style={{ width: '100%', height: 500 }}>
+    <div style={}>
       <ResponsiveContainer height="99%" width="100%">
         <ComposedChart
           data={renderData}
@@ -193,7 +157,7 @@ const Chart = ({ data }: ChartProps) => {
               />
             ))}
           </Bar>
-          <Line type="monotone" dataKey="balance" stroke="#D85648" />
+          <Line type="monotone" dataKey="balance" stroke="#D85648" onMouseDown={(e:any)=>console.log(e)}/>
           <Line type="monotone" dataKey="equity" stroke="#F7D77C" />
         </ComposedChart>
 
