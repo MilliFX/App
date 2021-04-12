@@ -3,5 +3,5 @@ export interface SessionState {
 }
 
 export const initialState: SessionState = {
-  uuid: undefined,
+  uuid: localStorage.uuid,
 };
