@@ -20,20 +20,15 @@ import ChartTop from "./components/ChartTop";
 
 
 
-
 interface ChartProps {
   data: Daily[];
 }
-
-
-
-
 
 const XFormat = (data: string) => {
   const dateArr = data.split('/')
   const Month = dateArr[0];
   const Day = dateArr[1];
-  const Year = dateArr[2];
+  // const Year = dateArr[2];
   const dateResult = `${Day}${monthEnum[parseInt(Month)]}`
   return dateResult;
 }
@@ -42,9 +37,22 @@ const LeftYFormat = (data: number): string => {
   const dataStr = data.toFixed(0);
   return `$${dataStr.substr(0, dataStr.length - 3)}K`;
 }
-const RightYFormat = (data: number): any => {
-  return `$${data}`
+// const RightYFormat = (data: number): any => {
+//   return `$${data}`
+// }
+
+
+const customizedContent = (e:{})=>{
+  // console.log(e)
+  return '';
 }
+
+
+
+const handleLegend = (e:{})=>{
+
+}
+
 
 const Chart = ({ data }: ChartProps) => {
 
@@ -54,11 +62,15 @@ const Chart = ({ data }: ChartProps) => {
   const [renderData, setRenderData] = useState(data)
   const [dataMonthly, setDataMonthly] = useState([]);
   const [mbtn, setMbtn] = useState(false);
-  // const [wbtn, setWbtn] = useState(false);
-  // const [dbtn, setDbtn] = useState(false);
+  
 
 
-
+  const handleDuration = (time:number)=>{
+    console.log(time);
+    const tempData = data.slice(-time);
+    
+    setRenderData(tempData);
+  }
 
   // useEffect(() => {
 
@@ -100,45 +112,22 @@ const Chart = ({ data }: ChartProps) => {
 
   
 
-  const handleDurationByDay = () => {
-    console.log("day")
-    setRenderData(data);
-  }
+  // const handleDurationByDay = () => {
+  //   console.log("day")
+  //   setRenderData(data);
+  // }
 
-  const handleDurationByWeek = () => {
-    console.log("week")
+  // const handleDurationByWeek = () => {
+  //   console.log("week")
 
-  }
-  const handleDurationByMonth = () => {
-    setMbtn(true);
-    setIndex(0);
-    setRenderData(dataMonthly[0]);
+  // }
+  // const handleDurationByMonth = () => {
+  //   setMbtn(true);
+  //   setIndex(0);
+  //   setRenderData(dataMonthly[0]);
 
-  }
-  const handleMonthChange = (data: string) => {
-
-    if (data === 'next') {
-     
-      if (indexRef.current < dataMonthly.length-1) {
-          indexRef.current  = indexRef.current+1;
-          setRenderData(dataMonthly[indexRef.current]);      
-      } else {
-        alert('this is the most latest month');
-      }
-     
-    } 
-
-    if (data === 'prev') {
-      
-      console.log(indexRef.current);
-      if (indexRef.current > 0) {
-          indexRef.current = indexRef.current-1;
-          setRenderData(dataMonthly[indexRef.current]);       
-      } else {
-        alert('this is the most previous month');
-      }
-    }
-  }
+  // }
+  
 
 
   return (
@@ -160,7 +149,7 @@ const Chart = ({ data }: ChartProps) => {
           {/* <YAxis tickFormatter={LeftYFormat} hide={true}/> */}
           <YAxis name="1" type='number' domain={['dataMin-500', 'dataMax+500']} tickFormatter={LeftYFormat} hide={true}/>
           {/* <YAxis name="profit" yAxisId="profit" dataKey="profit" orientation="right" type='number' tickFormatter={RightYFormat} /> */}
-          <Tooltip active={false} />
+          <Tooltip content={customizedContent} animationDuration={3000}/>
           <Legend onClick={(e)=>{console.log(e)}}/>
           {/* <Bar yAxisId="profit" dataKey="profit" barSize={500}>
             {renderData.map((entry) => (
@@ -181,15 +170,15 @@ const Chart = ({ data }: ChartProps) => {
             </linearGradient>
           </defs>
 
-          <Area type="monotone" dataKey="balance" stroke="#E71F18" fillOpacity={1} fill="url(#colorUv)" />
+          <Area type="monotone" dataKey="balance" isAnimationActive={true} stroke="#E71F18" fillOpacity={1} fill="url(#colorUv)" />
           <Area type="monotone" dataKey="equity" stroke="#3FADEC" fillOpacity={1} fill="url(#colorPv)" />
         </ComposedChart>
 
       </ResponsiveContainer>
       <div style={{ display: "flex", justifyContent: "space-around", alignItems: 'center' }}>
-        <button onClick={handleDurationByDay}>1 W</button>
-        <button onClick={() => handleDurationByWeek}>1 M</button>
-        <button onClick={handleDurationByMonth}>3 M</button>
+        <button onClick={()=>handleDuration(7)}>1 W</button>
+        <button onClick={() => handleDuration(30)}>1 M</button>
+        <button onClick={()=>handleDuration(90)}>3 M</button>
       </div>
       </Wrapper>
     </div>
@@ -197,3 +186,31 @@ const Chart = ({ data }: ChartProps) => {
 };
 
 export default Chart;
+
+
+
+
+// const handleMonthChange = (data: string) => {
+
+//   if (data === 'next') {
+   
+//     if (indexRef.current < dataMonthly.length-1) {
+//         indexRef.current  = indexRef.current+1;
+//         setRenderData(dataMonthly[indexRef.current]);      
+//     } else {
+//       alert('this is the most latest month');
+//     }
+   
+//   } 
+
+//   if (data === 'prev') {
+    
+//     console.log(indexRef.current);
+//     if (indexRef.current > 0) {
+//         indexRef.current = indexRef.current-1;
+//         setRenderData(dataMonthly[indexRef.current]);       
+//     } else {
+//       alert('this is the most previous month');
+//     }
+//   }
+// }
