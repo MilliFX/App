@@ -9,7 +9,7 @@ export const mockData: Daily[] = [
    {
       "date":"01/31/2021",
       "balance":30000,
-      "profit":10,
+      "profit":0,
       "equity":30000
    },
    {
