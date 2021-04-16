@@ -42,7 +42,6 @@ const Chart = ({ data }: ChartProps) => {
   const [curEqt, setEquity] = React.useState(data[dataLen - 1].equity);
   const [curBal, setBalance] = React.useState(data[dataLen - 1].balance);
   const [date, setDate] = React.useState(formatDate(data[dataLen - 1].date));
-  // set Data according to duration
   const handleDuration = (e: any) => {
     const duration = e.target.value;
     console.log(duration);
@@ -100,7 +99,7 @@ const Chart = ({ data }: ChartProps) => {
     xAxis: {
       type: "timeCat",
     },
-    animation: false,
+    animation: false as false,
     yAxis: {
       nice: true,
       max: Math.max.apply(
@@ -133,18 +132,18 @@ const Chart = ({ data }: ChartProps) => {
       crosshairs: {
         type: "x" as "x",
       },
-      customContent: () => null,
+      customContent: () => null as any,
     },
     interactions: [{ type: "marker-active" }, { type: "element-active" }],
   };
 
-  const dataChange = (line) => {
-    line.on("tooltip:change", (evt) => {
+  const dataChange = (line: any) => {
+    line.on("tooltip:change", (evt:any) => {
       const { title, items } = evt.data;
       // const tooltipItems = data.filter((d) => d.date === title);
-      setEquity(items.find((item) => item.data.label === "equity").data.value);
+      setEquity(items.find((item:any) => item.data.label === "equity").data.value);
       setBalance(
-        items.find((item) => item.data.label === "balance").data.value
+        items.find((item:any) => item.data.label === "balance").data.value
       );
       setDate(title);
     });
