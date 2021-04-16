@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Daily } from "../../utils/constants";
-import { DualAxes } from "@ant-design/charts";
+import { Radio } from "antd";
+import { Line } from "@ant-design/charts";
 
 interface ChartProps {
   data: Daily[];
@@ -27,45 +28,48 @@ const month: string[] = [
   "Dec",
 ];
 
-const Chart = ({ data }: ChartProps) => {
-  const [newData, setNewdata] = React.useState(data);
+const formatDate = (d: string) => {
+  const date = new Date(d);
+  return `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`;
+  // return `${month[parseInt(date[0])-1]} ${date[1]}, '${date[2]}`
+};
 
+const Chart = ({ data }: ChartProps) => {
+  const dataLen = data.length;
+  const [newData, setNewdata] = React.useState(
+    dataLen < 7 ? data : data.slice(dataLen - 7, dataLen)
+  );
+  const [curEqt, setEquity] = React.useState(data[dataLen - 1].equity);
+  const [curBal, setBalance] = React.useState(data[dataLen - 1].balance);
+  const [date, setDate] = React.useState(formatDate(data[dataLen - 1].date));
   // set Data according to duration
-  const handleDuration = (duration: string) => {
-    if (duration === "Daily") {
-      setNewdata(data);
-    } else if (duration === "Week") {
+  const handleDuration = (e: any) => {
+    const duration = e.target.value;
+    console.log(duration);
+    if (duration === "Week") {
+      let weekData = data;
+      if (dataLen >= 7) {
+        weekData = data.slice(dataLen - 7, dataLen);
+      }
       setNewdata(weekData);
-    } else {
+    } else if (duration === "Month") {
+      let monthData = data;
+      if (dataLen >= 30) {
+        monthData = data.slice(dataLen - 30, dataLen);
+      }
       setNewdata(monthData);
+    } else {
+      let quarterData = data;
+      if (dataLen >= 90) {
+        quarterData = data.slice(dataLen - 90, dataLen);
+      }
+      setNewdata(quarterData);
     }
   };
-
-  var maxColumn: number = data[0].profit;
-
-  // extract week data from daily data
-  const weekData = data.filter((daily: Daily) => {
-    return new Date(daily.date).getDay() === 1;
-  });
-
-  //extract month data from weekData
-  const monthData = weekData.reduce(
-    (arr, b) => {
-      const found = arr.find((a) => a.date.slice(0, 2) === b.date.slice(0, 2));
-      if (!found) {
-        arr.push(b);
-      }
-      return arr;
-    },
-    [weekData[0]]
-  );
 
   // extract equity
   const equity = newData.map(
     (daily: Daily): GroupData => {
-      if (daily.profit > maxColumn) {
-        maxColumn = daily.profit;
-      }
       return {
         date: daily.date,
         value: daily.equity,
@@ -88,97 +92,103 @@ const Chart = ({ data }: ChartProps) => {
   // merge value
   const yValue = [...equity, ...balance];
   const config = {
-    data: [newData, yValue],
-    appendPadding: 30,
+    data: yValue,
+    padding: "auto" as "auto",
     xField: "date",
-    yField: ["profit", "value"],
-    geometryOptions: [
-      {
-        geometry: "column",
-        maxColumnWidth: 20,
-      },
-      {
-        geometry: "line",
-        smooth: false,
-        seriesField: "label",
-        color: ["#E85E5E", "#E8C55E"],
-
-        point: {
-          shape: "circle",
-          size: 4.5,
-        },
-      },
-    ],
+    yField: "value",
+    seriesField: "label",
     xAxis: {
       type: "timeCat",
-      grid: {
-        line: {
-          style: { stroke: "#eee" },
-        },
-      },
     },
-    yAxis: [
-      {
-        min: -maxColumn,
-        tickCount: 10,
-      },
-    ],
+    animation: false,
+    yAxis: {
+      nice: true,
+      max: Math.max.apply(
+        Math,
+        yValue.map((item) => {
+          return item.value;
+        })
+      ),
+      min: Math.min.apply(
+        Math,
+        yValue.map((item) => {
+          return item.value;
+        })
+      ),
+      tickCount: 5,
+    },
     meta: {
       date: {
         formatter: function formatter(d: string) {
-          const date = new Date(d);
-          return `${
-            month[date.getMonth()]
-          } ${date.getDate()}, '${date.getFullYear().toString().slice(2, 4)}`;
-          // return `${month[parseInt(date[0])-1]} ${date[1]}, '${date[2]}`
+          return formatDate(d);
         },
       },
     },
     legend: {
       position: "bottom" as "bottom",
-      // layout: 'horizontal',
     },
     tooltip: {
       showCrosshairs: true,
+      showMarkers: true,
       crosshairs: {
         type: "x" as "x",
       },
-      showMarkers: true,
-      marker: {
-        symbol: "circle",
-      },
+      customContent: () => null,
     },
-    // interactions: [{ type: "marker-active" }, { type: "brush" }],
+    interactions: [{ type: "marker-active" }, { type: "element-active" }],
+  };
+
+  const dataChange = (line) => {
+    line.on("tooltip:change", (evt) => {
+      const { title, items } = evt.data;
+      // const tooltipItems = data.filter((d) => d.date === title);
+      setEquity(items.find((item) => item.data.label === "equity").data.value);
+      setBalance(
+        items.find((item) => item.data.label === "balance").data.value
+      );
+      setDate(title);
+    });
   };
 
   return (
     <>
-      {/* {console.log(newData)} */}
-      <div className="row" style={{ textAlign: "center" }}>
-        <button
-          type="button"
-          style={{ margin: "10px" }}
-          onClick={() => handleDuration("Daily")}
-        >
-          Day
-        </button>
-        <button
-          type="button"
-          style={{ margin: "10px" }}
-          onClick={() => handleDuration("Week")}
-        >
-          Week
-        </button>
-        <button
-          type="button"
-          style={{ margin: "10px" }}
-          onClick={() => handleDuration("Month")}
-        >
-          Month
-        </button>
+      <h3 style={{ color: "grey" }}>{date}</h3>
+      <br />
+      <div className="row">
+        <div className="col" style={{ display: "inline-block", width: "50%" }}>
+          <h3 style={{ color: "grey" }}>Equity</h3>
+          <h2>${curEqt.toLocaleString()}</h2>
+        </div>
+        <div className="col" style={{ display: "inline-block", width: "50%" }}>
+          <h3 style={{ color: "grey" }}>Balance</h3>
+          <h2>${curBal.toLocaleString()}</h2>
+        </div>
+        <div>
+          <h3 style={{ color: "grey" }}>Profit</h3>
+          <h2 style={{ color: "orange" }}>
+            {(((curBal - curEqt) / curBal) * 100).toFixed(2)}%
+          </h2>
+        </div>
       </div>
-
-      <DualAxes {...config} />
+      <br />
+      <Line
+        {...config}
+        onReady={(line) => {
+          dataChange(line);
+        }}
+      />
+      <div style={{ textAlign: "center", margin: "auto" }}>
+        <Radio.Group
+          buttonStyle="solid"
+          size="large"
+          defaultValue="Week"
+          onChange={handleDuration}
+        >
+          <Radio.Button value="Week">1W</Radio.Button>
+          <Radio.Button value="Month">1M</Radio.Button>
+          <Radio.Button value="Quarter">3M</Radio.Button>
+        </Radio.Group>
+      </div>
     </>
   );
 };

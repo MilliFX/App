@@ -55,7 +55,8 @@
   },
   "dependencies": {
     "@ant-design/charts": "^1.0.19",
-    "@millifx/utils": "^0.0.1"
+    "@millifx/utils": "^0.0.1",
+    "antd": "^4.15.1"
   },
   "peerDependencies": {
     "react": "^17.0.0",
