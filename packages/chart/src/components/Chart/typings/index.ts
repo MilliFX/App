@@ -19,3 +19,9 @@ export enum monthEnum {
     'Nov',
     'Dec'
 }
+
+export enum Duration {
+    "1W"=7,
+    "1M"=30,
+    "3M"=90
+}

@@ -1,14 +1,11 @@
 import * as React from "react";
 import { Daily } from '../../utils/constants';
 import { useEffect, useState,useRef } from 'react';
-import { IData, monthEnum} from './typings';
-import { Wrapper } from './index.style';
+import { IData, monthEnum, Duration} from './typings';
+import { Wrapper ,LegendTool, LegendItem,Button} from './index.style';
 import {
   ResponsiveContainer,
   ComposedChart,
-  Line,
-  Bar,
-  Cell,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -17,6 +14,7 @@ import {
   Area
 } from "recharts";
 import ChartTop from "./components/ChartTop";
+
 
 
 
@@ -37,39 +35,74 @@ const LeftYFormat = (data: number): string => {
   const dataStr = data.toFixed(0);
   return `$${dataStr.substr(0, dataStr.length - 3)}K`;
 }
-// const RightYFormat = (data: number): any => {
-//   return `$${data}`
-// }
-
-
-const customizedContent = (e:{})=>{
-  // console.log(e)
-  return '';
-}
 
 
 
-const handleLegend = (e:{})=>{
+
+
+const filterDate = (data:Daily[],date:string)=>{
+  return data.find(data=>data.date===date)
 
 }
+
+
 
 
 const Chart = ({ data }: ChartProps) => {
 
 
-  const [index, setIndex] = useState(0);
-  const indexRef = useRef(0);
-  const [renderData, setRenderData] = useState(data)
-  const [dataMonthly, setDataMonthly] = useState([]);
-  const [mbtn, setMbtn] = useState(false);
+
+  const [renderData, setRenderData] = useState(data);
+
+
+
+  const [balanceVisable,setBalanceVisable] = useState(true);
+  const [equityVisable,setEquityVisable] = useState(true);
+  const initialTopData = data[data.length-1]
+  const [topData,setTopdata] = useState(initialTopData);
+  const [duration,setDuration] = useState('3M');
+  
   
 
+  
+  
+  // const handleToolTip = (value, name, props)=>{
+  //   console.log(value);
+  //   console.log(name);
+  //   console.log(props);
+  // }
+
+  const customizedContent = (e)=>{
+    // setTimeout(() => {
+    //   console.log(e['label']);
+    // }, 3000);
+    
+    const topData = filterDate(renderData,e['label'])
+    // console.log(topData);
+   
+    
+    return '';
+  }
 
   const handleDuration = (time:number)=>{
-    console.log(time);
+    // console.log(time);
     const tempData = data.slice(-time);
-    
+    setDuration(Duration[time]);
     setRenderData(tempData);
+  }
+
+  const handleLegend = (e)=>{
+    const type:string = e;
+  
+    if(type==="balance"){
+      if(equityVisable){
+        setBalanceVisable(!balanceVisable)
+      }
+    }else{
+      if(balanceVisable){
+        setEquityVisable(!equityVisable)
+      } 
+    }
   }
 
   // useEffect(() => {
@@ -110,32 +143,11 @@ const Chart = ({ data }: ChartProps) => {
 
   // }, [])
 
-  
-
-  // const handleDurationByDay = () => {
-  //   console.log("day")
-  //   setRenderData(data);
-  // }
-
-  // const handleDurationByWeek = () => {
-  //   console.log("week")
-
-  // }
-  // const handleDurationByMonth = () => {
-  //   setMbtn(true);
-  //   setIndex(0);
-  //   setRenderData(dataMonthly[0]);
-
-  // }
-  
-
 
   return (
-    <div>
-
-
+    <>
       <div>
-        <ChartTop/>
+        <ChartTop props={topData}/>
       </div>
 
       <Wrapper>
@@ -144,13 +156,16 @@ const Chart = ({ data }: ChartProps) => {
           data={renderData}
         >
           <CartesianGrid stroke="#f5f5f5" strokeDasharray="3 5" />
-          <XAxis dataKey="date" tickFormatter={XFormat} interval="preserveStartEnd"/>
-          {/* <XAxis dataKey="date" scale="band" /> */}
+          {/* <XAxis dataKey="date" tickFormatter={XFormat} interval="preserveStartEnd"/> */}
+          <XAxis dataKey="date" scale="band" />
           {/* <YAxis tickFormatter={LeftYFormat} hide={true}/> */}
           <YAxis name="1" type='number' domain={['dataMin-500', 'dataMax+500']} tickFormatter={LeftYFormat} hide={true}/>
           {/* <YAxis name="profit" yAxisId="profit" dataKey="profit" orientation="right" type='number' tickFormatter={RightYFormat} /> */}
-          <Tooltip content={customizedContent} animationDuration={3000}/>
-          <Legend onClick={(e)=>{console.log(e)}}/>
+         
+            <Tooltip content={customizedContent} /> 
+          
+          
+          {/* <Legend iconSize={20} iconType="line" onClick={handleLegend} /> */}
           {/* <Bar yAxisId="profit" dataKey="profit" barSize={500}>
             {renderData.map((entry) => (
               <Cell
@@ -161,27 +176,34 @@ const Chart = ({ data }: ChartProps) => {
           </Bar> */}
           <defs>
             <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#E71F18" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#E71F18" stopOpacity={0}/>
+              <stop offset="1%" stopColor="#E71F18" stopOpacity={0.2}/>
+              <stop offset="99%" stopColor="#E71F18" stopOpacity={0.1}/>
             </linearGradient>
             <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#3FADEC" stopOpacity={0.8}/>
-              <stop offset="95%" stopColor="#3FADEC" stopOpacity={0}/>
+              <stop offset="1%" stopColor="#3FADEC" stopOpacity={0.2}/>
+              <stop offset="99%" stopColor="#3FADEC" stopOpacity={0.1}/>
             </linearGradient>
           </defs>
 
-          <Area type="monotone" dataKey="balance" isAnimationActive={true} stroke="#E71F18" fillOpacity={1} fill="url(#colorUv)" />
-          <Area type="monotone" dataKey="equity" stroke="#3FADEC" fillOpacity={1} fill="url(#colorPv)" />
-        </ComposedChart>
+          {balanceVisable? <Area type="monotone" dataKey="balance" stroke="#E71F18" fillOpacity={1} fill="url(#colorUv)" />:null}
+          {equityVisable?<Area type="monotone" dataKey="equity" stroke="#3FADEC" fillOpacity={1} fill="url(#colorPv)" />:null}
+          </ComposedChart>
 
       </ResponsiveContainer>
+      <LegendTool>
+        <LegendItem color={balanceVisable?"#E71F18":"#ADADAD"} onClick={()=>handleLegend('balance')}> ---- Balance</LegendItem>
+        <LegendItem color={equityVisable?"#3FADEC":"#ADADAD"} onClick={()=>handleLegend('equity')}> ---- Equity</LegendItem>
+      </LegendTool>
       <div style={{ display: "flex", justifyContent: "space-around", alignItems: 'center' }}>
-        <button onClick={()=>handleDuration(7)}>1 W</button>
-        <button onClick={() => handleDuration(30)}>1 M</button>
-        <button onClick={()=>handleDuration(90)}>3 M</button>
+        <Button background={duration===Duration[7]?'#E7EBEF':'white'} color={duration===Duration[7]?'black':'red'} onClick={()=>handleDuration(Duration['1W'])}>1 W</Button>
+        <Button background={duration===Duration[30]?'#E7EBEF':'white'} color={duration===Duration[30]?'black':'red'} onClick={()=>handleDuration(Duration['1M'])}>1 M</Button>
+        <Button background={duration===Duration[90]?'#E7EBEF':'white'} color={duration===Duration[90]?'black':'red'} onClick={()=>handleDuration(Duration['3M'])}>3 M</Button>  
+        {/* <button onClick={()=>handleDuration(Duration['1W'])}>1 W</button>
+        <button onClick={()=>handleDuration(Duration['1M'])}>1 M</button>
+        <button onClick={()=>handleDuration(Duration['3M'])}>3 M</button> */}
       </div>
       </Wrapper>
-    </div>
+    </>
   );
 };
 
