@@ -9,7 +9,7 @@ export const useUUID = () => {
     : uuidv1();
 
   useEffect(() => {
-    if (!localStorage.uuid) {
+    if (!localStorage[UUID_FIELD]) {
       localStorage.setItem(UUID_FIELD, uuid);
     }
   }, [uuid]);
