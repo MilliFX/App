@@ -1,3 +1,6 @@
+import { Daily } from '../../../../dist/types/utils/constants';
+
+
 export interface IData {
     date:string,
     balance:number,
@@ -24,4 +27,8 @@ export enum Duration {
     "1W"=7,
     "1M"=30,
     "3M"=90
+}
+
+export interface ChartProps {
+    data: Daily[];
 }

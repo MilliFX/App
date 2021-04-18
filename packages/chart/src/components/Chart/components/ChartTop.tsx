@@ -7,8 +7,6 @@ function ChartTop({props}:Daily) {
 
     // console.log(props);
 
-    // const newDate = new Date(props.date);
-
     const formatDate = (input:string)=>{
        
         var date = new Date(input);
