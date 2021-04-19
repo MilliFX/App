@@ -16,7 +16,6 @@ const getEnv = (hostName?: string): Environment => {
     case HOSTNAME_LOCAL:
       return Environment.Development;
     default:
-      console.error("Unknown hostname: " + hostName);
       return Environment.Development;
   }
 };
