@@ -16,20 +16,16 @@ export const handler = async (
   var statusCode: number = 200;
 
   //Initial response
-  var response: HelloResponse = { message: ""};
+  var response: HelloResponse = { message: "" };
 
-  if(headerValidation(event.headers)){
-
+  if (headerValidation(event.headers)) {
     //If specific header valid, prepare response
     const msg = event.queryStringParameters?.msg;
     response.message = "Hello World " + msg;
-
-  }else{
-
+  } else {
     //If specific header invalid, change status code to 401 and prepare response
     statusCode = 401;
     response.message = "Unauthorized request";
-
   }
 
   //response:
@@ -41,5 +37,4 @@ export const handler = async (
     },
     body: JSON.stringify(response),
   };
-
 };
