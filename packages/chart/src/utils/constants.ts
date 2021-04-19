@@ -65,10 +65,6 @@ export const mockData: Daily[] = [
     balance: 30320.57,
     profit: 46.72,
     equity: 30471.329999999998,
-     "date":"02/11/2021",
-     "balance":30320.57,
-     "profit":46.72,
-     "equity":30169.81
   },
   {
     date: "02/12/2021",
