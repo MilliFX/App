@@ -12,6 +12,7 @@ import {
 } from "react-vis";
 import "../../../node_modules/react-vis/dist/style.css";
 import "antd/dist/antd.css";
+import ChartTop from './chartTop';
 
 interface ChartProps {
   data: Daily[];
@@ -47,13 +48,13 @@ const Chart = ({ data }: ChartProps) => {
   const [state, setState] = useState(
     rawData.slice(rawData.length - 8, rawData.length - 1)
   );
-
   const [current, setCurrent] = useState({
     date: "Today",
     balance: state[state.length - 1].balance,
     equity: state[state.length - 1].equity,
     profit: state[state.length - 1].profit,
   });
+
   const [showBalance, setShowBalance] = useState(true);
   const [showEquity, setShowEquity] = useState(true);
   const [startDate, setStartDate] = useState(state[0].date.substr(0, 7));
@@ -67,13 +68,15 @@ const Chart = ({ data }: ChartProps) => {
   };
 
   useEffect(() => {
-    state.length>7?setStartDate(''):setStartDate(state[0].date.substr(0, 7))
-  },[state]);
-
+    state.length > 7
+      ? setStartDate("")
+      : setStartDate(state[0].date.substr(0, 7));
+  }, [state]);
 
   return (
     <>
-      <Row justify="center">
+       {/* <ChartTop data={current} />   */}
+       <Row justify="center">
         <Col span={24}>
           <Text>{current.date}</Text>
         </Col>
@@ -111,7 +114,10 @@ const Chart = ({ data }: ChartProps) => {
             suffix="%"
           />
         </Col>
-      </Row>
+      </Row> 
+
+     
+
       <FlexibleXYPlot
         xType="ordinal"
         yDomain={[domain.start, domain.end]}
@@ -179,9 +185,8 @@ const Chart = ({ data }: ChartProps) => {
         <Col span={4}>
           <Button
             type="text"
-            onClick={ () => {
-               setState(rawData.slice(rawData.length - 8, rawData.length - 1));
-              //  setStartDate(state[0].date.substr(0, 7));
+            onClick={() => {
+              setState(rawData.slice(rawData.length - 8, rawData.length - 1));
             }}
           >
             1W
@@ -192,7 +197,6 @@ const Chart = ({ data }: ChartProps) => {
             type="text"
             onClick={() => {
               setState(rawData.slice(rawData.length - 16, rawData.length - 1));
-              // setStartDate("");
             }}
           >
             1M
@@ -203,7 +207,6 @@ const Chart = ({ data }: ChartProps) => {
             type="text"
             onClick={() => {
               setState(rawData.slice(rawData.length - 23, rawData.length - 1));
-              // setStartDate("");
             }}
           >
             3M
