@@ -1,35 +1,34 @@
 import * as React from "react";
 import { Daily } from "../../utils/constants";
-import './index.css';
+import "./index.css";
 import AChart from "react-apexcharts";
 
 interface ChartProps {
   data: Daily[];
 }
 
-const Chart = ({data}:ChartProps)=>{
+const Chart = ({ data }: ChartProps) => {
   //1. Manage Data Part
   //check mockDataLength
-  const dataLength = data.length
+  const dataLength = data.length;
   //sort data by date
 
   //2. Config chart design part
   //2.1 Apexchart basic configuration
-  const options = {
-    
-  }
+  const options = {};
   const series = data;
 
-  return <div className="apexchartContainer">
-    <div>title</div>
-    <div>
-    <AChart options={options} series={series} type="line" height={350}/>
+  return (
+    <div className="apexchartContainer">
+      <div>title</div>
+      <div>
+        <AChart options={options} series={series} type="line" height={350} />
+      </div>
     </div>
-  </div>
-}
+  );
+};
 
 export default Chart;
-
 
 // interface ChartProps {
 //   data: Daily[];
@@ -49,26 +48,26 @@ export default Chart;
 //   state: MyState = {
 //     series: [],
 //     options: {
-      // chart: {},
-      // stroke: {},
-      // title: {},
-      // dataLabels: {},
-      // labels: [],
-      // xaxis: {},
-      // yaxis: [],
-      // fill:{
-      //   type:'gradient',
-      //   gradient:{
-      //     shade:'dark',
-      //     type:"horizontal",
-      //     shadeIntensity:0.5,
-      //     gradientToColors:undefined,
-      //     inverseColors:true,
-      //     opacityForm:1,
-      //     opacityTo:1,
-      //     stops:[0,50,100],
-      //     colorStoprs:[]
-      //   }
+// chart: {},
+// stroke: {},
+// title: {},
+// dataLabels: {},
+// labels: [],
+// xaxis: {},
+// yaxis: [],
+// fill:{
+//   type:'gradient',
+//   gradient:{
+//     shade:'dark',
+//     type:"horizontal",
+//     shadeIntensity:0.5,
+//     gradientToColors:undefined,
+//     inverseColors:true,
+//     opacityForm:1,
+//     opacityTo:1,
+//     stops:[0,50,100],
+//     colorStoprs:[]
+//   }
 //       },
 //       theme:{
 //         palette:'palette1'
@@ -165,7 +164,7 @@ export default Chart;
 //     const equityarray:number[] = []
 //     const balancearray:number[] = []
 //     const profitarray:number[] = []
-    
+
 //     const eqdata = this.props.data.map(
 //       (daily)=>{
 //         // return{
@@ -292,7 +291,7 @@ export default Chart;
 //     const equityarray:number[] = []
 //     const balancearray:number[] = []
 //     const profitarray:number[] = []
-    
+
 //     const eqdata = this.props.data.map(
 //       (daily)=>{
 //         // return{
@@ -410,7 +409,5 @@ export default Chart;
 //     );
 //   }
 // }
-
-
 
 // export default Chart;
