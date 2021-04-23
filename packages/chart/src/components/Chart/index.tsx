@@ -2,18 +2,19 @@ import * as React from "react";
 import { Daily } from "../../utils/constants";
 import { Radio } from "antd";
 import { Line } from "@ant-design/charts";
+import { DateHeading } from "../CSS/styled_components";
 
 interface ChartProps {
   data: Daily[];
 }
 
-interface GroupData {
+interface LineData {
   date: string;
   value: number;
   label: string;
 }
 
-const month: string[] = [
+const month = [
   "Jan",
   "Feb",
   "Mar",
@@ -31,17 +32,18 @@ const month: string[] = [
 const formatDate = (d: string) => {
   const date = new Date(d);
   return `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`;
-  // return `${month[parseInt(date[0])-1]} ${date[1]}, '${date[2]}`
 };
 
 const Chart = ({ data }: ChartProps) => {
-  const dataLen = data.length;
+  const numberOfDays = data.length;
+  const isDataLessThenAWeek = numberOfDays < 7;
+  const currentDailyDate = data[numberOfDays - 1]
   const [newData, setNewdata] = React.useState(
-    dataLen < 7 ? data : data.slice(dataLen - 7, dataLen)
+    isDataLessThenAWeek ? data : data.slice(numberOfDays - 7, numberOfDays)
   );
-  const [curEqt, setEquity] = React.useState(data[dataLen - 1].equity);
-  const [curBal, setBalance] = React.useState(data[dataLen - 1].balance);
-  const [date, setDate] = React.useState(formatDate(data[dataLen - 1].date));
+  const [currentEquity, setCurrentEquity] = React.useState(currentDailyDate.equity);
+  const [currentBalance, setCurrentBalance] = React.useState(currentDailyDate.balance);
+  const [date, setDate] = React.useState(formatDate(currentDailyDate.date));
   const handleDuration = (e: any) => {
     const duration = e.target.value;
     console.log(duration);
@@ -138,12 +140,14 @@ const Chart = ({ data }: ChartProps) => {
   };
 
   const dataChange = (line: any) => {
-    line.on("tooltip:change", (evt:any) => {
+    line.on("tooltip:change", (evt: any) => {
       const { title, items } = evt.data;
       // const tooltipItems = data.filter((d) => d.date === title);
-      setEquity(items.find((item:any) => item.data.label === "equity").data.value);
+      setEquity(
+        items.find((item: any) => item.data.label === "equity").data.value
+      );
       setBalance(
-        items.find((item:any) => item.data.label === "balance").data.value
+        items.find((item: any) => item.data.label === "balance").data.value
       );
       setDate(title);
     });
@@ -151,7 +155,7 @@ const Chart = ({ data }: ChartProps) => {
 
   return (
     <>
-      <h3 style={{ color: "grey" }}>{date}</h3>
+      <DateHeading>{date}</DateHeading>
       <br />
       <div className="row">
         <div className="col" style={{ display: "inline-block", width: "50%" }}>
