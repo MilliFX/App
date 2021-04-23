@@ -2,6 +2,7 @@ import * as React from "react";
 import { Daily } from "../../utils/constants";
 import "./index.css";
 import AChart from "react-apexcharts";
+import {useState, useEffect} from 'react';
 
 interface ChartProps {
   data: Daily[];
@@ -331,13 +332,18 @@ monthlyProfit.push(thirdMonthProfitContent)
       data: dailyProfit
     }, 
 ];
+const [optionsContent, setOptionsContent] = useState(options)
+const [seriesContent, setSeriesContent] = useState(series)
 
 
   return (
     <div className="apexchartContainer">
       <div>This is the Title</div>
       <div>
-        <AChart options={options} series={series} height={650} />
+        <AChart options={optionsContent} series={seriesContent} height={650} />
+      </div>
+      <div className="buttonContainer">
+        
       </div>
     </div>
   );

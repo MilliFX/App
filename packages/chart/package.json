@@ -54,6 +54,8 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@millifx/utils": "^0.0.1",
     "apexcharts": "^3.26.1",
     "node-sass": "4.14",
