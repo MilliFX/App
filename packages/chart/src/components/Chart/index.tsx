@@ -9,20 +9,106 @@ interface ChartProps {
 
 const Chart = ({ data }: ChartProps) => {
   //1. Manage Data Part
-  //check mockDataLength
+  //1.1 Check mockDataLength
   const dataLength = data.length;
-  //sort data by date
+  //1.2 Sort data by Day
+  // creat a new arry only contains the {date: date, balance: balance}
+  const dayPair = data.map(
+    (daily)=>{
+      const currentDayBalanceGrowth = {x: daily.date, y:Number((daily.balance - 30000).toFixed(2))}
+      const currentDayEqualityGrowth = {x: daily.date, y: Number((daily.equity/30000).toFixed(2))}
+      const currentDayProfit = {x: daily.date, y: Number((daily.profit).toFixed(2))}
+      // console.log(currentDayBalance)
+      return {
+        currentDayBalanceGrowth,
+        currentDayEqualityGrowth,
+        currentDayProfit
+      }
+    }
+  )
+
+  //destruct 3 parameters from daypair
+  //prepare for week data set
+  //series can process the data set, such as [10/10/2021, 0.03]
+  const dailyBalanceGrowth = dayPair.map(
+    (item)=>{
+      return item.currentDayBalanceGrowth
+    }
+  )
+  const dailyEqualityGrowth = dayPair.map(
+    (item)=>{
+      return item.currentDayEqualityGrowth
+    }
+  )
+  const dailyProfit = dayPair.map(
+    (item)=>{
+      return item.currentDayProfit
+    }
+  )
+  console.log(dailyBalanceGrowth,dailyEqualityGrowth,dailyProfit)
+  //1.3 Sort data by Week(from Sunday)
+  for(var i=0; i<dayPair.length; i++){
+    
+  }
+  //1.4 Sort data by Month
+
+
+
+
 
   //2. Config chart design part
   //2.1 Apexchart basic configuration
-  const options = {};
-  const series = data;
+  const options = {
+    chart: {
+      background:'#f5f5f5'
+    },
+    yaxis: [
+      {
+        title: {
+          text: "BalanceGrowth",
+        },
+      },
+      {
+        opposite: true,
+        title: {
+          text: "EqualityGrowth",
+        },
+      },
+    ],
+    //zoom-in & zoom-out
+    plotOptions:{
+      area:{
+        fillTo:'origin',
+      }
+    },
+  };
+
+  //2.2 Apexchart data filled
+  //series order determine the tooltip order, and it is also determine the yaxis number.
+  const series = [
+    {
+      name: 'BalanceGrowth',
+      type: 'column',
+      data: dailyBalanceGrowth
+    }, 
+    {
+      name: 'EqualityGrowth',
+      type: 'area',
+      data: dailyEqualityGrowth
+    },
+    {
+      name: 'Profit',
+      type: 'line',
+      data: dailyProfit
+    }, 
+];
+
 
   return (
     <div className="apexchartContainer">
-      <div>title</div>
+      <div>This is the Title</div>
       <div>
-        <AChart options={options} series={series} type="line" height={350} />
+        <AChart options={options} series={series} height={650} />
       </div>
     </div>
   );
@@ -116,11 +202,11 @@ export default Chart;
 //         },
 //       ],
 //       options: {
-//         plotOptions:{
-//           area:{
-//             fillTo:'origin',
-//           }
-//         },
+        // plotOptions:{
+        //   area:{
+        //     fillTo:'origin',
+        //   }
+        // },
 //         chart: {
 //           height: 350,
 //           type: "line",
@@ -139,19 +225,19 @@ export default Chart;
 //         xaxis: {
 //           type: "datetime",
 //         },
-//         yaxis: [
-//           {
-//             title: {
-//               text: "Profit",
-//             },
-//           },
-//           {
-//             opposite: true,
-//             title: {
-//               text: "Growth",
-//             },
-//           },
-//         ],
+        // yaxis: [
+        //   {
+        //     title: {
+        //       text: "Profit",
+        //     },
+        //   },
+        //   {
+        //     opposite: true,
+        //     title: {
+        //       text: "Growth",
+        //     },
+        //   },
+        // ],
 //       },
 //     });
 //   }
