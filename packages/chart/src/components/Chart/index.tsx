@@ -8,6 +8,7 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
+
   //1. Manage Data Part
   //1.1 Check mockDataLength
   const dataLength = data.length;
@@ -16,7 +17,7 @@ const Chart = ({ data }: ChartProps) => {
   const dayPair = data.map(
     (daily)=>{
       const currentDayBalanceGrowth = {x: daily.date, y:Number((daily.balance - 30000).toFixed(2))}
-      const currentDayEqualityGrowth = {x: daily.date, y: Number((daily.equity/30000).toFixed(2))}
+      const currentDayEqualityGrowth = {x: daily.date, y: Number((daily.equity/30000-1).toFixed(2))}
       const currentDayProfit = {x: daily.date, y: Number((daily.profit).toFixed(2))}
       // console.log(currentDayBalance)
       return {
@@ -46,10 +47,135 @@ const Chart = ({ data }: ChartProps) => {
     }
   )
   console.log(dailyBalanceGrowth,dailyEqualityGrowth,dailyProfit)
+
+
   //1.3 Sort data by Week(from Sunday)
-  for(var i=0; i<dayPair.length; i++){
-    
+  //due to this new mockDate dived in 5 sets with 5 days per set, so the week data would be 5 sets, and the label will be the first day of each week from Sunday as the first day of week
+  const weeklyBalanceGrowth = [dailyBalanceGrowth[0]]
+  const weeklyEqualityGrowth = [dailyEqualityGrowth[0]]
+  const weeklyProfit = [dailyProfit[0]]
+  const restWeeklyBalanceGrowthArray = dailyBalanceGrowth.slice(1)
+  const restWeeklyEqualityGrowthArray = dailyEqualityGrowth.slice(1)
+  const restWeeklyProfitArray = dailyProfit.slice(1)
+  console.log(restWeeklyBalanceGrowthArray)
+  if(restWeeklyBalanceGrowthArray.length = restWeeklyEqualityGrowthArray.length = restWeeklyProfitArray.length){
+    const numberOfWeek = Math.floor(restWeeklyBalanceGrowthArray.length/5)
+    const restNumberOfWeek = restWeeklyBalanceGrowthArray.length%5
+    //push the integer week data to each array
+    for(let i =0 ; i<numberOfWeek; i++){
+        const weeklyBalanceX = dailyBalanceGrowth[i*5+1].x
+        const weeklyEqualityX = dailyEqualityGrowth[i*5+1].x
+        const weeklyProfitX = dailyProfit[i*5+1].x
+
+        const weeklyBalanceYArray = restWeeklyBalanceGrowthArray.slice(i*5,(i+1)*5)
+        const weeklyEqualityYArray = restWeeklyEqualityGrowthArray.slice(i*5,(i+1)*5)
+        const weeklyProfitYArray = restWeeklyProfitArray.slice(i*5,(i+1)*5)
+
+        const weeklyBalanceYDataArray = weeklyBalanceYArray.map(
+          (item)=>{
+            return item.y
+          }
+        )
+        const weeklyEqualityYDataArray = weeklyEqualityYArray.map(
+          (item)=>{
+            return item.y
+          }
+        )
+        const weeklyProfitYDataArray = weeklyProfitYArray.map(
+          (item)=>{
+            return item.y
+          }
+        )
+
+        const sumBalanceY = weeklyBalanceYDataArray.reduce(
+          (total,num)=>{
+            return (total+num)
+          },0
+        )
+        const sumEqualityY = weeklyEqualityYDataArray.reduce(
+          (total,num)=>{
+            return (total+num)
+          },0
+        )
+        const sumProfitY = weeklyProfitYDataArray.reduce(
+          (total,num)=>{
+            return (total+num)
+          },0
+        )
+
+        const pushBalanceContent = {x: weeklyBalanceX, y:Number(sumBalanceY.toFixed(2))}
+        const pushEqualityContent = {x: weeklyEqualityX, y:Number(sumEqualityY.toFixed(2))}
+        const pushProfitContent = {x: weeklyProfitX, y: Number(sumProfitY.toFixed(2))}
+
+        weeklyBalanceGrowth.push(pushBalanceContent)
+        weeklyEqualityGrowth.push(pushEqualityContent)
+        weeklyProfit.push(pushProfitContent)
+    }
+    // console.log(dailyBalanceGrowth)
+    // console.log(weeklyBalanceGrowth)
+    // console.log(weeklyEqualityGrowth)
+    // console.log(weeklyProfit)
+
+    //push the rest day data to each array
+    const restPosition = dailyBalanceGrowth.length - restNumberOfWeek
+    const lastPosition = dailyBalanceGrowth.length - 1
+
+    const restBalanceArrayX = dailyBalanceGrowth[restPosition].x
+    const restEqualityArrayX = dailyEqualityGrowth[restPosition].x
+    const restProfitArrayX = dailyProfit[restPosition].x
+
+    const restBalanceGrowthArray = dailyBalanceGrowth.slice(restPosition,lastPosition+1)
+    const restEqualityGrowthArray = dailyEqualityGrowth.slice(restPosition,lastPosition+1)
+    const restProfitArray = dailyProfit.slice(restPosition,lastPosition+1)
+
+    const restBalanceGrowthYDataArray = restBalanceGrowthArray.map(
+      (item)=>{
+        return item.y
+      }
+    )
+    const restEqualityGrowthYDataArray = restEqualityGrowthArray.map(
+      (item)=>{
+        return item.y
+      }
+    )
+    const restProfitYDataArray = restProfitArray.map(
+      (item)=>{
+        return item.y
+      }
+    )
+
+    // console.log(restBalanceGrowthYDataArray)
+    const restSumBalanceY = restBalanceGrowthYDataArray.reduce(
+      (total,num)=>{
+        return (total+num)
+      },0
+    )
+    const restSumEqualityY = restEqualityGrowthYDataArray.reduce(
+      (total,num)=>{
+        return (total+num)
+      },0
+    )
+    const restSumProfitY = restProfitYDataArray.reduce(
+      (total,num)=>{
+        return (total+num)
+      },0
+    )
+
+    const pushRestBalanceContent = {x: restBalanceArrayX, y:Number(restSumBalanceY.toFixed(2))}
+    weeklyBalanceGrowth.push(pushRestBalanceContent)
+    const pushRestEqualityContent = {x: restEqualityArrayX, y: Number(restSumEqualityY.toFixed(2))}
+    weeklyEqualityGrowth.push(pushRestEqualityContent)
+    const pushRestProfitContent = {x: restProfitArrayX, y: Number(restSumProfitY.toFixed(2))}
+    weeklyProfit.push(pushRestProfitContent)
+
+    console.log(weeklyBalanceGrowth)
+    console.log(weeklyEqualityGrowth)
+    console.log(weeklyProfit)
   }
+  else{
+    console.log("Some data may be droped! check the constants!")
+  }
+
   //1.4 Sort data by Month
 
 
@@ -93,12 +219,12 @@ const Chart = ({ data }: ChartProps) => {
     }, 
     {
       name: 'EqualityGrowth',
-      type: 'area',
+      type: 'line',
       data: dailyEqualityGrowth
     },
     {
       name: 'Profit',
-      type: 'line',
+      type: 'area',
       data: dailyProfit
     }, 
 ];
