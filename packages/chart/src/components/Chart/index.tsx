@@ -46,7 +46,7 @@ const Chart = ({ data }: ChartProps) => {
       return item.currentDayProfit
     }
   )
-  console.log(dailyBalanceGrowth,dailyEqualityGrowth,dailyProfit)
+  // console.log(dailyBalanceGrowth,dailyEqualityGrowth,dailyProfit)
 
 
   //1.3 Sort data by Week(from Sunday)
@@ -57,7 +57,7 @@ const Chart = ({ data }: ChartProps) => {
   const restWeeklyBalanceGrowthArray = dailyBalanceGrowth.slice(1)
   const restWeeklyEqualityGrowthArray = dailyEqualityGrowth.slice(1)
   const restWeeklyProfitArray = dailyProfit.slice(1)
-  console.log(restWeeklyBalanceGrowthArray)
+  // console.log(restWeeklyBalanceGrowthArray)
   if(restWeeklyBalanceGrowthArray.length = restWeeklyEqualityGrowthArray.length = restWeeklyProfitArray.length){
     const numberOfWeek = Math.floor(restWeeklyBalanceGrowthArray.length/5)
     const restNumberOfWeek = restWeeklyBalanceGrowthArray.length%5
@@ -167,16 +167,119 @@ const Chart = ({ data }: ChartProps) => {
     weeklyEqualityGrowth.push(pushRestEqualityContent)
     const pushRestProfitContent = {x: restProfitArrayX, y: Number(restSumProfitY.toFixed(2))}
     weeklyProfit.push(pushRestProfitContent)
-
-    console.log(weeklyBalanceGrowth)
-    console.log(weeklyEqualityGrowth)
-    console.log(weeklyProfit)
+    // console.log(weeklyBalanceGrowth)
+    // console.log(weeklyEqualityGrowth)
+    // console.log(weeklyProfit)
   }
   else{
     console.log("Some data may be droped! check the constants!")
   }
 
   //1.4 Sort data by Month
+  const monthlyBalanceGrowth = [dailyBalanceGrowth[0]]
+  const monthlyEqualityGrowth = [dailyEqualityGrowth[0]]
+  const monthlyProfit = [dailyProfit[0]]
+
+  //second month data generator
+  const secondMonthBalanceArray = dailyBalanceGrowth.slice(1,21)
+  const secondMonthEqualityArray = dailyEqualityGrowth.slice(1,21)
+  const secondMonthProfitArray = dailyProfit.slice(1,21)
+
+  const secondMonthBalanceX = secondMonthBalanceArray[0].x
+  const secondMonthEqualityX = secondMonthEqualityArray[0].x
+  const secondMonthProfitX = secondMonthProfitArray[0].x
+
+  const secondMonthBalanceDataArray = secondMonthBalanceArray.map(
+    (item)=>{
+      return item.y
+    }
+  )
+  const secondMonthEqualityDataArray = secondMonthEqualityArray.map(
+    (item)=>{
+      return item.y
+    }
+  )
+  const secondMonthProfitDataArray = secondMonthProfitArray.map(
+    (item)=>{
+      return item.y
+    }
+  )
+
+  const secondMonthBalanceY = secondMonthBalanceDataArray.reduce(
+    (total,num)=>{
+      return total+num
+    },0
+  )
+  const secondMonthEqualityY = secondMonthEqualityDataArray.reduce(
+    (total,num)=>{
+      return total+num
+    },0
+  )
+  const secondMonthProfitY = secondMonthProfitDataArray.reduce(
+    (total,num)=>{
+      return total+num
+    },0
+  )
+
+  const secondMonthBalanceContent = {x: secondMonthBalanceX, y:Number(secondMonthBalanceY.toFixed(2))}
+  monthlyBalanceGrowth.push(secondMonthBalanceContent)
+
+  const secondMonthEqualityContent = {x: secondMonthEqualityX, y:Number(secondMonthEqualityY.toFixed(2))}
+  monthlyEqualityGrowth.push(secondMonthEqualityContent)
+
+  const secondMonthProfitContent = {x: secondMonthProfitX, y:Number(secondMonthProfitY.toFixed(2))}
+  monthlyProfit.push(secondMonthProfitContent)
+
+//third month data generator
+
+const thirdMonthBalanceArray = dailyBalanceGrowth.slice(21,25)
+const thirdMonthEqualityArray = dailyEqualityGrowth.slice(21,25)
+const thirdMonthProfitArray = dailyProfit.slice(21,25)
+
+const thirdMonthBalanceX = thirdMonthBalanceArray[0].x
+const thirdMonthEqualityX = thirdMonthEqualityArray[0].x
+const thirdMonthProfitX = thirdMonthProfitArray[0].x
+
+const thirdMonthBalanceDataArray = thirdMonthBalanceArray.map(
+  (item)=>{
+    return item.y
+  }
+)
+const thirdMonthEqualityDataArray = thirdMonthEqualityArray.map(
+  (item)=>{
+    return item.y
+  }
+)
+const thirdMonthProfitDataArray = thirdMonthProfitArray.map(
+  (item)=>{
+    return item.y
+  }
+)
+
+const thirdMonthBalanceY = thirdMonthBalanceDataArray.reduce(
+  (total,num)=>{
+    return total+num
+  },0
+)
+const thirdMonthEqualityY = thirdMonthEqualityDataArray.reduce(
+  (total,num)=>{
+    return total+num
+  },0
+)
+const thirdMonthProfitY = thirdMonthProfitDataArray.reduce(
+  (total,num)=>{
+    return total+num
+  },0
+)
+
+const thirdMonthBalanceContent = {x: thirdMonthBalanceX, y:Number(thirdMonthBalanceY.toFixed(2))}
+monthlyBalanceGrowth.push(thirdMonthBalanceContent)
+
+const thirdMonthEqualityContent = {x: thirdMonthEqualityX, y:Number(thirdMonthEqualityY.toFixed(2))}
+monthlyEqualityGrowth.push(thirdMonthEqualityContent)
+
+const thirdMonthProfitContent = {x: thirdMonthProfitX, y:Number(thirdMonthProfitY.toFixed(2))}
+monthlyProfit.push(thirdMonthProfitContent)
 
 
 
