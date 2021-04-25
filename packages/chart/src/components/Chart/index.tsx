@@ -610,8 +610,8 @@ const Chart = ({ data }: ChartProps) => {
           <div className="detailContent">$ {profitLable}</div>
         </div>
       </div>
-      <div>
-        <AChart options={optionsContent} series={seriesContent} height={650} />
+      <div className="tableContainer">
+        <div className="tablechartContainer"><AChart options={optionsContent} series={seriesContent} /></div>
       </div>
       <div className="buttonContainer">
         <ToggleButtonGroup
@@ -620,14 +620,14 @@ const Chart = ({ data }: ChartProps) => {
           onChange={handleAlignment}
           aria-label="text alignment"
         >
-          <ToggleButton value="daily" aria-label="left aligned">
-            Daily
+          <ToggleButton value="daily" aria-label="left aligned" className="toggleButton">
+            D
           </ToggleButton>
           <ToggleButton value="weekly" aria-label="centered">
-            Weekly
+            W
           </ToggleButton>
           <ToggleButton value="monthly" aria-label="right aligned">
-            Monthly
+            M
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
