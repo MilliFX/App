@@ -21,3 +21,23 @@
     display: flex;
     justify-content: center;
 }
+.dateContainer{
+    width: 100%;
+    font-family: 'Original Surfer', cursive;
+    font-size: 1.5em;
+    display: flex;
+    justify-content: center;
+}
+.dataContainer{
+    width:100%;
+    display:flex;
+    justify-content: center;
+    background-color: red;
+}
+.dataDetailContainer{
+    width:30%;
+    background-color: yellow;
+}
+.detailTitle{
+    font-size: 1.2em;
+}

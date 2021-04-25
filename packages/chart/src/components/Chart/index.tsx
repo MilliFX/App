@@ -10,6 +10,10 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
+  const [balanceLable, setBalanceLable] = useState(0.00);
+  const [equityLable, setEquityLable] = useState(0.00);
+  const [profitLable, setProfitLable] = useState(0.00);
+
   //1. Manage Data Part
   //1.1 Check mockDataLength
   const dataLength = data.length;
@@ -304,17 +308,43 @@ const Chart = ({ data }: ChartProps) => {
   const options = {
     chart: {
       // background: "#f5f5f5",
+      events: {
+        click: function (
+          event: any,
+          chartContext: any,
+          config: any
+        ) {
+          // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts.
+          // console.log(event)
+          console.log(event, chartContext);
+          console.log(config)
+          // const labPosition = config.dataPointIndex;
+          // const labBalance = config.w.config.series[0].data[labPosition].y
+          // const labEquity = config.w.config.series[1].data[labPosition].y
+          // const labProfit  = config.w.config.series[2].data[labPosition].y
+          const labPosition = config.dataPointIndex;
+          const labBalance = config.globals.series[0][labPosition]
+          const labEquity = config.globals.series[1][labPosition]
+          const labProfit  = config.globals.series[2][labPosition]
+          console.log(labBalance)
+          console.log(labEquity)
+          console.log(labProfit)
+          setBalanceLable(labBalance)
+          setEquityLable(labEquity)
+          setProfitLable(labProfit)
+        },
+      },
       toolbar: {
-        show: false,
-        offsetX: -80,
+        show: true,
+        offsetX: 0,
         offsetY: 0,
         tools: {
-          download: true,
+          download: false,
           selection: true,
           zoom: true,
           zoomin: true,
           zoomout: true,
-          pan: true,
+          pan: false,
         },
         export: {
           csv: {
@@ -336,7 +366,7 @@ const Chart = ({ data }: ChartProps) => {
         autoSelected: "zoom",
       },
       dropShadow: {
-        enabled: true,
+        enabled: false,
         enabledOnSeries: [0, 1, 2],
         top: 0,
         left: 0,
@@ -460,6 +490,16 @@ const Chart = ({ data }: ChartProps) => {
         opacity: 0.45,
       },
     },
+
+    tooltip: {
+      enabled: true,
+      enabledOnSeries: [0, 1, 2],
+      shared: true,
+      followCursor: true,
+    },
+    legend:{
+      show:false
+    }
   };
 
   //2.2 Apexchart data filled
@@ -535,10 +575,29 @@ const Chart = ({ data }: ChartProps) => {
       setSeriesContent(monthlySeries);
     }
   };
+  const newDate = new Date().toDateString();
+  // console.log(newDate);
 
   return (
     <div className="apexchartContainer">
       <div className="titleContainer">ApexChart Demo</div>
+      <div className="dateContainer">
+        <div>{newDate}</div>
+      </div>
+      <div className="dataContainer">
+        <div className="dataDetailContainer">
+          <div className="detailTitle">Balance</div>
+          <div>${balanceLable}</div>
+        </div>
+        <div className="dataDetailContainer">
+          <div className="detailTitle">Equity</div>
+          <div>${equityLable}</div>
+        </div>
+        <div className="dataDetailContainer">
+          <div className="detailTitle">Profit</div>
+          <div>{profitLable}%</div>
+        </div>
+      </div>
       <div>
         <AChart options={optionsContent} series={seriesContent} height={650} />
       </div>
@@ -565,385 +624,3 @@ const Chart = ({ data }: ChartProps) => {
 };
 
 export default Chart;
-
-// interface ChartProps {
-//   data: Daily[];
-// }
-// interface SeriesData{
-//   name:string,
-//   type:string,
-//   data: number[]
-// }
-
-// type MyState = {
-//   series: SeriesData[]
-//   options: any
-// }
-// class Chart extends React.Component< {data: ChartProps} > {
-
-//   state: MyState = {
-//     series: [],
-//     options: {
-// chart: {},
-// stroke: {},
-// title: {},
-// dataLabels: {},
-// labels: [],
-// xaxis: {},
-// yaxis: [],
-// fill:{
-//   type:'gradient',
-//   gradient:{
-//     shade:'dark',
-//     type:"horizontal",
-//     shadeIntensity:0.5,
-//     gradientToColors:undefined,
-//     inverseColors:true,
-//     opacityForm:1,
-//     opacityTo:1,
-//     stops:[0,50,100],
-//     colorStoprs:[]
-//   }
-//       },
-//       theme:{
-//         palette:'palette1'
-//       }
-//     },
-//   }
-
-//   fetchDay =()=>{
-//     // console.log(this.props.data)
-//     const eqarray:number[] = []
-//     const baarray:number[] = []
-//     const prarray:number[] = []
-//     const daarray:string[] = []
-//     const eqdata = this.props.data.map(
-//       (daily)=>{
-//         // return{
-//         //   data: daily.equity
-//         // }
-//         const equityGrowth = Number(Number(daily.equity)/30000-1).toFixed(2)
-//         const balanceGrowth = Number(Number(daily.balance)-30000).toFixed(2)
-//         const dailyProfit = Number(daily.profit).toFixed(2)
-//         eqarray.push(Number(equityGrowth))
-//         baarray.push(Number(balanceGrowth))
-//         prarray.push(Number(dailyProfit))
-//         daarray.push(daily.date)
-//       }
-//     )
-//     // console.log(eqarray)
-
-//     this.setState({
-//       series: [
-//         {
-//           name: "Profit",
-//           type: "column",
-//           data: prarray,
-//         },
-//         {
-//           name: "Growth",
-//           type: "line",
-//           data: baarray,
-//         },
-//         {
-//           name: "Equity Growth",
-//           type: "line",
-//           data: eqarray,
-//         },
-//       ],
-//       options: {
-// plotOptions:{
-//   area:{
-//     fillTo:'origin',
-//   }
-// },
-//         chart: {
-//           height: 350,
-//           type: "line",
-//         },
-// stroke: {
-//   width: [0, 4],
-// },
-//         title: {
-//           text: "Millifx ApexChart Demo",
-//         },
-//         dataLabels: {
-//           enabled: true,
-//           enabledOnSeries: [1],
-//         },
-//         labels: daarray,
-//         xaxis: {
-//           type: "datetime",
-//         },
-// yaxis: [
-//   {
-//     title: {
-//       text: "Profit",
-//     },
-//   },
-//   {
-//     opposite: true,
-//     title: {
-//       text: "Growth",
-//     },
-//   },
-// ],
-//       },
-//     });
-//   }
-//   fetchWeek =()=>{
-//     // console.log(this.props.data)
-//     const eqarray:number[] = []
-//     const baarray:number[] = []
-//     const prarray:number[] = []
-//     const daarray:string[] = []
-//     const equityarray:number[] = []
-//     const balancearray:number[] = []
-//     const profitarray:number[] = []
-
-//     const eqdata = this.props.data.map(
-//       (daily)=>{
-//         // return{
-//         //   data: daily.equity
-//         // }
-//         const equityGrowth = Number(Number(daily.equity)/30000-1).toFixed(2)
-//         const balanceGrowth = Number(Number(daily.balance)-30000).toFixed(2)
-//         const dailyProfit = Number(daily.profit).toFixed(2)
-//         daarray.push(daily.date)
-//         eqarray.push(Number(equityGrowth))
-//         baarray.push(Number(balanceGrowth))
-//         prarray.push(Number(dailyProfit))
-//       }
-//     )
-//     console.log(baarray)
-//     eqarray.shift()
-//     baarray.shift()
-//     prarray.shift()
-//     console.log(baarray)
-//     let eqsum = 0
-//     let basum = 0
-//     let prosum = 0
-//     for(let i = 0; i<5;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     for(let i = 5; i<10 ;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     for(let i = 10; i<15 ;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     for(let i = 15; i<20 ;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     for(let i = 20; i<24 ;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     console.log(equityarray)
-
-//     this.setState({
-//       series: [
-//         {
-//           name: "Profit",
-//           type: "column",
-//           data: profitarray,
-//         },
-//         {
-//           name: "Growth",
-//           type: "line",
-//           data: balancearray,
-//         },
-//         {
-//           name: "Equity Growth",
-//           type: "line",
-//           data: equityarray,
-//         },
-//       ],
-//       options: {
-//         chart: {
-//           height: 350,
-//           type: "line",
-//         },
-//         stroke: {
-//           width: [0, 4],
-//         },
-//         title: {
-//           text: "Millifx ApexChart Demo",
-//         },
-//         dataLabels: {
-//           enabled: true,
-//           enabledOnSeries: [1],
-//         },
-//         labels: {daarray},
-//         xaxis: {
-//           type: "datetime",
-//         },
-//         yaxis: [
-//           {
-//             title: {
-//               text: "Profit",
-//             },
-//           },
-//           {
-//             opposite: true,
-//             title: {
-//               text: "Growth",
-//             },
-//           },
-//         ],
-//       },
-//     });
-//   }
-//   fetchMonth =()=>{
-//     // console.log(this.props.data)
-//     const eqarray:number[] = []
-//     const baarray:number[] = []
-//     const prarray:number[] = []
-//     const daarray:string[] = []
-//     const equityarray:number[] = []
-//     const balancearray:number[] = []
-//     const profitarray:number[] = []
-
-//     const eqdata = this.props.data.map(
-//       (daily)=>{
-//         // return{
-//         //   data: daily.equity
-//         // }
-//         const equityGrowth = Number(Number(daily.equity)/30000-1).toFixed(2)
-//         const balanceGrowth = Number(Number(daily.balance)-30000).toFixed(2)
-//         const dailyProfit = Number(daily.profit).toFixed(2)
-//         daarray.push(daily.date)
-//         console.log(daarray)
-//         eqarray.push(Number(equityGrowth))
-//         baarray.push(Number(balanceGrowth))
-//         prarray.push(Number(dailyProfit))
-//       }
-//     )
-//     console.log(baarray)
-//     eqarray.shift()
-//     baarray.shift()
-//     prarray.shift()
-//     console.log(baarray)
-//     let eqsum = 0
-//     let basum = 0
-//     let prosum = 0
-//     for(let i = 0; i<20;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     for(let i = 20; i<24 ;i++){
-//       eqsum += eqarray[i]
-//       basum += baarray[i]
-//       prosum += prarray[i]
-//     }
-//     equityarray.push(eqsum)
-//     balancearray.push(basum)
-//     profitarray.push(prosum)
-//     console.log(equityarray)
-
-//     this.setState({
-//       series: [
-//         {
-//           name: "Profit",
-//           type: "column",
-//           data: profitarray,
-//         },
-//         {
-//           name: "Growth",
-//           type: "line",
-//           data: balancearray,
-//         },
-//         {
-//           name: "Equity Growth",
-//           type: "line",
-//           data: equityarray,
-//         },
-//       ],
-//       options: {
-//         chart: {
-//           height: 350,
-//           type: "line",
-//         },
-//         stroke: {
-//           width: [0, 4],
-//         },
-//         title: {
-//           text: "Millifx ApexChart Demo",
-//         },
-//         dataLabels: {
-//           enabled: true,
-//           enabledOnSeries: [1],
-//         },
-//         labels: {},
-//         xaxis: {
-//           type: "datetime",
-//         },
-//         yaxis: [
-//           {
-//             title: {
-//               text: "Profit",
-//             },
-//           },
-//           {
-//             opposite: true,
-//             title: {
-//               text: "Growth",
-//             },
-//           },
-//         ],
-//       },
-//     });
-//   }
-
-//   componentDidMount(){
-//     this.fetchDay()
-//   }
-//   render(){
-//     const { options , series } = this.state;
-//     return (
-//       <div id="chart">
-//         <div className="buttonContainer">
-//           <button onClick={this.fetchDay}>Day</button>
-//           <button onClick={this.fetchWeek}>Week</button>
-//           <button onClick={this.fetchMonth}>Month</button>
-//         </div>
-//         <AChart
-//           options={options}
-//           series={series}
-//           type="line"
-//           height={350}
-//         />
-//       </div>
-//     );
-//   }
-// }
-
-// export default Chart;
