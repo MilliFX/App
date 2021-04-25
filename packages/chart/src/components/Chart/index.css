@@ -24,7 +24,7 @@
 .dateContainer{
     width: 100%;
     font-family: 'Original Surfer', cursive;
-    font-size: 1.5em;
+    font-size: 3em;
     display: flex;
     justify-content: center;
 }
@@ -39,5 +39,16 @@
     /* background-color: yellow; */
 }
 .detailTitle{
-    font-size: 1.2em;
+    font-size: 2em;
+    text-align: center;
+}
+.detailContent{
+    font-size: 1.5em;
+    text-align: center;
+}
+.apexcharts-xaxistooltip{
+    display:none;
+}
+.apexcharts-xaxis-texts-g{
+    display:none;
 }

@@ -10,9 +10,14 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
-  const [balanceLable, setBalanceLable] = useState(0.00);
-  const [equityLable, setEquityLable] = useState(0.00);
-  const [profitLable, setProfitLable] = useState(0.00);
+  const newDate = new Date().toDateString();
+  const initBalance = 5;
+  const initEquity = 5;
+  const initProfit = 5;
+  const [todayLable, setTodayLable] = useState("Today");
+  const [balanceLable, setBalanceLable] = useState(initBalance);
+  const [equityLable, setEquityLable] = useState(initEquity);
+  const [profitLable, setProfitLable] = useState(initProfit);
 
   //1. Manage Data Part
   //1.1 Check mockDataLength
@@ -315,23 +320,23 @@ const Chart = ({ data }: ChartProps) => {
           config: any
         ) {
           // The last parameter config contains additional information like `seriesIndex` and `dataPointIndex` for cartesian charts.
-          // console.log(event)
-          console.log(event, chartContext);
-          console.log(config)
-          // const labPosition = config.dataPointIndex;
-          // const labBalance = config.w.config.series[0].data[labPosition].y
-          // const labEquity = config.w.config.series[1].data[labPosition].y
-          // const labProfit  = config.w.config.series[2].data[labPosition].y
           const labPosition = config.dataPointIndex;
           const labBalance = config.globals.series[0][labPosition]
           const labEquity = config.globals.series[1][labPosition]
           const labProfit  = config.globals.series[2][labPosition]
-          console.log(labBalance)
-          console.log(labEquity)
-          console.log(labProfit)
+          const labToday = config.globals.categoryLabels[labPosition]
+          // console.log(`labPosition${labPosition}`)
           setBalanceLable(labBalance)
           setEquityLable(labEquity)
           setProfitLable(labProfit)
+          setTodayLable(labToday)
+          // console.log(config)
+          if(labPosition == -1){
+            setBalanceLable(initBalance)
+            setEquityLable(initEquity)
+            setProfitLable(initProfit)
+            setTodayLable("Today")
+          }
         },
       },
       toolbar: {
@@ -392,13 +397,6 @@ const Chart = ({ data }: ChartProps) => {
       },
     },
     xaxis: {
-      style: {
-        colors: [],
-        fontSize: "20px",
-        fontFamily: "Helvetica, Arial, sans-serif",
-        fontWeight: 400,
-        cssClass: "apexcharts-xaxis-label",
-      },
       axisBorder: {
         show: true,
         color: "#78909C",
@@ -408,16 +406,21 @@ const Chart = ({ data }: ChartProps) => {
         offsetY: 0,
       },
       axisTicks: {
-        show: true,
+        show: false,
         borderType: "solid",
         color: "#78909C",
         height: 6,
         offsetX: 0,
         offsetY: 0,
       },
+      crosshairs:{
+        show:true
+      },
     },
     yaxis: [
       {
+        //control Y tag data and title
+        show:false,
         title: {
           text: "BalanceGrowth",
         },
@@ -428,6 +431,8 @@ const Chart = ({ data }: ChartProps) => {
         },
       },
       {
+        //control Y tag data and title
+        show:false,
         opposite: true,
         title: {
           text: "EqualityGrowth",
@@ -442,14 +447,16 @@ const Chart = ({ data }: ChartProps) => {
     },
     //boreder-size
     stroke: {
-      width: [0, 3],
+      width: [3, 3, 3],
+      curve:'smooth',
     },
     foreColor: "#373d3f",
     defaultLocale: "en",
     redrawOnParentResize: true,
     redrawOnWindowResize: true,
     dataLabels: {
-      enabled: true,
+      //The data tag on each line
+      enabled: false,
       enabledOnSeries: [2],
       formatter: function (val: any, opts: any) {
         return `$${val}`;
@@ -496,9 +503,15 @@ const Chart = ({ data }: ChartProps) => {
       enabledOnSeries: [0, 1, 2],
       shared: true,
       followCursor: true,
+      custom:()=>{
+        return null
+      },
+      marker:{
+        show:false,
+      }
     },
     legend:{
-      show:false
+      show:true
     }
   };
 
@@ -507,7 +520,7 @@ const Chart = ({ data }: ChartProps) => {
   const dailySeries = [
     {
       name: "BalanceGrowth",
-      type: "column",
+      type: "line",
       data: dailyBalanceGrowth,
     },
     {
@@ -517,14 +530,14 @@ const Chart = ({ data }: ChartProps) => {
     },
     {
       name: "Profit",
-      type: "area",
+      type: "line",
       data: dailyProfit,
     },
   ];
   const weeklySeries = [
     {
       name: "BalanceGrowth",
-      type: "column",
+      type: "line",
       data: weeklyBalanceGrowth,
     },
     {
@@ -534,14 +547,14 @@ const Chart = ({ data }: ChartProps) => {
     },
     {
       name: "Profit",
-      type: "area",
+      type: "line",
       data: weeklyProfit,
     },
   ];
   const monthlySeries = [
     {
       name: "BalanceGrowth",
-      type: "column",
+      type: "line",
       data: monthlyBalanceGrowth,
     },
     {
@@ -551,7 +564,7 @@ const Chart = ({ data }: ChartProps) => {
     },
     {
       name: "Profit",
-      type: "area",
+      type: "line",
       data: monthlyProfit,
     },
   ];
@@ -575,14 +588,13 @@ const Chart = ({ data }: ChartProps) => {
       setSeriesContent(monthlySeries);
     }
   };
-  const newDate = new Date().toDateString();
-  // console.log(newDate);
+  
 
   return (
     <div className="apexchartContainer">
       <div className="titleContainer">ApexChart Demo</div>
       <div className="dateContainer">
-        <div>{newDate}</div>
+        <div>{todayLable}</div>
       </div>
       <div className="dataContainer">
         <div className="dataDetailContainer">
@@ -591,11 +603,11 @@ const Chart = ({ data }: ChartProps) => {
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Equity</div>
-          <div className="detailContent">$ {equityLable}</div>
+          <div className="detailContent">{equityLable} %</div>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Profit</div>
-          <div className="detailContent">{profitLable} %</div>
+          <div className="detailContent">$ {profitLable}</div>
         </div>
       </div>
       <div>
