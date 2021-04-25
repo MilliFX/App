@@ -309,7 +309,7 @@ const Chart = ({ data }: ChartProps) => {
     chart: {
       // background: "#f5f5f5",
       events: {
-        click: function (
+        mouseMove: function (
           event: any,
           chartContext: any,
           config: any
@@ -587,15 +587,15 @@ const Chart = ({ data }: ChartProps) => {
       <div className="dataContainer">
         <div className="dataDetailContainer">
           <div className="detailTitle">Balance</div>
-          <div>${balanceLable}</div>
+          <div className="detailContent">$ {balanceLable}</div>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Equity</div>
-          <div>${equityLable}</div>
+          <div className="detailContent">$ {equityLable}</div>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Profit</div>
-          <div>{profitLable}%</div>
+          <div className="detailContent">{profitLable} %</div>
         </div>
       </div>
       <div>

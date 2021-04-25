@@ -32,11 +32,11 @@
     width:100%;
     display:flex;
     justify-content: center;
-    background-color: red;
+    /* background-color: red; */
 }
 .dataDetailContainer{
     width:30%;
-    background-color: yellow;
+    /* background-color: yellow; */
 }
 .detailTitle{
     font-size: 1.2em;
