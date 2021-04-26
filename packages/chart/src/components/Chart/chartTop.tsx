@@ -10,51 +10,43 @@ const palette = {
   profitNegative: "#6FCF97",
 };
 
+interface chartTop {
+  data: Daily;
+}
 
-const ChartTop = (props:Daily) => {
-    return (
-        <div>
-            <Row justify="center">
+const ChartTop = (props: chartTop) => {
+  const { date, balance, profit, equity } = props.data;
+  return (
+    <div>
+      <Row justify="center">
         <Col span={24}>
-          <Text>{props.date}</Text>
+          <Text>{date}</Text>
         </Col>
       </Row>
       <Row justify="center">
         <Col span={12}>
-          <Statistic
-            title="Balance"
-            value={props.balance}
-            precision={2}
-            prefix="$"
-          />
+          <Statistic title="Balance" value={balance} precision={2} prefix="$" />
         </Col>
         <Col span={12}>
-          <Statistic
-            title="Equity"
-            value={props.equity}
-            precision={2}
-            prefix="$"
-          />
+          <Statistic title="Equity" value={equity} precision={2} prefix="$" />
         </Col>
       </Row>
       <Row justify="center">
         <Col span={24}>
           <Statistic
             title="Profit"
-            value={props.profit}
+            value={profit}
             precision={2}
             valueStyle={{
               color:
-              props.profit > 0
-                  ? palette.profitPositive
-                  : palette.profitNegative,
+                profit > 0 ? palette.profitPositive : palette.profitNegative,
             }}
             suffix="%"
           />
         </Col>
       </Row>
-        </div>
-    );
+    </div>
+  );
 };
 
 export default ChartTop;
