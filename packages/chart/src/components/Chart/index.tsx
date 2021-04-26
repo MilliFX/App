@@ -331,6 +331,24 @@ const Chart = ({ data }: ChartProps) => {
           setProfitLable(labProfit)
           setTodayLable(labToday)
           // console.log(config)
+          //if number is bigger than 0, the common color, else green
+          if(labBalance < 0){
+            document.getElementById('balanceLable').style.color = '#c9d732'
+          }
+          else{
+            document.getElementById('balanceLable').style.color = 'black'
+          }
+          if(labEquity < 0){
+            document.getElementById('equityLable').style.color = '#c9d732'
+          }
+          else{
+            document.getElementById('equityLable').style.color = 'black'
+          }
+          if(labProfit < 0){
+            document.getElementById('profitLable').style.color = '#c9d732'
+          }else{
+            document.getElementById('profitLable').style.color = 'black'
+          }
           if(labPosition == -1){
             setBalanceLable(initBalance)
             setEquityLable(initEquity)
@@ -599,15 +617,15 @@ const Chart = ({ data }: ChartProps) => {
       <div className="dataContainer">
         <div className="dataDetailContainer">
           <div className="detailTitle">Balance</div>
-          <div className="detailContent">$ {balanceLable}</div>
+          <div className="detailContent" id="balanceLable">$ {balanceLable}</div>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Equity</div>
-          <div className="detailContent">{equityLable} %</div>
+          <div className="detailContent" id="equityLable">{equityLable} %</div>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Profit</div>
-          <div className="detailContent">$ {profitLable}</div>
+          <div className="detailContent" id="profitLable">$ {profitLable}</div>
         </div>
       </div>
       <div className="tableContainer">
