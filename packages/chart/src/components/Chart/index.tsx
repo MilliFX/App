@@ -2,7 +2,7 @@ import { Daily } from "../../utils/constants";
 import { useState, useEffect } from "react";
 import ChartTop from "./chartTop";
 import ChartBottom from "./chartBottom";
-import Animation from "./animation";
+import MainChart from "./mainChart";
 
 interface ChartProps {
   data: Daily[];
@@ -33,17 +33,17 @@ const Chart = ({ data }: ChartProps) => {
       : rawData
   );
 
-  const actions = {
-    weekData: () => {
+  
+    const onWeekSelected= () => {
       setState(rawData.slice(rawData.length - 8, rawData.length - 1));
-    },
-    monthData: () => {
+    }
+    const onMonthSelected= () => {
       setState(rawData.slice(rawData.length - 16, rawData.length - 1));
-    },
-    threeMonthData: () => {
+    }
+    const onThreeMonthSelected= () => {
       setState(rawData.slice(rawData.length - 23, rawData.length - 1));
-    },
-  };
+    }
+
 
   const [current, setCurrent] = useState({
     date: "Today",
@@ -64,20 +64,18 @@ const Chart = ({ data }: ChartProps) => {
     });
   };
 
-  const animationFunctions = {
-    onMouseLeave: () =>
-      setCurrent({
-        date: "Today",
-        balance: state[state.length - 1].balance,
-        equity: state[state.length - 1].equity,
-        profit: state[state.length - 1].profit,
-      }),
-    onNearestX: onNearestX,
-    balanceLegend: () => setShowBalance(!showBalance),
-    equityLegend: () => setShowEquity(!showEquity),
-  };
+  const onMouseLeave=() =>
+  setCurrent({
+    date: "Today",
+    balance: state[state.length - 1].balance,
+    equity: state[state.length - 1].equity,
+    profit: state[state.length - 1].profit,
+  });
 
-  const animationSetting = {
+  const balanceLegend=()=> setShowBalance(!showBalance);
+  const equityLegend= () => setShowEquity(!showEquity)
+
+ const animationSetting = {
     domain: domain,
     state: state,
     showEquity: showEquity,
@@ -94,8 +92,18 @@ const Chart = ({ data }: ChartProps) => {
   return (
     <>
       <ChartTop data={current} />
-      <Animation data={animationSetting} handleClick={animationFunctions} />
-      <ChartBottom handleClick={actions} />
+      <MainChart 
+      data={animationSetting} 
+      onNearestX={onNearestX}  
+      onMouseLeave={onMouseLeave}
+      balanceLegend={balanceLegend}
+      equityLegend={equityLegend}
+      />
+      <ChartBottom 
+      onWeekSelected={onWeekSelected}
+      onMonthSelected={onMonthSelected}
+      onThreeMonthSelected={onThreeMonthSelected}
+      />
     </>
   );
 };

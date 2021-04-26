@@ -1,15 +1,8 @@
 import { Statistic, Row, Col, Typography } from "antd";
 import "antd/dist/antd.css";
+import { Daily, palette } from "../../utils/constants";
+
 const { Text } = Typography;
-import { Daily } from "../../utils/constants";
-
-const palette = {
-  balance: "#EB5757",
-  equity: "#2F80ED",
-  profitPositive: "#F2994A",
-  profitNegative: "#6FCF97",
-};
-
 interface chartTop {
   data: Daily;
 }

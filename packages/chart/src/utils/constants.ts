@@ -5,6 +5,14 @@ export interface Daily {
   equity: number;
 }
 
+
+export const palette = {
+   balance: "#EB5757",
+   equity: "#2F80ED",
+   profitPositive: "#F2994A",
+   profitNegative: "#6FCF97",
+ };
+
 export const mockData: Daily[] = [
   {
      "date":"01/31/2021",

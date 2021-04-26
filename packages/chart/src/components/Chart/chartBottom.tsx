@@ -1,9 +1,10 @@
 import {  Row, Col, Button } from "antd";
 import "antd/dist/antd.css";
 
+
 const ChartBottom = (props:any) => {
 
-  const {weekData,monthData,threeMonthData}=props.handleClick
+  const {onWeekSelected,onMonthSelected,onThreeMonthSelected}=props
  
   return ( 
   <>
@@ -11,7 +12,7 @@ const ChartBottom = (props:any) => {
   <Col span={4}>
     <Button
       type="text"
-      onClick={weekData}
+      onClick={onWeekSelected}
     >
       1W
     </Button>
@@ -19,7 +20,7 @@ const ChartBottom = (props:any) => {
   <Col span={4}>
     <Button
       type="text"
-      onClick={monthData}
+      onClick={onMonthSelected}
     >
       1M
     </Button>
@@ -27,7 +28,7 @@ const ChartBottom = (props:any) => {
   <Col span={4}>
     <Button
       type="text"
-      onClick={threeMonthData}
+      onClick={onThreeMonthSelected}
     >
       3M
     </Button>

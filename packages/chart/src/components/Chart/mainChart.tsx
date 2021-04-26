@@ -1,4 +1,4 @@
-import { Daily } from "../../utils/constants";
+import { Daily,palette } from "../../utils/constants";
 import {  Row, Col } from "antd";
 
 import {
@@ -18,21 +18,13 @@ interface ChartProps {
 }
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
-const palette = {
-  balance: "#EB5757",
-  equity: "#2F80ED",
-  profitPositive: "#F2994A",
-  profitNegative: "#6FCF97",
-};
 
-const Animation = (props: any) => {
+
+const MainChart = (props: any) => {
+
+  
   const { domain, state, showEquity, showBalance, startDate } = props.data;
-  const {
-    onMouseLeave,
-    onNearestX,
-    balanceLegend,
-    equityLegend,
-  } = props.handleClick;
+
 
   return (
     <>
@@ -40,7 +32,7 @@ const Animation = (props: any) => {
         xType="ordinal"
         yDomain={[domain.start, domain.end]}
         height={window.innerHeight * 0.3}
-        onMouseLeave={onMouseLeave}
+        onMouseLeave={props.onMouseLeave}
       >
         {showEquity && (
           <LineSeries
@@ -49,7 +41,7 @@ const Animation = (props: any) => {
               y: daily.equity,
             }))}
             color={palette.equity}
-            onNearestX={onNearestX}
+            onNearestX={props.onNearestX}
           />
         )}
         {showBalance && (
@@ -59,7 +51,7 @@ const Animation = (props: any) => {
               y: daily.balance,
             }))}
             color={palette.balance}
-            onNearestX={onNearestX}
+            onNearestX={props.onNearestX}
           />
         )}
         <XAxis hideTicks />
@@ -80,13 +72,13 @@ const Animation = (props: any) => {
       <Row justify="center">
         <Col span={10}>
           <DiscreteColorLegend
-            onItemClick={balanceLegend}
+            onItemClick={props.balanceLegend}
             items={[{ title: "Balance", color: palette.balance }]}
           />
         </Col>
         <Col span={10}>
           <DiscreteColorLegend
-            onItemClick={equityLegend}
+            onItemClick={props.equityLegend}
             items={[{ title: "Equity", color: palette.equity }]}
           />
         </Col>
@@ -94,4 +86,4 @@ const Animation = (props: any) => {
     </>
   );
 };
-export default Animation;
+export default MainChart;
