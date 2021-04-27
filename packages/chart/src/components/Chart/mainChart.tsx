@@ -1,5 +1,5 @@
-import { Daily,palette } from "../../utils/constants";
-import {  Row, Col } from "antd";
+import { Daily, palette } from "../../utils/constants";
+import { Row, Col } from "antd";
 
 import {
   XAxis,
@@ -9,6 +9,8 @@ import {
   HorizontalGridLines,
   LineSeries,
   DiscreteColorLegend,
+  AreaSeries,
+  Crosshair
 } from "react-vis";
 import "../../../node_modules/react-vis/dist/style.css";
 import "antd/dist/antd.css";
@@ -19,19 +21,15 @@ interface ChartProps {
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
 
-
 const MainChart = (props: any) => {
-
-  
-  const { domain, state, showEquity, showBalance, startDate } = props.data;
-
+  const { domain, state, showEquity, showBalance, startDate ,crosshairValue} = props.data;
 
   return (
     <>
       <FlexibleXYPlot
         xType="ordinal"
         yDomain={[domain.start, domain.end]}
-        height={window.innerHeight * 0.3}
+        height={200}
         onMouseLeave={props.onMouseLeave}
       >
         {showEquity && (
@@ -44,6 +42,18 @@ const MainChart = (props: any) => {
             onNearestX={props.onNearestX}
           />
         )}
+        {showEquity && (
+          <AreaSeries
+            className="area-elevated-series-2"
+            color={palette.equity}
+            data={state.map((daily: Daily) => ({
+              x: daily.date,
+              y: daily.equity,
+            }))}
+            opacity={0.1}
+          />
+        )}
+
         {showBalance && (
           <LineSeries
             data={state.map((daily: Daily) => ({
@@ -54,6 +64,22 @@ const MainChart = (props: any) => {
             onNearestX={props.onNearestX}
           />
         )}
+
+        {showBalance && (
+          <AreaSeries
+            className="area-elevated-series-2"
+            color={palette.balance}
+            data={state.map((daily: Daily) => ({
+              x: daily.date,
+              y: daily.balance,
+            }))}
+            opacity={0.1}
+          />
+        )}
+        <Crosshair values={crosshairValue} >
+        <div></div>
+        </Crosshair>
+
         <XAxis hideTicks />
         <HorizontalGridLines tickTotal={2} />
         <ChartLabel

@@ -55,6 +55,7 @@ const Chart = ({ data }: ChartProps) => {
   const [showBalance, setShowBalance] = useState(true);
   const [showEquity, setShowEquity] = useState(true);
   const [startDate, setStartDate] = useState(state[0].date.substr(0, 7));
+  const [crosshairValue, setCrosshairValue] = useState([]);
   const onNearestX = (value: any, { index }) => {
     setCurrent({
       date: state[index].date,
@@ -62,15 +63,22 @@ const Chart = ({ data }: ChartProps) => {
       equity: state[index].equity,
       profit: state[index].profit,
     });
+    setCrosshairValue([{
+      x: state[index].date
+      }
+      ])
   };
 
-  const onMouseLeave=() =>
-  setCurrent({
+  const onMouseLeave=() =>{
+    setCurrent({
     date: "Today",
     balance: state[state.length - 1].balance,
     equity: state[state.length - 1].equity,
     profit: state[state.length - 1].profit,
   });
+   setCrosshairValue([])
+}
+  
 
   const balanceLegend=()=> setShowBalance(!showBalance);
   const equityLegend= () => setShowEquity(!showEquity)
@@ -81,6 +89,7 @@ const Chart = ({ data }: ChartProps) => {
     showEquity: showEquity,
     showBalance: showBalance,
     startDate: startDate,
+    crosshairValue:crosshairValue,
   };
 
   useEffect(() => {
