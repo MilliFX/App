@@ -11,7 +11,18 @@ export const palette = {
    equity: "#2F80ED",
    profitPositive: "#F2994A",
    profitNegative: "#6FCF97",
+   buttonSelectedBgc:'#BDBDBD',
+   buttonUnselectedBgc:'#FFFFFF',
+   buttonSelected:'#333333',
+   buttonUnselected:'#EB5757'
  };
+
+export const buttonTyping={
+    oneWeek:'1W',
+    oneMonth:'1M',
+    threeMonth:'3M'
+}
+
 
 export const mockData: Daily[] = [
   {

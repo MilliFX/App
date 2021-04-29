@@ -15,12 +15,11 @@ import {
 import "../../../node_modules/react-vis/dist/style.css";
 import "antd/dist/antd.css";
 
-interface ChartProps {
-  data: Daily[];
-}
+// interface ChartProps {
+//   data: Daily[];
+// }
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
-
 const MainChart = (props: any) => {
   const { domain, state, showEquity, showBalance, startDate ,crosshairValue} = props.data;
 
@@ -96,18 +95,20 @@ const MainChart = (props: any) => {
         />
       </FlexibleXYPlot>
       <Row justify="center">
-        <Col span={10}>
+      <Col span={4}></Col>
+        <Col span={8}>
           <DiscreteColorLegend
             onItemClick={props.balanceLegend}
             items={[{ title: "Balance", color: palette.balance }]}
           />
         </Col>
-        <Col span={10}>
+        <Col span={8}>
           <DiscreteColorLegend
             onItemClick={props.equityLegend}
             items={[{ title: "Equity", color: palette.equity }]}
           />
         </Col>
+        <Col span={4}></Col>
       </Row>
     </>
   );

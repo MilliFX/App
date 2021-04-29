@@ -10,22 +10,34 @@ interface chartTop {
 const ChartTop = (props: chartTop) => {
   const { date, balance, profit, equity } = props.data;
   return (
-    <div>
+    <>
       <Row justify="center">
-        <Col span={24}>
+        <Col span={2}>
+        </Col>
+        <Col span={10}>
           <Text>{date}</Text>
         </Col>
+        <Col span={10}>
+        </Col>
+        <Col span={2}>
+        </Col>
       </Row>
       <Row justify="center">
-        <Col span={12}>
-          <Statistic title="Balance" value={balance} precision={2} prefix="$" />
+      <Col span={2}>
         </Col>
-        <Col span={12}>
+        <Col span={10}>
+        <Statistic title="Balance" value={balance} precision={2} prefix="$" />
+        </Col>
+        <Col span={10}>
           <Statistic title="Equity" value={equity} precision={2} prefix="$" />
         </Col>
+        <Col span={2}>
+        </Col>
       </Row>
       <Row justify="center">
-        <Col span={24}>
+        <Col span={2}>
+        </Col>
+        <Col span={10}>
           <Statistic
             title="Profit"
             value={profit}
@@ -37,9 +49,12 @@ const ChartTop = (props: chartTop) => {
             suffix="%"
           />
         </Col>
+        <Col span={10}>
+        </Col>
+        <Col span={2}>
+        </Col>
       </Row>
-    </div>
+    </>
   );
 };
-
 export default ChartTop;
