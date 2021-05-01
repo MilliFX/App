@@ -19,7 +19,7 @@
 }
 .tableContainer{
     width:100%;
-    /* background-color:red; */
+    /* background-color:#00d800; */
     display: flex;
     justify-content: center;
 }
@@ -66,6 +66,16 @@
 }
 .apexcharts-xaxis-texts-g{
     display:none;
+}
+.MuiToggleButtonGroup-root{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border:none;
+}
+.MuiToggleButton-root{
+    width: 30%;
+    border:none;
 }
 
 
@@ -135,5 +145,15 @@
     }
     .apexcharts-xaxis-texts-g{
         display:none;
+    }
+    .MuiToggleButtonGroup-root{
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        border:none;
+    }
+    .MuiToggleButton-root{
+        width: 30%;
+        border:none;
     }
 }
