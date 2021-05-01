@@ -1,11 +1,15 @@
 import * as React from "react";
 import { Daily } from "../../utils/constants";
-import { Radio, RadioChangeEvent } from "antd";
-import { Line } from "@ant-design/charts";
+import { RadioChangeEvent } from "antd";
 import { createConfig } from "../../utils/config";
 import ChartTop from "./chartTop";
 import { Options } from "@ant-design/charts/es/hooks/useChart";
-import { RadioStyle } from "../CSS/styled_components";
+import {
+  RadioGroup,
+  RadioButton,
+  ChartWrapper,
+  Wrapper,
+} from "../CSS/styled_components";
 import {
   ChartProps,
   LineData,
@@ -97,25 +101,25 @@ const Chart = ({ data }: ChartProps) => {
 
   return (
     <>
-      <ChartTop {...parameter}></ChartTop>
-      <Line
-        {...createConfig(yValue)}
-        onReady={(line) => {
-          dataChange(line);
-        }}
-      />
-      <RadioStyle>
-        <Radio.Group
+      <Wrapper>
+        <ChartTop {...parameter}></ChartTop>
+        <ChartWrapper
+          {...createConfig(yValue)}
+          onReady={(line: Options) => {
+            dataChange(line);
+          }}
+        />
+        <RadioGroup
           buttonStyle="solid"
           size="large"
-          defaultValue="Week"
+          defaultValue={Duration.Week}
           onChange={handleDuration}
         >
-          <Radio.Button value={Duration.Week}>{LABEL_WEEK}</Radio.Button>
-          <Radio.Button value={Duration.Month}>{LABEL_MONTH}</Radio.Button>
-          <Radio.Button value={Duration.Quarter}>{LABEL_QUARTER}</Radio.Button>
-        </Radio.Group>
-      </RadioStyle>
+          <RadioButton value={Duration.Week}>{LABEL_WEEK}</RadioButton>
+          <RadioButton value={Duration.Month}>{LABEL_MONTH}</RadioButton>
+          <RadioButton value={Duration.Quarter}>{LABEL_QUARTER}</RadioButton>
+        </RadioGroup>
+      </Wrapper>
     </>
   );
 };
