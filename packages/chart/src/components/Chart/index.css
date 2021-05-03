@@ -76,6 +76,10 @@
 .MuiToggleButton-root{
     width: 34%;
     border:none !important;
+    color:red !important;
+}
+.MuiToggleButton-root:focus{
+    color:blue !important;
 }
 
 
