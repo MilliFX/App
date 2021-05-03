@@ -31,4 +31,6 @@ const helloHandler = async (
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(helloHandler).use(uuidValidationMiddleWare()).use(domainValidationMiddleWare());
+export const handler: APIGatewayProxyHandler = middy(helloHandler)
+  .use(uuidValidationMiddleWare())
+  .use(domainValidationMiddleWare());
