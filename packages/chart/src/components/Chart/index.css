@@ -75,7 +75,7 @@
 }
 .MuiToggleButton-root{
     width: 30%;
-    border:none;
+    border:none !important;
 }
 
 
@@ -154,6 +154,6 @@
     }
     .MuiToggleButton-root{
         width: 30%;
-        border:none;
+        border:none !important;
     }
 }

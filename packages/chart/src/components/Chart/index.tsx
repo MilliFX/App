@@ -289,6 +289,10 @@ const [seriesContent, setSeriesContent] = useState(series);
     newAlignment: React.SetStateAction<string>
   ) => {
     setAlignment(newAlignment);
+    setTodayLable("Today")
+    setBalanceLable(initBalance)
+    setEquityLable(initEquity)
+    setProfitLable(initProfit)
 
     switch (newAlignment) {
       case "oneWeek":
