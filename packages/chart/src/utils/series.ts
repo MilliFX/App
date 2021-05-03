@@ -1,6 +1,6 @@
 import { mockData, Daily } from "../utils/constants";
 import {useState, useEffect} from 'react';
-import { needDayLong } from '../components/Chart/index';
+// import { needDayLong } from '../components/Chart/index';
 
 interface DataArray {
     x: string;
@@ -12,10 +12,11 @@ interface Series{
     data: DataArray[];
 }
 
-export const testdata = needDayLong;
+// export const testdata = needDayLong;
 //1. one week data==> past 7 days data
 const altArray: Daily[] = [];
-const dataPiece = mockData.slice(mockData.length - needDayLong)
+// const dataPiece = mockData.slice(mockData.length - needDayLong)
+const dataPiece = mockData.slice(mockData.length - 7)
 //Formate the data
 for(let i = 0;i<dataPiece.length;i++){
     const dateFormate = dataPiece[i].date

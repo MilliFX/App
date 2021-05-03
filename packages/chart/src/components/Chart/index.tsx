@@ -4,6 +4,7 @@ import "./index.css";
 import AChart from "react-apexcharts";
 import { useState, useEffect } from "react";
 import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
+import { ApexOptions } from "apexcharts";
 // import { balance, equity, profit, series, testdata } from "../../utils/series";
 // import useGlobal from "use-global-hook";
 
@@ -185,13 +186,11 @@ const Chart = ({ data }: ChartProps) => {
 ]
 const [seriesContent, setSeriesContent] = useState(series);
   //Chart Configuration:
-  const options = {
+  const options: ApexOptions = {
     xaxis: {
       axisBorder: {
         show: true,
         color: "#78909C",
-        height: 1,
-        width: "100%",
         offsetX: 0,
         offsetY: 0,
       },
@@ -316,26 +315,26 @@ const [seriesContent, setSeriesContent] = useState(series);
     <div className="apexchartContainer">
       <div className="titleContainer">ApexChart Demo</div>
       <div className="dateContainer">
-        <div>{todayLable}</div>
+        <span>{todayLable}</span>
       </div>
       <div className="dataContainer">
         <div className="dataDetailContainer">
           <div className="detailTitle">Balance</div>
-          <div className="detailContent" id="balanceLable">
+          <span className="detailContent" id="balanceLable">
             $ {balanceLable}
-          </div>
+          </span>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Equity</div>
-          <div className="detailContent" id="equityLable">
+          <span className="detailContent" id="equityLable">
             $ {equityLable}
-          </div>
+          </span>
         </div>
         <div className="dataDetailContainer">
           <div className="detailTitle">Profit</div>
-          <div className="detailContent" id="profitLable">
+          <span className="detailContent" id="profitLable">
             {profitLable} %
-          </div>
+          </span>
         </div>
       </div>
       <div className="tableContainer">
