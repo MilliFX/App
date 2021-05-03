@@ -4,7 +4,7 @@ import createHttpError from "http-errors";
 import { validate as uuidValidate } from "uuid";
 import { version as uuidVersion } from "uuid";
 
-export function headerValidationMiddleWare(): MiddlewareObject<
+export function uuidValidationMiddleWare(): MiddlewareObject<
   APIGatewayEvent,
   APIGatewayProxyResult
 > {
@@ -12,16 +12,9 @@ export function headerValidationMiddleWare(): MiddlewareObject<
     before: async (
       handler: HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>
     ): Promise<void> => {
-      const host: string = handler.event.headers["host"] || "unknown";
       const uuID: string = handler.event.headers["millifx-uuid"] || "unknown";
-      console.log("host is: " + host);
-      console.log("uuID is: " + uuID);
 
-      if (
-        whiteList.includes(host) &&
-        uuidValidate(uuID) &&
-        uuidVersion(uuID) === 1
-      ) {
+      if (uuidValidate(uuID) && uuidVersion(uuID) === 1) {
         return;
       }
 
@@ -29,11 +22,3 @@ export function headerValidationMiddleWare(): MiddlewareObject<
     },
   };
 }
-
-const whiteList: Array<string> = [
-  "https://app-dev.millifx.com",
-  "https://app-stg.millifx.com",
-  "https://app.millifx.com",
-  "http://app.millifx.local",
-  "http://localhost:8888",
-];

@@ -4,7 +4,8 @@ import {
   APIGatewayProxyResult,
 } from "aws-lambda";
 import middy from "middy";
-import { headerValidationMiddleWare } from "../middleware/HeaderValidation";
+import { uuidValidationMiddleWare } from "../middleware/UUIDValidation";
+import { domainValidationMiddleWare } from "../middleware/DomainValidation";
 
 export interface HelloResponse {
   message: string;
@@ -30,6 +31,4 @@ const helloHandler = async (
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(helloHandler).use(
-  headerValidationMiddleWare()
-);
+export const handler: APIGatewayProxyHandler = middy(helloHandler).use(uuidValidationMiddleWare()).use(domainValidationMiddleWare());
