@@ -1,8 +1,8 @@
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { HandlerLambda, MiddlewareObject } from "middy";
 import createHttpError from "http-errors";
-import { validate as uuidValidate } from 'uuid';
-import { version as uuidVersion } from 'uuid';
+import { validate as uuidValidate } from "uuid";
+import { version as uuidVersion } from "uuid";
 
 export function headerValidationMiddleWare(): MiddlewareObject<
   APIGatewayEvent,
@@ -17,7 +17,11 @@ export function headerValidationMiddleWare(): MiddlewareObject<
       console.log("host is: " + host);
       console.log("uuID is: " + uuID);
 
-      if (whiteList.includes(host) && uuidValidate(uuID) && uuidVersion(uuID) === 1) {
+      if (
+        whiteList.includes(host) &&
+        uuidValidate(uuID) &&
+        uuidVersion(uuID) === 1
+      ) {
         return;
       }
 
