@@ -3,6 +3,8 @@ import ErrorBoundary from "@millifx/error-boundary";
 import { Account } from "@millifx/utils";
 import { Breadcrumb, Col, Layout, Menu, Row } from "antd";
 import { InvitationForm } from "./components/InvitationForm";
+import { SessionProvider } from "./containers/SessionProvider";
+import { useSession } from "./containers/SessionProvider/hook";
 const { Header, Footer, Content } = Layout;
 
 const sampleAccount: Account = {
@@ -16,12 +18,21 @@ const sampleAccount: Account = {
 
 const App = () => (
   <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
-    <AppWithRouter />
+    <AppWithSession />
   </ErrorBoundary>
+);
+
+const AppWithSession = () => (
+  <SessionProvider>
+    <AppWithRouter />
+  </SessionProvider>
 );
 
 const AppWithRouter = () => {
   const { name, gain } = sampleAccount;
+
+  const { uuid } = useSession();
+  console.log("SessionConsumer Detected UUID", uuid);
 
   return (
     <Layout>

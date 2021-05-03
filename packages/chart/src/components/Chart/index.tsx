@@ -1,3 +1,4 @@
+import * as React from "react";
 import { Daily } from "../../utils/constants";
 import { useState, useEffect } from "react";
 import ChartTop from "./chartTop";
@@ -9,6 +10,19 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
+
+  return (
+    <>
+      <p>Convert the following list to a chart</p>
+      <ul>
+        {data.map((daily) => {
+          return (
+            <li>
+              {daily.date} {daily.balance} {daily.equity} {daily.profit}
+            </li>
+          );
+        })}
+      </ul> </>
   const rawData = data.map((daily) => ({
     ...daily,
     date: new Date(daily.date).toDateString().substr(4, 13),
@@ -33,7 +47,7 @@ const Chart = ({ data }: ChartProps) => {
       : rawData
   );
 
-  
+
     const onWeekSelected= () => {
       setState(rawData.slice(rawData.length - 8, rawData.length - 1));
     }
@@ -78,7 +92,7 @@ const Chart = ({ data }: ChartProps) => {
   });
    setCrosshairValue([])
 }
-  
+
 
   const balanceLegend=()=> setShowBalance(!showBalance);
   const equityLegend= () => setShowEquity(!showEquity)
@@ -101,14 +115,14 @@ const Chart = ({ data }: ChartProps) => {
   return (
     <>
       <ChartTop data={current} />
-      <MainChart 
-      data={animationSetting} 
-      onNearestX={onNearestX}  
+      <MainChart
+      data={animationSetting}
+      onNearestX={onNearestX}
       onMouseLeave={onMouseLeave}
       balanceLegend={balanceLegend}
       equityLegend={equityLegend}
       />
-      <ChartBottom 
+      <ChartBottom
       onWeekSelected={onWeekSelected}
       onMonthSelected={onMonthSelected}
       onThreeMonthSelected={onThreeMonthSelected}
@@ -116,4 +130,5 @@ const Chart = ({ data }: ChartProps) => {
     </>
   );
 };
+
 export default Chart;
