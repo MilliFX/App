@@ -1,4 +1,4 @@
-import { Daily, palette } from "../../utils/constants";
+import { Daily, palette, LegendLabel,Cross } from "../../utils/constants";
 import { Row, Col } from "antd";
 
 import {
@@ -10,19 +10,35 @@ import {
   LineSeries,
   DiscreteColorLegend,
   AreaSeries,
-  Crosshair
+  Crosshair,
 } from "react-vis";
 import "../../../node_modules/react-vis/dist/style.css";
 import "antd/dist/antd.css";
 
-// interface ChartProps {
-//   data: Daily[];
-// }
+interface MainChartProps {
+  data: { domain: { start: number; end: number; }; 
+  state: { date: string; balance: number; equity: number; 
+    profit: number; }[]; 
+    showEquity: boolean; 
+    showBalance: boolean; 
+    startDate: string; 
+    crosshairValue: Cross[]; };
+  onNearestX: (value: number, { index }: { index: number; }) => void;
+  onMouseLeave: () => void;
+  balanceLegend: () => void;
+  equityLegend: () => void;
+}
 
 const FlexibleXYPlot = makeWidthFlexible(XYPlot);
-const MainChart = (props: any) => {
-  const { domain, state, showEquity, showBalance, startDate ,crosshairValue} = props.data;
-
+const MainChart = (props: MainChartProps) => {
+  const {
+    domain,
+    state,
+    showEquity,
+    showBalance,
+    startDate,
+    crosshairValue,
+  } = props.data;
   return (
     <>
       <FlexibleXYPlot
@@ -41,6 +57,7 @@ const MainChart = (props: any) => {
             onNearestX={props.onNearestX}
           />
         )}
+
         {showEquity && (
           <AreaSeries
             className="area-elevated-series-2"
@@ -52,7 +69,6 @@ const MainChart = (props: any) => {
             opacity={0.1}
           />
         )}
-
         {showBalance && (
           <LineSeries
             data={state.map((daily: Daily) => ({
@@ -75,8 +91,8 @@ const MainChart = (props: any) => {
             opacity={0.1}
           />
         )}
-        <Crosshair values={crosshairValue} >
-        <div></div>
+        <Crosshair values={crosshairValue}>
+          <div></div>
         </Crosshair>
 
         <XAxis hideTicks />
@@ -88,24 +104,24 @@ const MainChart = (props: any) => {
           yPercent={1.2}
         />
         <ChartLabel
-          text="Today"
+          text={LegendLabel.xaxis}
           includeMargin={false}
           xPercent={0.9}
           yPercent={1.2}
         />
       </FlexibleXYPlot>
       <Row justify="center">
-      <Col span={4}></Col>
+        <Col span={4}></Col>
         <Col span={8}>
           <DiscreteColorLegend
             onItemClick={props.balanceLegend}
-            items={[{ title: "Balance", color: palette.balance }]}
+            items={[{ title: LegendLabel.balance, color: palette.balance }]}
           />
         </Col>
         <Col span={8}>
           <DiscreteColorLegend
             onItemClick={props.equityLegend}
-            items={[{ title: "Equity", color: palette.equity }]}
+            items={[{ title: LegendLabel.equity, color: palette.equity }]}
           />
         </Col>
         <Col span={4}></Col>

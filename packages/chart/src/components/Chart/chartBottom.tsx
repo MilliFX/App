@@ -3,8 +3,13 @@ import "antd/dist/antd.css";
 import {  palette, buttonTyping } from "../../utils/constants";
 import { useState } from "react";
 
+interface ChartBottomProps {
+  onWeekSelected:() => void,
+  onMonthSelected:() => void,
+  onThreeMonthSelected:() => void,
+}
 
-const ChartBottom = (props:any) => {
+const ChartBottom = (props:ChartBottomProps) => {
   const {onWeekSelected,onMonthSelected,onThreeMonthSelected}=props
    const selected={
     color:palette.buttonSelected,

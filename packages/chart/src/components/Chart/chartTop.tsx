@@ -25,13 +25,11 @@ const ChartTop = (props: chartTop) => {
       <Row justify="center">
       <Col span={2}>
         </Col>
-        <Col span={10}>
+        <Col span={11}>
         <Statistic title="Balance" value={balance} precision={2} prefix="$" />
         </Col>
-        <Col span={10}>
+        <Col span={11}>
           <Statistic title="Equity" value={equity} precision={2} prefix="$" />
-        </Col>
-        <Col span={2}>
         </Col>
       </Row>
       <Row justify="center">

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Daily } from "../../utils/constants";
+import { Daily, Cross} from "../../utils/constants";
 import { useState, useEffect } from "react";
 import ChartTop from "./chartTop";
 import ChartBottom from "./chartBottom";
@@ -11,18 +11,6 @@ interface ChartProps {
 
 const Chart = ({ data }: ChartProps) => {
 
-  return (
-    <>
-      <p>Convert the following list to a chart</p>
-      <ul>
-        {data.map((daily) => {
-          return (
-            <li>
-              {daily.date} {daily.balance} {daily.equity} {daily.profit}
-            </li>
-          );
-        })}
-      </ul> </>
   const rawData = data.map((daily) => ({
     ...daily,
     date: new Date(daily.date).toDateString().substr(4, 13),
@@ -47,7 +35,6 @@ const Chart = ({ data }: ChartProps) => {
       : rawData
   );
 
-
     const onWeekSelected= () => {
       setState(rawData.slice(rawData.length - 8, rawData.length - 1));
     }
@@ -57,8 +44,6 @@ const Chart = ({ data }: ChartProps) => {
     const onThreeMonthSelected= () => {
       setState(rawData.slice(rawData.length - 23, rawData.length - 1));
     }
-
-
   const [current, setCurrent] = useState({
     date: "Today",
     balance: state[state.length - 1].balance,
@@ -69,8 +54,8 @@ const Chart = ({ data }: ChartProps) => {
   const [showBalance, setShowBalance] = useState(true);
   const [showEquity, setShowEquity] = useState(true);
   const [startDate, setStartDate] = useState(state[0].date.substr(0, 7));
-  const [crosshairValue, setCrosshairValue] = useState([]);
-  const onNearestX = (value: any, { index }) => {
+  const [crosshairValue, setCrosshairValue] = useState<Array<Cross>>([]);;
+  const onNearestX = (value: number, { index }: {index:number}) => {
     setCurrent({
       date: state[index].date,
       balance: state[index].balance,
@@ -92,7 +77,6 @@ const Chart = ({ data }: ChartProps) => {
   });
    setCrosshairValue([])
 }
-
 
   const balanceLegend=()=> setShowBalance(!showBalance);
   const equityLegend= () => setShowEquity(!showEquity)
