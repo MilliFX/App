@@ -1,15 +1,9 @@
 import * as React from "react";
 import { Daily } from "../../utils/constants";
-import { RadioChangeEvent } from "antd";
 import { createConfig } from "../../utils/config";
-import ChartTop from "./chartTop";
+import ChartTop from "./ChartTop";
 import { Options } from "@ant-design/charts/es/hooks/useChart";
-import {
-  RadioGroup,
-  RadioButton,
-  ChartWrapper,
-  Wrapper,
-} from "../CSS/styled_components";
+import { ChartWrapper, Wrapper } from "./style";
 import {
   ChartProps,
   LineData,
@@ -46,8 +40,9 @@ const Chart = ({ data }: ChartProps) => {
   );
   const [date, setDate] = React.useState(formatDate(currentDailyDate.date));
 
-  const handleDuration = (e: RadioChangeEvent) => {
-    const duration = e.target.value;
+  const handleDuration = (e: React.MouseEvent) => {
+    const target = e.target as HTMLTextAreaElement;
+    const duration = target.value;
     setNewdata(
       duration === Duration.Week
         ? weekData
@@ -109,16 +104,16 @@ const Chart = ({ data }: ChartProps) => {
             dataChange(line);
           }}
         />
-        <RadioGroup
-          buttonStyle="solid"
-          size="large"
-          defaultValue={Duration.Week}
-          onChange={handleDuration}
-        >
-          <RadioButton value={Duration.Week}>{LABEL_WEEK}</RadioButton>
-          <RadioButton value={Duration.Month}>{LABEL_MONTH}</RadioButton>
-          <RadioButton value={Duration.Quarter}>{LABEL_QUARTER}</RadioButton>
-        </RadioGroup>
+
+        <button value={Duration.Week} onClick={handleDuration}>
+          {LABEL_WEEK}
+        </button>
+        <button value={Duration.Month} onClick={handleDuration}>
+          {LABEL_MONTH}
+        </button>
+        <button value={Duration.Quarter} onClick={handleDuration}>
+          {LABEL_QUARTER}
+        </button>
       </Wrapper>
     </>
   );

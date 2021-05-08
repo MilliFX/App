@@ -32,8 +32,14 @@ export enum Duration {
 }
 
 export const formatDate = (d: string) => {
-  const date = new Date(d);
-  return `${date.getDate()} ${month[date.getMonth()]} ${date.getFullYear()}`;
+  const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  const date = new Date(d).toLocaleString("en-US", options);
+  return date;
 };
 
 export const LABEL_WEEK = "1W";
