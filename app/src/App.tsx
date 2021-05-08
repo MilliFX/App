@@ -5,6 +5,7 @@ import { Breadcrumb, Col, Layout, Menu, Row } from "antd";
 import { InvitationForm } from "./components/InvitationForm";
 import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
+import * as FullStory from "@fullstory/browser";
 const { Header, Footer, Content } = Layout;
 
 const sampleAccount: Account = {
@@ -33,6 +34,9 @@ const AppWithRouter = () => {
 
   const { uuid } = useSession();
   console.log("SessionConsumer Detected UUID", uuid);
+  if (uuid) {
+    FullStory.identify(uuid);
+  }
 
   return (
     <Layout>

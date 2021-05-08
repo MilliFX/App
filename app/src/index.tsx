@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
+import * as FullStory from "@fullstory/browser";
 // import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 // import reportWebVitals from "./reportWebVitals";
+
+FullStory.init({ orgId: "129Y8P" });
 
 ReactDOM.render(
   <React.StrictMode>
