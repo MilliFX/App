@@ -1,31 +1,27 @@
 import * as React from "react";
 import { Daily } from "../../utils/constants";
-import "./index.css";
 import AChart from "react-apexcharts";
 import { useState, useEffect } from "react";
 import { ApexOptions } from "apexcharts";
-import {Wrapper} from './style';
+import {Wrapper, TitleWrapper, DateWrapper,DataWrapper,DataDetailWrapper,DataTitle,DataContent, TableWrapper,TableChart} from './style';
+import './index.css';
+
+//type:
+type SeriesType = "area" | "line";
 
 // Interface:
 interface ChartProps {
   data: Daily[];
 }
-interface DataArray {
+interface DataPoint {
   x: string;
   y: number;
 }
 interface Series {
   name: string;
-  type: "area" | "line";
-  data: DataArray[];
+  type: SeriesType;
+  data: DataPoint[];
 }
-
-//
-// console.log(oneWeekSeries.length)
-// console.log(oneWeekBalance[6].x);
-// console.log(oneWeekEquity[6].x);
-// const needDayLong = 7;
-// console.log(testdata);
 
 const Chart = ({ data }: ChartProps) => {
   const initNeedDayLong = 7;
@@ -36,7 +32,7 @@ const Chart = ({ data }: ChartProps) => {
   const [balanceLable, setBalanceLable] = useState(initBalance);
   const [equityLable, setEquityLable] = useState(initEquity);
   const [profitLable, setProfitLable] = useState(initProfit);
-  const [alignment, setAlignment] = React.useState("oneWeek");
+  // const [alignment, setAlignment] = React.useState("oneWeek");
   const [needDayLong, setNeedDayLong] = useState(initNeedDayLong);
   //Data Processing:
   const altArray: Daily[] = [];
@@ -142,34 +138,27 @@ const Chart = ({ data }: ChartProps) => {
         break;
     }
   }
+const balance: DataPoint[] = [];
+const equity: DataPoint[] = [];
+const profit: DataPoint[] = [];
   const resultData = altArray.map((item) => {
-    const currentBalance: DataArray = {
+    const currentBalance: DataPoint = {
       x: item.date,
       y: Number(item.balance.toFixed(2)),
     };
-    const currentEquity: DataArray = {
+    const currentEquity: DataPoint = {
       x: item.date,
       y: Number(item.equity.toFixed(2)),
     };
-    const currentProfit: DataArray = {
+    const currentProfit: DataPoint = {
       x: item.date,
       y: Number(item.profit.toFixed(2)),
     };
-    return {
-      currentBalance,
-      currentEquity,
-      currentProfit,
-    };
+    balance.push(currentBalance)
+    equity.push(currentEquity)
+    profit.push(currentProfit)
   });
-  const balance: DataArray[] = resultData.map((item) => {
-    return item.currentBalance;
-  });
-  const equity: DataArray[] = resultData.map((item) => {
-    return item.currentEquity;
-  });
-  const profit: DataArray[] = resultData.map((item) => {
-    return item.currentProfit;
-  });
+
   const series: Series[] = [
     {
         name: "Balance",
@@ -223,21 +212,21 @@ const [seriesContent, setSeriesContent] = useState(series);
           setTodayLable(labToday);
           // console.log(config)
           //if number is bigger than 0, the common color, else green
-          if (labBalance < 0) {
-            document.getElementById("balanceLable")!.style.color = "#c9d732";
-          } else {
-            document.getElementById("balanceLable")!.style.color = "black";
-          }
-          if (labEquity < 0) {
-            document.getElementById("equityLable")!.style.color = "#c9d732";
-          } else {
-            document.getElementById("equityLable")!.style.color = "black";
-          }
-          if (labProfit < 0) {
-            document.getElementById("profitLable")!.style.color = "#c9d732";
-          } else {
-            document.getElementById("profitLable")!.style.color = "#00d800";
-          }
+          // if (labBalance < 0) {
+          //   document.getElementById("balanceLable")!.style.color = "#c9d732";
+          // } else {
+          //   document.getElementById("balanceLable")!.style.color = "black";
+          // }
+          // if (labEquity < 0) {
+          //   document.getElementById("equityLable")!.style.color = "#c9d732";
+          // } else {
+          //   document.getElementById("equityLable")!.style.color = "black";
+          // }
+          // if (labProfit < 0) {
+          //   document.getElementById("profitLable")!.style.color = "#c9d732";
+          // } else {
+          //   document.getElementById("profitLable")!.style.color = "#00d800";
+          // }
         },
       },
       toolbar: {
@@ -250,8 +239,6 @@ const [seriesContent, setSeriesContent] = useState(series);
     stroke: {
       width: [2, 2],
     },
-    // redrawOnParentResize: true,
-    // redrawOnWindowResize: true,
     tooltip: {
       enabled: true,
       enabledOnSeries: [0, 1],
@@ -281,66 +268,65 @@ const [seriesContent, setSeriesContent] = useState(series);
   const [optionsContent, setOptionsContent] = useState(options);
 
   //functions on toggleButtonGroup
-  const handleAlignment = (
-    event: any,
-    newAlignment: React.SetStateAction<string>
-  ) => {
-    setAlignment(newAlignment);
-    setTodayLable("Today")
-    setBalanceLable(initBalance)
-    setEquityLable(initEquity)
-    setProfitLable(initProfit)
+  // const handleAlignment = (
+  //   event: any,
+  //   newAlignment: React.SetStateAction<string>
+  // ) => {
+  //   setAlignment(newAlignment);
+  //   setTodayLable("Today")
+  //   setBalanceLable(initBalance)
+  //   setEquityLable(initEquity)
+  //   setProfitLable(initProfit)
 
-    switch (newAlignment) {
-      case "oneWeek":
-        setNeedDayLong(7);
-        break;
-      case "oneMonth":
-        setNeedDayLong(20);
-        break;
-      case "threeMonth":
-        setSeriesContent(series);
-        break;
-    }
-  };
-  useEffect(() => {
-    // console.log(needDayLong)
-    setSeriesContent(series);
-    setOptionsContent(options);
-  }, [needDayLong])
+  //   switch (newAlignment) {
+  //     case "oneWeek":
+  //       setNeedDayLong(7);
+  //       break;
+  //     case "oneMonth":
+  //       setNeedDayLong(20);
+  //       break;
+  //     case "threeMonth":
+  //       setSeriesContent(series);
+  //       break;
+  //   }
+  // };
+  // useEffect(() => {
+  //   // console.log(needDayLong)
+  //   setSeriesContent(series);
+  //   setOptionsContent(options);
+  // }, [needDayLong])
 
   return (
-    <div className="apexchartContainer">
-      <div className="titleContainer">ApexChart Demo</div>
-      <div className="dateContainer">
+    <Wrapper>
+      <TitleWrapper>ApexChart Demo</TitleWrapper>
+      <DateWrapper>
         <span>{todayLable}</span>
-      </div>
-      <div className="dataContainer">
-        <div className="dataDetailContainer">
-          <div className="detailTitle">Balance</div>
-          <span className="detailContent" id="balanceLable">
+      </DateWrapper>
+      <DataWrapper>
+        <DataDetailWrapper>
+          <DataTitle>Balance</DataTitle>
+          <DataContent id="balanceLable" value={balanceLable}>
             $ {balanceLable}
-          </span>
-        </div>
-        <div className="dataDetailContainer">
-          <div className="detailTitle">Equity</div>
-          <span className="detailContent" id="equityLable">
+          </DataContent>
+        </DataDetailWrapper>
+        <DataDetailWrapper>
+          <DataTitle>Equity</DataTitle>
+          <DataContent id="equityLable" value={equityLable}>
             $ {equityLable}
-          </span>
-        </div>
-        <div className="dataDetailContainer">
-          <div className="detailTitle">Profit</div>
-          <span className="detailContent" id="profitLable">
+          </DataContent>
+        </DataDetailWrapper>
+        <DataDetailWrapper>
+          <DataTitle>Profit</DataTitle>
+          <DataContent id="profitLable" value={profitLable}>
             {profitLable} %
-          </span>
-        </div>
-      </div>
-      <div className="tableContainer">
-        <div className="tablechartContainer">
+          </DataContent>
+        </DataDetailWrapper>
+      </DataWrapper>
+      <TableWrapper>
+        <TableChart>
           <AChart options={optionsContent} series={seriesContent} />
-        </div>
-      </div>
-      <Wrapper />
+        </TableChart>
+      </TableWrapper>
       <div className="buttonContainer">
         {/* <ToggleButtonGroup
           value={alignment}
@@ -363,7 +349,7 @@ const [seriesContent, setSeriesContent] = useState(series);
           </ToggleButton>
         </ToggleButtonGroup> */}
       </div>
-    </div>
+    </Wrapper>
   );
 };
 
