@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.types.json",
   "compilerOptions": {
     "outDir": "./dist/types",
-    "jsx": "react-jsx"
+    "jsx": "react"
   },
   "include": [
     "src/**/*.ts",

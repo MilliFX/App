@@ -4,7 +4,7 @@ import AChart from "react-apexcharts";
 import { useState, useEffect } from "react";
 import { ApexOptions } from "apexcharts";
 import {Wrapper, TitleWrapper, DateWrapper,DataWrapper,DataDetailWrapper,DataTitle,DataContent, TableWrapper,TableChart} from './style';
-import './index.css';
+// import 'index.css';
 
 //type:
 type SeriesType = "area" | "line";
