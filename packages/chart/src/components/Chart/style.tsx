@@ -68,9 +68,6 @@ export const DataTitle = styled.div`
 export const DataContent = styled.div`
     font-size: 1.5em;
     text-align: center;
-    color: ${props=>(
-        (props.value > 0)? 'green': 'yellow'
-    )}
     @media (max-width:500px){
         width:50%;
         font-size: 2em;

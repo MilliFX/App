@@ -267,34 +267,34 @@ const [seriesContent, setSeriesContent] = useState(series);
   };
   const [optionsContent, setOptionsContent] = useState(options);
 
-  //functions on toggleButtonGroup
-  // const handleAlignment = (
-  //   event: any,
-  //   newAlignment: React.SetStateAction<string>
-  // ) => {
-  //   setAlignment(newAlignment);
-  //   setTodayLable("Today")
-  //   setBalanceLable(initBalance)
-  //   setEquityLable(initEquity)
-  //   setProfitLable(initProfit)
+  // functions on toggleButtonGroup
+  const handleAlignment = (
+    event: any,
+    newAlignment: React.SetStateAction<string>
+  ) => {
+    // setAlignment(newAlignment);
+    setTodayLable("Today")
+    setBalanceLable(initBalance)
+    setEquityLable(initEquity)
+    setProfitLable(initProfit)
 
-  //   switch (newAlignment) {
-  //     case "oneWeek":
-  //       setNeedDayLong(7);
-  //       break;
-  //     case "oneMonth":
-  //       setNeedDayLong(20);
-  //       break;
-  //     case "threeMonth":
-  //       setSeriesContent(series);
-  //       break;
-  //   }
-  // };
-  // useEffect(() => {
-  //   // console.log(needDayLong)
-  //   setSeriesContent(series);
-  //   setOptionsContent(options);
-  // }, [needDayLong])
+    switch (newAlignment) {
+      case "oneWeek":
+        setNeedDayLong(7);
+        break;
+      case "oneMonth":
+        setNeedDayLong(20);
+        break;
+      case "threeMonth":
+        setSeriesContent(series);
+        break;
+    }
+  };
+  useEffect(() => {
+    // console.log(needDayLong)
+    setSeriesContent(series);
+    setOptionsContent(options);
+  }, [needDayLong])
 
   return (
     <Wrapper>
@@ -305,19 +305,19 @@ const [seriesContent, setSeriesContent] = useState(series);
       <DataWrapper>
         <DataDetailWrapper>
           <DataTitle>Balance</DataTitle>
-          <DataContent id="balanceLable" value={balanceLable}>
+          <DataContent id="balanceLable">
             $ {balanceLable}
           </DataContent>
         </DataDetailWrapper>
         <DataDetailWrapper>
           <DataTitle>Equity</DataTitle>
-          <DataContent id="equityLable" value={equityLable}>
+          <DataContent id="equityLable">
             $ {equityLable}
           </DataContent>
         </DataDetailWrapper>
         <DataDetailWrapper>
           <DataTitle>Profit</DataTitle>
-          <DataContent id="profitLable" value={profitLable}>
+          <DataContent id="profitLable">
             {profitLable} %
           </DataContent>
         </DataDetailWrapper>
@@ -327,28 +327,6 @@ const [seriesContent, setSeriesContent] = useState(series);
           <AChart options={optionsContent} series={seriesContent} />
         </TableChart>
       </TableWrapper>
-      <div className="buttonContainer">
-        {/* <ToggleButtonGroup
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment"
-        >
-          <ToggleButton
-            value="oneWeek"
-            aria-label="left aligned"
-            className="toggleButton"
-          >
-            1W
-          </ToggleButton>
-          <ToggleButton value="oneMonth" aria-label="centered">
-            1M
-          </ToggleButton>
-          <ToggleButton value="threeMonths" aria-label="right aligned">
-            3M
-          </ToggleButton>
-        </ToggleButtonGroup> */}
-      </div>
     </Wrapper>
   );
 };
