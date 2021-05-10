@@ -1,27 +1,17 @@
-import {
-  APIGatewayEvent,
-  APIGatewayProxyHandler,
-  APIGatewayProxyResult,
-} from "aws-lambda";
-import middy from "middy";
-import { uuidValidationMiddleWare } from "../middleware/UUIDValidation";
-import { domainValidationMiddleWare } from "../middleware/DomainValidation";
+import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 
 export interface HelloResponse {
   message: string;
 }
 
-const helloHandler = async (
+export const handler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // your server-side functionality
 
-  //Initial response
-  var response: HelloResponse = { message: "Hello" };
   const msg = event.queryStringParameters?.msg;
-  response.message = "Hello World " + msg;
+  const response: HelloResponse = { message: "Hello World " + msg };
 
-  //response:
   return {
     statusCode: 200,
     headers: {
@@ -30,7 +20,3 @@ const helloHandler = async (
     body: JSON.stringify(response),
   };
 };
-
-export const handler: APIGatewayProxyHandler = middy(helloHandler)
-  .use(uuidValidationMiddleWare())
-  .use(domainValidationMiddleWare());
