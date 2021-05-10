@@ -1,11 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import {FULLSTORY_ORG_ID} from "./utils/constants";
+import { FULLSTORY_ORG_ID } from "./utils/constants";
 import * as FullStory from "@fullstory/browser";
 
-
-FULLSTORY_ORG_ID?FullStory.init({ orgId: FULLSTORY_ORG_ID }):null;
+FULLSTORY_ORG_ID ? FullStory.init({ orgId: FULLSTORY_ORG_ID }) : null;
 
 ReactDOM.render(
   <React.StrictMode>
