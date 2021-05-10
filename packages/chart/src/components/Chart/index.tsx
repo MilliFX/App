@@ -3,10 +3,8 @@ import { Daily } from "../../utils/constants";
 import "./index.css";
 import AChart from "react-apexcharts";
 import { useState, useEffect } from "react";
-import { ToggleButton, ToggleButtonGroup } from "@material-ui/lab";
 import { ApexOptions } from "apexcharts";
-// import { balance, equity, profit, series, testdata } from "../../utils/series";
-// import useGlobal from "use-global-hook";
+import {Wrapper} from './style';
 
 // Interface:
 interface ChartProps {
@@ -342,8 +340,9 @@ const [seriesContent, setSeriesContent] = useState(series);
           <AChart options={optionsContent} series={seriesContent} />
         </div>
       </div>
+      <Wrapper />
       <div className="buttonContainer">
-        <ToggleButtonGroup
+        {/* <ToggleButtonGroup
           value={alignment}
           exclusive
           onChange={handleAlignment}
@@ -362,7 +361,7 @@ const [seriesContent, setSeriesContent] = useState(series);
           <ToggleButton value="threeMonths" aria-label="right aligned">
             3M
           </ToggleButton>
-        </ToggleButtonGroup>
+        </ToggleButtonGroup> */}
       </div>
     </div>
   );

@@ -54,14 +54,11 @@
     "ts-jest": "^26.5.1"
   },
   "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@material-ui/lab": "^4.0.0-alpha.57",
     "@millifx/utils": "^0.0.1",
-    "@types/use-global-hook": "^0.1.3",
+    "@types/styled-components": "^5.1.9",
     "apexcharts": "^3.26.1",
-    "node-sass": "4.14",
     "react-apexcharts": "^1.3.9",
-    "use-global-hook": "^0.2.2"
+    "styled-component": "^2.8.0"
   },
   "peerDependencies": {
     "react": "^17.0.0",
