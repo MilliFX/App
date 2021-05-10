@@ -300,7 +300,7 @@ const [seriesContent, setSeriesContent] = useState(series);
     <Wrapper>
       <TitleWrapper>ApexChart Demo</TitleWrapper>
       <DateWrapper>
-        <span>{todayLable}</span>
+        {todayLable}
       </DateWrapper>
       <DataWrapper>
         <DataDetailWrapper>
