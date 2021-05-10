@@ -1,7 +1,7 @@
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { HandlerLambda, MiddlewareObject } from "middy";
 import createHttpError from "http-errors";
-import { WHITE_LIST } from "../const/Const";
+import { WHITE_LIST } from "../utils/const";
 
 export function domainValidationMiddleWare(): MiddlewareObject<
   APIGatewayEvent,
@@ -11,9 +11,9 @@ export function domainValidationMiddleWare(): MiddlewareObject<
     before: async (
       handler: HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>
     ): Promise<void> => {
-      const host: string = handler.event.headers["host"] || "unknown";
+      const host = handler.event.headers["host"];
 
-      if (WHITE_LIST.includes(host)) {
+      if (host && WHITE_LIST.includes(host)) {
         return;
       }
 

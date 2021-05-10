@@ -3,6 +3,7 @@ import { HandlerLambda, MiddlewareObject } from "middy";
 import createHttpError from "http-errors";
 import { validate as uuidValidate } from "uuid";
 import { version as uuidVersion } from "uuid";
+import { HEADER_UUID } from "@millifx/utils"
 
 export function uuidValidationMiddleWare(): MiddlewareObject<
   APIGatewayEvent,
@@ -12,9 +13,9 @@ export function uuidValidationMiddleWare(): MiddlewareObject<
     before: async (
       handler: HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>
     ): Promise<void> => {
-      const uuID: string = handler.event.headers["millifx-uuid"] || "unknown";
+      const uuID = handler.event.headers[HEADER_UUID];
 
-      if (uuidValidate(uuID) && uuidVersion(uuID) === 1) {
+      if (uuID && uuidValidate(uuID) && uuidVersion(uuID) === 1) {
         return;
       }
 
