@@ -1,0 +1,1 @@
+export const sample = "This is sample data"; 

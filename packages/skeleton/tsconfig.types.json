@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.types.json",
+  "compilerOptions": {
+    "outDir": "./dist/types",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}
