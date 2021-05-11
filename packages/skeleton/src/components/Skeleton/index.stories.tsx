@@ -6,4 +6,4 @@ export default {
     component: Component,
   };
 
-export const Skeleton = () =><Component data={sample} />
+export const Skeleton = () =><Component data={sample} active={true} loading={true}/>

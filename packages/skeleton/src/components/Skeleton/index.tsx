@@ -3,12 +3,16 @@ import { Skeleton } from 'antd';
 
 interface SkeletonProps{
     data:string
+    active:boolean
+    loading:boolean
 }
 
-const MilliSkeleton = ({data}:SkeletonProps) => {
+const MilliSkeleton = ({loading,active}:SkeletonProps) => {
     return(
         <div>
-            <Skeleton>data</Skeleton>
+            <Skeleton active={active} loading={loading}>
+                something
+            </Skeleton>
         </div>
     )
 }
