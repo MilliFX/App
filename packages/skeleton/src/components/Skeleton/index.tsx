@@ -12,6 +12,10 @@ const MilliSkeleton = ({loading,active}:SkeletonProps) => {
         <div>
             <Skeleton active={active} loading={loading}>
                 something
+                something
+                something
+                something
+                something
             </Skeleton>
         </div>
     )
