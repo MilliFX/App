@@ -11,9 +11,9 @@ const Chart = ({ data }: ChartProps) => {
     <>
       <p>Convert the following list to a chart</p>
       <ul>
-        {data.map((daily) => {
+        {data.map((daily,key) => {
           return (
-            <li>
+            <li key={key}>
               {daily.date} {daily.balance} {daily.equity} {daily.profit}
             </li>
           );
