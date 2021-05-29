@@ -1,7 +1,11 @@
-import { APIGatewayEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayEvent,
+  APIGatewayProxyResult,
+  APIGatewayProxyHandler,
+} from "aws-lambda";
 import middy from "middy";
-import {uuidValidationMiddleWare } from "../middleware/UUIDValidation";
-import {domainValidationMiddleWare } from "../middleware/DomainValidation";
+import { uuidValidationMiddleWare } from "../middleware/UUIDValidation";
+import { domainValidationMiddleWare } from "../middleware/DomainValidation";
 
 export interface HelloResponse {
   message: string;
@@ -23,7 +27,6 @@ export const helloHandler = async (
     body: JSON.stringify(response),
   };
 };
-
 
 export const handler: APIGatewayProxyHandler = middy(helloHandler)
   .use(uuidValidationMiddleWare())

@@ -3,7 +3,7 @@ import { HandlerLambda, MiddlewareObject } from "middy";
 import createHttpError from "http-errors";
 import { validate as uuidValidate } from "uuid";
 import { version as uuidVersion } from "uuid";
-import { HEADER_UUID } from "@millifx/utils"
+import { HEADER_UUID } from "@millifx/utils";
 
 export function uuidValidationMiddleWare(): MiddlewareObject<
   APIGatewayEvent,

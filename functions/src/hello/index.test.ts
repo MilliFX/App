@@ -9,9 +9,9 @@ describe("hello()", () => {
     // Arrange
     // @ts-ignore
     const event: APIGatewayEvent = {
-      headers:{
-            "host": mockHost,
-            "millifx-uuid": mockUUID,
+      headers: {
+        host: mockHost,
+        "millifx-uuid": mockUUID,
       },
       queryStringParameters: {
         msg: mockMsg,
