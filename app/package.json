@@ -6,6 +6,7 @@
   "license": "MIT",
   "dependencies": {
     "@craco/craco": "^6.1.1",
+    "@fullstory/browser": "^1.4.9",
     "@millifx/error-boundary": "^0.0.1",
     "@types/uuid": "^8.3.0",
     "antd": "^4.12.2",
