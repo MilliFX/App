@@ -467,6 +467,7 @@ Array [
       81.55
     </li>
   </ul>,
+  " ",
 ]
 `;
 
@@ -474,4 +475,48 @@ exports[`Storyshots @millifx/error-boundary Generic Error 1`] = `
 <span>
   Oops...Something went wrong. Please try again later.
 </span>
+`;
+
+exports[`Storyshots @millifx/skeleton Skeleton 1`] = `
+<div
+  className="ant-skeleton ant-skeleton-active"
+>
+  <div
+    className="ant-skeleton-content"
+  >
+    <h3
+      className="ant-skeleton-title"
+      style={
+        Object {
+          "width": "38%",
+        }
+      }
+    />
+    <ul
+      className="ant-skeleton-paragraph"
+    >
+      <li
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <li
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <li
+        style={
+          Object {
+            "width": "61%",
+          }
+        }
+      />
+    </ul>
+  </div>
+</div>
 `;
