@@ -8,7 +8,7 @@ describe("hello()", () => {
   it("should return", async () => {
     // Arrange
     // @ts-ignore
-    
+
     const event: APIGatewayProxyEvent = {
       headers: {
         host: mockHost,
@@ -20,12 +20,12 @@ describe("hello()", () => {
     };
 
     // Act
-    const {statusCode, headers, body} = await helloHandler(event);
+    const { statusCode, headers, body } = await helloHandler(event);
 
     expect(statusCode).toStrictEqual(200);
     expect(headers).toStrictEqual({
-       "Content-Type": "application/json",
-     });
+      "Content-Type": "application/json",
+    });
     expect(body).toStrictEqual('{"message":"Hello World Jack"}');
 
     // Assert
