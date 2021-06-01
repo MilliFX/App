@@ -11,7 +11,7 @@ export interface HelloResponse {
   message: string;
 }
 
-const helloHandler = async (
+export const helloHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // your server-side functionality

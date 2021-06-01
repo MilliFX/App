@@ -1,5 +1,5 @@
-import { handler } from "./index";
-import { APIGatewayEvent, Context } from "aws-lambda";
+import { helloHandler } from "./index";
+import { APIGatewayEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 
 const mockMsg = "Jack";
 const mockHost = "localhost:8888";
@@ -8,7 +8,8 @@ describe("hello()", () => {
   it("should return", async () => {
     // Arrange
     // @ts-ignore
-    const event: APIGatewayEvent = {
+    
+    const event: APIGatewayProxyEvent = {
       headers: {
         host: mockHost,
         "millifx-uuid": mockUUID,
@@ -17,15 +18,16 @@ describe("hello()", () => {
         msg: mockMsg,
       },
     };
+
     // Act
-    //const { statusCode, headers, body } = await handler(event);
+    const {statusCode, headers, body} = await helloHandler(event);
+
+    expect(statusCode).toStrictEqual(200);
+    expect(headers).toStrictEqual({
+       "Content-Type": "application/json",
+     });
+    expect(body).toStrictEqual('{"message":"Hello World Jack"}');
 
     // Assert
-    const statusCode = 200;
-    expect(statusCode).toStrictEqual(200);
-    // expect(headers).toStrictEqual({
-    //   "Content-Type": "application/json",
-    // });
-    // expect(body).toStrictEqual('{"message":"Hello World Jack"}');
   });
 });
