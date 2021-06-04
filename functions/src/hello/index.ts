@@ -31,5 +31,6 @@ export const helloHandler = async (
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(helloHandler)
-  .use(myFXBookLoginMiddleware());
+export const handler: APIGatewayProxyHandler = middy(helloHandler).use(
+  myFXBookLoginMiddleware()
+);
