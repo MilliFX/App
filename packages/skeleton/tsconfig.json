@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.es.json",
+  "compilerOptions": {
+    "outDir": "./dist/es",
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/**/*.stories.tsx"
+  ]
+}
