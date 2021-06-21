@@ -227,248 +227,82 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
 `;
 
 exports[`Storyshots @millifx/chart Chart 1`] = `
-Array [
-  <p>
-    Convert the following list to a chart
-  </p>,
-  <ul>
-    <li>
-      01/31/2021
-       
-      30000
-       
-      30000
-       
-      0
-    </li>
-    <li>
-      02/01/2021
-       
-      30031.48
-       
-      30035.69
-       
-      31.48
-    </li>
-    <li>
-      02/02/2021
-       
-      30047.99
-       
-      30075.97
-       
-      16.51
-    </li>
-    <li>
-      02/03/2021
-       
-      30090.98
-       
-      30190.899999999998
-       
-      42.99
-    </li>
-    <li>
-      02/04/2021
-       
-      30150.48
-       
-      30202.05
-       
-      59.5
-    </li>
-    <li>
-      02/05/2021
-       
-      30202.12
-       
-      30216.66
-       
-      51.64
-    </li>
-    <li>
-      02/08/2021
-       
-      30209.05
-       
-      30232.87
-       
-      6.93
-    </li>
-    <li>
-      02/09/2021
-       
-      30246.14
-       
-      30288.329999999998
-       
-      37.09
-    </li>
-    <li>
-      02/10/2021
-       
-      30273.85
-       
-      30391.01
-       
-      27.71
-    </li>
-    <li>
-      02/11/2021
-       
-      30320.57
-       
-      30471.329999999998
-       
-      46.72
-    </li>
-    <li>
-      02/12/2021
-       
-      30343.93
-       
-      30585.93
-       
-      23.36
-    </li>
-    <li>
-      02/15/2021
-       
-      30358.2
-       
-      30896.52
-       
-      14.27
-    </li>
-    <li>
-      02/16/2021
-       
-      30460.45
-       
-      30775.84
-       
-      102.25
-    </li>
-    <li>
-      02/17/2021
-       
-      30498.51
-       
-      31225.91
-       
-      38.06
-    </li>
-    <li>
-      02/18/2021
-       
-      30520.23
-       
-      30990.85
-       
-      21.72
-    </li>
-    <li>
-      02/19/2021
-       
-      30533.24
-       
-      31535.050000000003
-       
-      13.01
-    </li>
-    <li>
-      02/22/2021
-       
-      30618.4
-       
-      31973.02
-       
-      85.16
-    </li>
-    <li>
-      02/23/2021
-       
-      30614.04
-       
-      33538.33
-       
-      -4.36
-    </li>
-    <li>
-      02/24/2021
-       
-      30716.57
-       
-      33926.35
-       
-      102.53
-    </li>
-    <li>
-      02/25/2021
-       
-      30798.21
-       
-      33817.409999999996
-       
-      81.64
-    </li>
-    <li>
-      02/26/2021
-       
-      30889.1
-       
-      33948.52
-       
-      90.89
-    </li>
-    <li>
-      03/01/2021
-       
-      31048.29
-       
-      34056.17
-       
-      159.19
-    </li>
-    <li>
-      03/02/2021
-       
-      31103.22
-       
-      34201.11
-       
-      54.93
-    </li>
-    <li>
-      03/03/2021
-       
-      31125.94
-       
-      33999.69
-       
-      22.72
-    </li>
-    <li>
-      03/04/2021
-       
-      31154.47
-       
-      34006.97
-       
-      28.53
-    </li>
-    <li>
-      03/05/2021
-       
-      31236.02
-       
-      31236.02
-       
-      81.55
-    </li>
-  </ul>,
-  " ",
-]
+<div
+  className="sc-eCApnc bEyGmc"
+>
+  <h3
+    className="sc-bdnxRM xFYzW"
+  >
+    Thursday, March 4, 2021
+  </h3>
+  <div>
+    <div
+      className="sc-gtsrHT hiHNkt"
+    >
+      <h3
+        className="sc-bdnxRM xFYzW"
+      >
+        Equity
+      </h3>
+      <h2>
+        $
+        28,301.97
+      </h2>
+    </div>
+    <div
+      className="sc-gtsrHT hiHNkt"
+    >
+      <h3
+        className="sc-bdnxRM xFYzW"
+      >
+        Balance
+      </h3>
+      <h2>
+        $
+        31,154.47
+      </h2>
+    </div>
+    <div>
+      <h3
+        className="sc-bdnxRM xFYzW"
+      >
+        Profit
+      </h3>
+      <h2
+        className="sc-dlnjwi kQWAIy"
+      >
+        9.16
+        %
+      </h2>
+    </div>
+  </div>
+  <div
+    className="sc-hKFxyN gtUHzd"
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+  />
+  <button
+    onClick={[Function]}
+    value="Week"
+  >
+    1W
+  </button>
+  <button
+    onClick={[Function]}
+    value="Month"
+  >
+    1M
+  </button>
+  <button
+    onClick={[Function]}
+    value="Quarter"
+  >
+    3M
+  </button>
+</div>
 `;
 
 exports[`Storyshots @millifx/error-boundary Generic Error 1`] = `
