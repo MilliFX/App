@@ -1,9 +1,9 @@
-import * as React from "react";
-import { Daily } from "../../utils/constants";
-import { createConfig } from "../../utils/config";
-import ChartTop from "./ChartTop";
-import { Options } from "@ant-design/charts/es/hooks/useChart";
-import { ChartWrapper, Wrapper } from "./style";
+import * as React from 'react';
+import { Daily } from '../../utils/constants';
+import { createConfig } from '../../utils/config';
+import ChartTop from './ChartTop';
+import { Options } from '@ant-design/charts/es/hooks/useChart';
+import { ChartWrapper, Wrapper } from './style';
 import {
   ChartProps,
   LineData,
@@ -12,21 +12,21 @@ import {
   LABEL_MONTH,
   LABEL_QUARTER,
   formatDate,
-} from "../../utils/utils";
+} from '../../utils/utils';
 
 const Chart = ({ data }: ChartProps) => {
   const numberOfDays = data.length;
-  const isDataLessThenAWeek = numberOfDays < 7;
-  const isDataLessThenAMonth = numberOfDays < 30;
-  const isDataLessThenAQuarter = numberOfDays < 90;
+  const isDataLessThanAWeek = numberOfDays < 7;
+  const isDataLessThanAMonth = numberOfDays < 30;
+  const isDataLessThanAQuarter = numberOfDays < 90;
 
-  const weekData = isDataLessThenAWeek
+  const weekData = isDataLessThanAWeek
     ? data
     : data.slice(numberOfDays - 7, numberOfDays);
-  const monthData = isDataLessThenAMonth
+  const monthData = isDataLessThanAMonth
     ? data
     : data.slice(numberOfDays - 30, numberOfDays);
-  const quarterData = isDataLessThenAQuarter
+  const quarterData = isDataLessThanAQuarter
     ? data
     : data.slice(numberOfDays - 90, numberOfDays);
 
@@ -57,7 +57,7 @@ const Chart = ({ data }: ChartProps) => {
       return {
         date: daily.date,
         value: daily.equity,
-        label: "equity",
+        label: 'equity',
       };
     }
   );
@@ -67,7 +67,7 @@ const Chart = ({ data }: ChartProps) => {
       return {
         date: daily.date,
         value: daily.balance,
-        label: "balance",
+        label: 'balance',
       };
     }
   );
@@ -75,13 +75,13 @@ const Chart = ({ data }: ChartProps) => {
   const yValue = [...equityArray, ...balanceArray];
 
   const dataChange = (line: Options) => {
-    line.on("tooltip:change", (evt: Options) => {
+    line.on('tooltip:change', (evt: Options) => {
       const { title, items } = evt.data;
       setCurrentEquity(
-        items.find((item: Options) => item.data.label === "equity").data.value
+        items.find((item: Options) => item.data.label === 'equity').data.value
       );
       setCurrentBalance(
-        items.find((item: Options) => item.data.label === "balance").data.value
+        items.find((item: Options) => item.data.label === 'balance').data.value
       );
       setDate(title);
     });
