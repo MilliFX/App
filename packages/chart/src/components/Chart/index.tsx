@@ -6,7 +6,6 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
-  
   return (
     <>
       <p>Convert the following list to a chart</p>
@@ -18,7 +17,8 @@ const Chart = ({ data }: ChartProps) => {
             </li>
           );
         })}
-      </ul> </>
+      </ul>{" "}
+    </>
   );
 };
 
