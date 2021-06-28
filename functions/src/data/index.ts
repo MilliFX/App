@@ -34,8 +34,10 @@ export const helloHandler = async (
 
     fxBookAccountData = await FxBookGetAccount(event.headers["fxbook_session"]);
 
-    if (fxBookAccountData.error === false && fxBookAccountData.accounts[0].accountId) {
-      
+    if (
+      fxBookAccountData.error === false &&
+      fxBookAccountData.accounts[0].accountId
+    ) {
     }
   }
 
@@ -46,7 +48,7 @@ export const helloHandler = async (
     headers: {
       "Content-Type": "application/json",
     },
-    body: 'JSON.stringify()',
+    body: "JSON.stringify()",
   };
 };
 
