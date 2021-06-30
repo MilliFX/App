@@ -1,45 +1,35 @@
 import * as React from "react";
-import { Button } from ".";
+import { Button as Component } from "antd";
 import { CloseOutlined, SnippetsOutlined } from "@ant-design/icons";
 
+
+//customized control
 export default {
   title: "@millifx/app/components/Button",
-  component: Button,
+  component: Component,
   argTypes: {
     size: { control: { type: "select", options: ["small", "middle"] } },
     children: { control: "text" },
     type: {
       control: { type: "select", options: { Primary: "primary", Default: "" } },
     },
-    icon: { control: "text" },
+    disabled: { control: { type: "select", options: { Yes: true, No: false } }},
+    icon: { control: { type: "select", options: { Yes: true, No: false } }},
     loading: { control: { type: "select", options: { Yes: true, No: false } } },
   },
 };
 
-const Tamplate = (args) => <Button {...args} />;
+const Tamplate = (args) => (
+  <Component {...args} disabled={args.disabled} icon={args.icon ? <CloseOutlined /> : ""}/>
+);
 
-export const ButtonWithText = Tamplate.bind({});
-export const ButtonWithTextIcon = Tamplate.bind({});
-export const ButtonWithIcon = Tamplate.bind({});
+export const Button = Tamplate.bind({});
 
-ButtonWithText.args = {
-  size: "small",
+Button.args = {
+  size: "middle",
   type: "primary",
   children: "Button",
-  loading: false,
-};
-
-ButtonWithTextIcon.args = {
-  size: "small",
-  icon: <SnippetsOutlined />,
-  type: "primary",
-  children: "Button",
-  loading: false,
-};
-
-ButtonWithIcon.args = {
-  size: "small",
-  icon: <CloseOutlined />,
-  type: "primary",
+  disabled:false,
+  icon: false,
   loading: false,
 };
