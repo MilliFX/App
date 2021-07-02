@@ -1,4 +1,4 @@
-import { helloHandler } from "./index";
+import { dataHandler } from "./index";
 import { APIGatewayEvent, APIGatewayProxyResult, Context } from "aws-lambda";
 
 const mockMsg = "Jack";
@@ -20,7 +20,7 @@ describe("hello()", () => {
     };
 
     // Act
-    const { statusCode, headers, body } = await helloHandler(event);
+    const { statusCode, headers, body } = await dataHandler(event);
 
     expect(statusCode).toStrictEqual(200);
     expect(headers).toStrictEqual({

@@ -1,31 +1,8 @@
 import * as querystring from "querystring";
 import axios from "axios";
 
-export const FxBookGetAccount = (
-  session: string
-): Promise<IFXBookGetMyAccountSResponse> => {
-  const fxBookGetAccountData: string = querystring.stringify({
-    session: session,
-  });
 
-  const endPoint = {
-    host: process.env.FXBOOK_URL,
-    path: "/api/get-my-accounts.json",
-  };
-  return new Promise((resolve, reject) => {
-    const getDailyEndPoint = endPoint.host + endPoint.path;
-    axios.post(getDailyEndPoint, fxBookGetAccountData).then(
-      (resp: any) => {
-        resolve(resp.data as IFXBookGetMyAccountSResponse);
-      },
-      (err: Error) => {
-        reject(err);
-      }
-    );
-  });
-};
-
-export interface IFXBookGetMyAccountSResponse {
+export interface IFXBookGetMyAccountsResponse {
   error: boolean;
   message: string;
   accounts: [
@@ -63,3 +40,34 @@ export interface IFXBookGetMyAccountSResponse {
     }
   ];
 }
+
+
+
+export const FxBookGetAccount = (
+  session: string
+): Promise<IFXBookGetMyAccountsResponse> => {
+
+  const postData: string = querystring.stringify({
+    session: session,
+  });
+
+  const endPoint: string = process.env.FXBOOK_URL + "/api/get-my-accounts.json";
+
+  return new Promise((resolve, reject) => {
+
+    axios.post(endPoint, {postData}).then(
+
+      (resp: any) => {
+        resolve(resp.data as IFXBookGetMyAccountsResponse);
+      },
+
+      (err: Error) => {
+        reject(err);
+      }
+
+    );
+
+  });
+  
+};
+
