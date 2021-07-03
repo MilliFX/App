@@ -1,1 +1,1 @@
-export { default } from "./containers/ErrorBoundary";
+export { default,customHistory } from "./containers/ErrorBoundary";

@@ -3,12 +3,16 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { FULLSTORY_ORG_ID } from "./utils/constants";
 import * as FullStory from "@fullstory/browser";
+import { Router } from "react-router-dom";
+import { customHistory } from "@millifx/error-boundary";
 
 FULLSTORY_ORG_ID ? FullStory.init({ orgId: FULLSTORY_ORG_ID }) : null;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router history={customHistory}>
+      <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById("root")
 );
