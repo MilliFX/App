@@ -7,7 +7,14 @@ export default {
 };
 
 export const Default = () => (
-  <Component href="https://ant.design" target="_blank">
-    Ant Design (Link)
-  </Component>
+  <>
+    <Component href="https://ant.design" target="_blank" >
+      Ant Design (Link)
+    </Component>
+    <br/>
+    
+    <Component href="https://ant.design" target="_blank" disabled={true}>
+      Ant Design (Link)
+    </Component>
+  </>
 );
