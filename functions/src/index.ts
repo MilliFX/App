@@ -1,1 +1,1 @@
-export * from "./hello";
+export const message = "netlify function";

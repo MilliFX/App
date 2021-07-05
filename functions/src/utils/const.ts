@@ -5,3 +5,5 @@ export const WHITE_LIST: string[] = [
   "app.millifx.local",
   "localhost:8888",
 ];
+
+export const FXBOOK_TESTING_ACCOUNT_ID: string = "7806741";
