@@ -6,10 +6,19 @@ interface ChartProps {
 }
 
 const Chart = ({ data }: ChartProps) => {
+  
   return (
     <>
       <p>Convert the following list to a chart</p>
-    </>
+      <ul>
+        {data.map((daily) => {
+          return (
+            <li>
+              {daily.date} {daily.balance} {daily.equity} {daily.profit}
+            </li>
+          );
+        })}
+      </ul> </>
   );
 };
 
