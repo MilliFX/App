@@ -1,5 +1,5 @@
 import { IFXBookDataDaily } from "./api/MyFXBook/index";
-import { bankersRound } from 'bankers-round';
+import { bankersRound } from "bankers-round";
 
 export interface IChartDailyData {
   date: string;
@@ -19,10 +19,12 @@ export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
 
   // loop dataDailyArray and get date, balance, profit and equity
   for (let i = 0; i < dataDailyArray.length; i++) {
-
     // round equity to two decimals
-    let roundedEquity = bankersRound(dataDailyArray[i].balance + dataDailyArray[i].floatingPL, 2);
-    
+    let roundedEquity = bankersRound(
+      dataDailyArray[i].balance + dataDailyArray[i].floatingPL,
+      2
+    );
+
     let temp: IChartDailyData = {
       date: dataDailyArray[i].date,
       balance: dataDailyArray[i].balance,
