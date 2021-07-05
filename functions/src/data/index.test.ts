@@ -14,7 +14,7 @@ describe("hello()", () => {
       },
       queryStringParameters: {
         start: "2021-01-01",
-        end: "2021-06-23"
+        end: "2021-06-23",
       },
     };
 

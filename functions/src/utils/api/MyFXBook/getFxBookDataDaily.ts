@@ -10,12 +10,12 @@ export interface IFXBookGetDataDailyResponse {
 export interface IFXBookDataDaily {
   date: string;
   balance: number;
-  pips:number;
-  lots:number;
-  floatingPL:number;
-  profit:number;
-  growthEquity:number;
-  floatingPips:number;
+  pips: number;
+  lots: number;
+  floatingPL: number;
+  profit: number;
+  growthEquity: number;
+  floatingPips: number;
 }
 
 export const FxBookGetDataDaily = (
