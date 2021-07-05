@@ -38,6 +38,8 @@
   "dependencies": {
     "@types/uuid": "^8.3.0",
     "axios": "^0.21.1",
-    "middy": "^0.36.0"
+    "bankers-round": "^1.0.6",
+    "middy": "^0.36.0",
+    "moment": "^2.29.1"
   }
 }
