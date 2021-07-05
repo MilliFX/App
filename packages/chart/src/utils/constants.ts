@@ -161,5 +161,5 @@ export const mockData: Daily[] = [
     balance: 31236.02,
     profit: 81.55,
     equity: 31236.02,
-  },
+  }     
 ];
