@@ -1,61 +1,86 @@
-import { APIGatewayEvent, APIGatewayProxyResult, APIGatewayProxyHandler } from "aws-lambda";
+import {
+  APIGatewayEvent,
+  APIGatewayProxyResult,
+  APIGatewayProxyHandler,
+} from "aws-lambda";
 import middy from "middy";
 import { uuidValidationMiddleWare } from "../middleware/UUIDValidation";
 import { domainValidationMiddleWare } from "../middleware/DomainValidation";
 import { myFXBookLoginMiddleware } from "../middleware/MyFXBookLogin";
-import { FxBookGetDaily, IFXBookGetDailyGainResponse } from "../utils/getFxBookDailyGain";
+import {
+  FxBookGetDataDaily,
+  IFXBookGetDataDailyResponse
+} from "../utils/api/MyFXBook/index";
+
+import { IChartDailyData } from "../utils/formatData";
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
+import { formatData } from "../utils/formatData"
 
 export interface DataHandlerResponse {
   error: boolean;
-  data: Array<object>,
-  errorMessage?: string
+  data: Array<IChartDailyData>;
+  errorMessage?: string;
 }
 
 export const dataHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
 
+  // get start end date from query string
   var startDate = event.queryStringParameters?.start;
   var endDate = event.queryStringParameters?.end;
 
-  if(!startDate || !endDate){
-
-    const duration = GenerateDuration();
+  // if there is not start end date, create today as start and today - 30 days as end
+  if (!startDate || !endDate) {
+    const duration = GenerateDuration(); // param number, defult 30
     startDate = duration.startDate;
     endDate = duration.endDate;
   }
 
+  // initiate handler response
   var response: DataHandlerResponse = {
     error: false,
-    data: []
-  }
+    data: [],
+  };
 
+  // if successfully logged in to the MyFXBook with a session token
+  if (
+    event.headers["fxbook_error"] === "false" &&
+    event.headers["fxbook_session"]
+  ) {
 
-  if ( event.headers["fxbook_error"] === "false" && event.headers["fxbook_session"] ) {
+    // initiate data-daily.json API response
+    var dataDaily: IFXBookGetDataDailyResponse;
+    
+    // get daily gain data from MyFXBook server
+    dataDaily = await FxBookGetDataDaily(
+      event.headers["fxbook_session"],
+      FXBOOK_TESTING_ACCOUNT_ID,
+      startDate,
+      endDate
+    );
 
-    //fxBookAccountData = await FxBookGetAccount(event.headers["fxbook_session"]);
+    // if has data during the given period
+    if (dataDaily.dataDaily.length > 0) {
 
-    var dailyGainData: IFXBookGetDailyGainResponse;
+      // format data and assign to response.data
+      response.data = formatData(dataDaily.dataDaily);
 
-    dailyGainData = await FxBookGetDaily(event.headers["fxbook_session"], FXBOOK_TESTING_ACCOUNT_ID, startDate, endDate);
+    } else {
 
-    if(dailyGainData.dailyGain.length > 0){
-
-      response.data = dailyGainData.dailyGain;
-
-    }else{
+      // if there is no data during the given period
       response.error = true;
       response.errorMessage = "No data during this period";
+
     }
+  } else {
 
-  }else{
+    // if log in to MyFXBook server failed
     response.error = true;
-    response.errorMessage = "Cannot login to the MyFXBook"; 
-  }
+    response.errorMessage = "Cannot login to the MyFXBook";
 
-  //console.log(event.headers);
+  }
 
   return {
     statusCode: 200,
@@ -65,7 +90,6 @@ export const dataHandler = async (
     body: JSON.stringify(response),
   };
 };
-
 
 export const handler: APIGatewayProxyHandler = middy(dataHandler)
   .use(domainValidationMiddleWare())

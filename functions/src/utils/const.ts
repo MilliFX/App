@@ -6,5 +6,4 @@ export const WHITE_LIST: string[] = [
   "localhost:8888",
 ];
 
-
 export const FXBOOK_TESTING_ACCOUNT_ID: string = "7806741";

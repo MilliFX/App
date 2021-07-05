@@ -1,7 +1,6 @@
 import * as querystring from "querystring";
 import axios from "axios";
 
-
 export interface IFXBookGetMyAccountsResponse {
   error: boolean;
   message: string;
@@ -41,12 +40,9 @@ export interface IFXBookGetMyAccountsResponse {
   ];
 }
 
-
-
 export const FxBookGetAccount = (
   session: string
 ): Promise<IFXBookGetMyAccountsResponse> => {
-
   const postData: string = querystring.stringify({
     session: session,
   });
@@ -54,9 +50,7 @@ export const FxBookGetAccount = (
   const endPoint: string = process.env.FXBOOK_URL + "/api/get-my-accounts.json";
 
   return new Promise((resolve, reject) => {
-
-    axios.post(endPoint, {postData}).then(
-
+    axios.post(endPoint, { postData }).then(
       (resp: any) => {
         resolve(resp.data as IFXBookGetMyAccountsResponse);
       },
@@ -64,10 +58,6 @@ export const FxBookGetAccount = (
       (err: Error) => {
         reject(err);
       }
-
     );
-
   });
-  
 };
-
