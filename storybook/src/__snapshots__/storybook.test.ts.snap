@@ -239,6 +239,19 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
 </form>
 `;
 
+exports[`Storyshots @millifx/app/components/Link Link 1`] = `
+<a
+  className="ant-typography"
+  style={
+    Object {
+      "WebkitLineClamp": undefined,
+    }
+  }
+>
+  A demo link
+</a>
+`;
+
 exports[`Storyshots @millifx/chart Chart 1`] = `
 Array [
   <p>
