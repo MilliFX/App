@@ -12,7 +12,7 @@ const Chart = ({ data }: ChartProps) => {
       <ul>
         {data.map((daily) => {
           return (
-            <li>
+            <li key={daily.date}>
               {daily.date} {daily.balance} {daily.equity} {daily.profit}
             </li>
           );
