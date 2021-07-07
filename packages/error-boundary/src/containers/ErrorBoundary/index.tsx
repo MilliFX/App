@@ -18,7 +18,8 @@ interface State {
 }
 
 export const customHistory = createBrowserHistory();
-// export const SentryRoute = Sentry.withSentryRouting(RouteProps);
+export const SentryRoute = Sentry.withSentryRouting(Route);
+export const Test = "test";
 
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
@@ -30,9 +31,13 @@ class ErrorBoundary extends Component<Props, State> {
       dsn: SENTRY_DSN,
       release: props.version,
       environment: env,
-      integrations: [new Integrations.BrowserTracing({
-        routingInstrumentation: Sentry.reactRouterV5Instrumentation(customHistory),
-      })],
+      integrations: [
+        new Integrations.BrowserTracing({
+          routingInstrumentation: Sentry.reactRouterV5Instrumentation(
+            customHistory
+          ),
+        }),
+      ],
       tracesSampleRate: 1.0,
     });
 

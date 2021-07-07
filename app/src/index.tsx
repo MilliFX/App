@@ -3,15 +3,19 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { FULLSTORY_ORG_ID } from "./utils/constants";
 import * as FullStory from "@fullstory/browser";
-import { Router } from "react-router-dom";
-import { customHistory } from "@millifx/error-boundary";
+import { Router, Switch } from "react-router-dom";
+import { customHistory, SentryRoute } from "@millifx/error-boundary";
 
 FULLSTORY_ORG_ID ? FullStory.init({ orgId: FULLSTORY_ORG_ID }) : null;
 
 ReactDOM.render(
   <React.StrictMode>
     <Router history={customHistory}>
-      <App />
+      <Switch>
+        <SentryRoute path="/test1" component={() => <div>Test1</div>} />
+        <SentryRoute path="/test2" component={() => <div>Test2</div>} />
+        <SentryRoute path="/" component={App} />
+      </Switch>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")
