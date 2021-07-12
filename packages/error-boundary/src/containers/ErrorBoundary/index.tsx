@@ -5,6 +5,8 @@ import { Integrations } from "@sentry/tracing";
 import GenericError from "../../components/GenericError";
 import { SENTRY_DSN } from "../../utils/constants";
 import { getEnv } from "@millifx/utils";
+import { createBrowserHistory } from "history";
+import { Route } from "react-router-dom";
 
 interface Props {
   children: ReactNode;
@@ -15,18 +17,27 @@ interface State {
   hasError: boolean;
 }
 
+export const customHistory = createBrowserHistory();
+export const SentryRoute = Sentry.withSentryRouting(Route);
+export const Test = "test";
+
 class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
     const hostName = window.location.host;
     const env = getEnv(hostName);
-
     Sentry.init({
       dsn: SENTRY_DSN,
       release: props.version,
       environment: env,
-      integrations: [new Integrations.BrowserTracing()],
+      integrations: [
+        new Integrations.BrowserTracing({
+          routingInstrumentation: Sentry.reactRouterV5Instrumentation(
+            customHistory
+          ),
+        }),
+      ],
       tracesSampleRate: 1.0,
     });
 
