@@ -10,13 +10,7 @@ export default {
     children: { control: "text" },
     disabled: {
       control: { type: "select", options: { Yes: true, No: false } }
-    },
-    underline: {
-      control: { type: "select", options: { Yes: true, No: false } }
-    },
-    // size: {
-    //   control: { type: "select", options: ["small", "middle"] }
-    // }
+    }
   }
 };
 
