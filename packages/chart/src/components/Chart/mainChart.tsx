@@ -12,18 +12,24 @@ import {
   AreaSeries,
   Crosshair,
 } from "react-vis";
-import "../../../node_modules/react-vis/dist/style.css";
+import "react-vis/dist/style.css";
 import "antd/dist/antd.css";
 
 interface MainChartProps {
-  data: { domain: { start: number; end: number; }; 
-  state: { date: string; balance: number; equity: number; 
-    profit: number; }[]; 
+  data: { 
+    domain: { start: number; end: number; }; 
+    state: { 
+      date: string; 
+      balance: number;
+      equity: number; 
+      profit: number; 
+    }[]; 
     showEquity: boolean; 
     showBalance: boolean; 
     startDate: string; 
-    crosshairValue: Cross[]; };
-  onNearestX: (value: number, { index }: { index: number; }) => void;
+    crosshairValue: Cross[];
+   };
+  onNearestX: (value: any, { index }: { index: any; }) => void;
   onMouseLeave: () => void;
   balanceLegend: () => void;
   equityLegend: () => void;
@@ -39,6 +45,20 @@ const MainChart = (props: MainChartProps) => {
     startDate,
     crosshairValue,
   } = props.data;
+
+  const equityData=state.map((daily: Daily) => ({
+    x: daily.date,
+    y: daily.equity,
+  }))
+  // const equityDataArea=state.map((daily: Daily) => ({
+  //   x: Date.parse(daily.date),
+  //   y: daily.equity,
+  // }))
+  const balanceData=state.map((daily: Daily) => ({
+    x: daily.date,
+    y: daily.balance,
+  }))
+
   return (
     <>
       <FlexibleXYPlot
@@ -49,10 +69,7 @@ const MainChart = (props: MainChartProps) => {
       >
         {showEquity && (
           <LineSeries
-            data={state.map((daily: Daily) => ({
-              x: daily.date,
-              y: daily.equity,
-            }))}
+            data={equityData}
             color={palette.equity}
             onNearestX={props.onNearestX}
           />
@@ -62,19 +79,13 @@ const MainChart = (props: MainChartProps) => {
           <AreaSeries
             className="area-elevated-series-2"
             color={palette.equity}
-            data={state.map((daily: Daily) => ({
-              x: daily.date,
-              y: daily.equity,
-            }))}
+            data={equityData}
             opacity={0.1}
           />
         )}
         {showBalance && (
           <LineSeries
-            data={state.map((daily: Daily) => ({
-              x: daily.date,
-              y: daily.balance,
-            }))}
+            data={balanceData}
             color={palette.balance}
             onNearestX={props.onNearestX}
           />
@@ -84,13 +95,11 @@ const MainChart = (props: MainChartProps) => {
           <AreaSeries
             className="area-elevated-series-2"
             color={palette.balance}
-            data={state.map((daily: Daily) => ({
-              x: daily.date,
-              y: daily.balance,
-            }))}
+            data={balanceData}
             opacity={0.1}
           />
         )}
+
         <Crosshair values={crosshairValue}>
           <div></div>
         </Crosshair>

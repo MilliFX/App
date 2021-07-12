@@ -55,7 +55,7 @@ const Chart = ({ data }: ChartProps) => {
   const [showEquity, setShowEquity] = useState(true);
   const [startDate, setStartDate] = useState(state[0].date.substr(0, 7));
   const [crosshairValue, setCrosshairValue] = useState<Array<Cross>>([]);;
-  const onNearestX = (value: number, { index }: {index:number}) => {
+  const onNearestX = (value: any, { index }: {index:number}) => {
     setCurrent({
       date: state[index].date,
       balance: state[index].balance,
