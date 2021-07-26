@@ -1,11 +1,12 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
 import { Account } from "@millifx/utils";
-import { Breadcrumb, Col, Layout, Menu, Row } from "antd";
-import { InvitationForm } from "./components/InvitationForm";
+import { Layout } from "antd";
 import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
 import * as FullStory from "@fullstory/browser";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import transections from "./pages/transactions/index";
 const { Header, Footer, Content } = Layout;
 
 const sampleAccount: Account = {
@@ -39,34 +40,15 @@ const AppWithRouter = () => {
   }
 
   return (
-    <Layout>
-      <Header>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
-      </Header>
-      <Content style={{ padding: "0 50px" }}>
-        <Row>
-          <Col span={12} offset={6}>
-            <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>
-            <div>
-              <h2>{name}</h2>
-              <p>Gain: {gain}</p>
-              <InvitationForm />
-            </div>
-          </Col>
-        </Row>
-      </Content>
-      <Footer style={{ textAlign: "center" }}>
-        Ant Design ©2020 Created by MilliFX
-      </Footer>
-    </Layout>
+    <BrowserRouter>
+      <Layout>
+        <Content style={{ padding: "0 50px" }}>
+          <Switch>
+            <Route path="/transections" component={transections} exact />
+          </Switch>
+        </Content>
+      </Layout>
+    </BrowserRouter>
   );
 };
 
