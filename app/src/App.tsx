@@ -1,15 +1,22 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
-import { StyleAntLayout as Layout } from "./style";
+import { Account } from "@millifx/utils";
+import { Layout } from "antd";
 import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
 import * as FullStory from "@fullstory/browser";
-import { Router, Switch } from "react-router-dom";
-import { customHistory, SentryRoute } from "@millifx/error-boundary";
-import * as Sentry from "@sentry/react";
-import { Invite } from "./pages/Invite";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import transections from "./pages/transactions/index";
+const { Header, Footer, Content } = Layout;
 
-const { Content } = Layout;
+const sampleAccount: Account = {
+  id: 5875672,
+  name: "MilliFX Master Account",
+  gain: 545.1390111241,
+  drawdown: 0.06,
+  demo: false,
+  change: 537.105380649,
+};
 
 const App = () => (
   <ErrorBoundary version={process.env.REACT_APP_COMMIT}>
@@ -24,6 +31,8 @@ const AppWithSession = () => (
 );
 
 const AppWithRouter = () => {
+  const { name, gain } = sampleAccount;
+
   const { uuid } = useSession();
   console.log("SessionConsumer Detected UUID", uuid);
   if (uuid) {
@@ -31,17 +40,16 @@ const AppWithRouter = () => {
   }
 
   return (
-    <Router history={customHistory}>
+    <BrowserRouter>
       <Layout>
-        <Content>
+        <Content style={{ padding: "0 50px" }}>
           <Switch>
-            <SentryRoute path="/" exact component={() => <h1>Homepage</h1>} />
-            <SentryRoute path="/invite" component={Invite} />
+            <Route path="/transections" component={transections} exact />
           </Switch>
         </Content>
       </Layout>
-    </Router>
+    </BrowserRouter>
   );
 };
 
-export default Sentry.withProfiler(App);
+export default App;
