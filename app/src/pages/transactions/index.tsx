@@ -1,14 +1,30 @@
 import * as React from "react";
-import { Col, Row } from "antd";
+import { Row } from "antd";
 import transectionData from "./data";
-import DateRow from "./dateRow";
+import DateRow from "./SingleDayRow";
+import {
+  StyleAntCol as Col,
+  StyleHeroWrapper,
+  StyleHeroTitle,
+  StyleHeroDataWrapper,
+  StyleHeroDataTitle,
+  StyleHeroDataFigure,
+} from "./styles";
 
 const Transactions = () => {
   return (
     <>
       <Row>
         <Col span={24}>
-          <h1>Transections</h1>
+          <StyleHeroWrapper>
+            <StyleHeroTitle>Transections</StyleHeroTitle>
+            <StyleHeroDataWrapper>
+              <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
+              <StyleHeroDataFigure profit={-155.56}>
+                -$155.56
+              </StyleHeroDataFigure>
+            </StyleHeroDataWrapper>
+          </StyleHeroWrapper>
           {transectionData.map((date, i) => (
             <DateRow data={date} key={i} />
           ))}
