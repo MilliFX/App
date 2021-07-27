@@ -1,7 +1,7 @@
 import React from "react";
 import ErrorBoundary from "@millifx/error-boundary";
 import { Account } from "@millifx/utils";
-import { Layout } from "antd";
+import { StyleAntLayout as Layout } from "./style";
 import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
 import * as FullStory from "@fullstory/browser";
@@ -42,7 +42,7 @@ const AppWithRouter = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Content style={{ padding: "0 50px" }}>
+        <Content>
           <Switch>
             <Route path="/transections" component={transections} exact />
           </Switch>
