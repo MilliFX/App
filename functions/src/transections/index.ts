@@ -65,7 +65,6 @@ export const transectionHandler = async (
     if (history.history.length > 0) {
       // format data and assign to response.data
       response.data.history = formatHistoryData(history.history);
-
     } else {
       // if there is no data during the given period
       response.error = true;
@@ -94,7 +93,7 @@ const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
     time = moment(time, "MM/DD/YYYY").format("ddd, DD MMMM YYYY");
     data[i].closeTime = time;
 
-    if(output.length === 0){
+    if (output.length === 0) {
       let temp: IFormattedDailyHistory = {
         date: data[i].closeTime,
         transections: [],
@@ -108,14 +107,14 @@ const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
       };
       temp.transections.push(tempTransection);
       output.push(temp);
-    }else{
+    } else {
       for (let j = 0; j < output.length; j++) {
         if (data[i].closeTime !== output[j].date) {
           let temp: IFormattedDailyHistory = {
             date: data[i].closeTime,
             transections: [],
           };
-  
+
           let tempTransection: ISingleTransection = {
             action: data[i].action,
             fromCurrency: data[i].symbol.substring(0, 3),
@@ -133,7 +132,7 @@ const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
             lots: data[i].sizing.value,
             profit: data[i].profit,
           };
-  
+
           output[j].transections.push(tempTransection);
         }
       }

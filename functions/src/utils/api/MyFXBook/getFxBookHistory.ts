@@ -14,7 +14,7 @@ export interface IFXBookHistoryDaily {
   action: string;
   sizing: {
     type: string;
-    value: number
+    value: number;
   };
   openPrice: number;
   closePrice: number;
