@@ -38,10 +38,7 @@ const EnterButton = styled.div`
 `;
 
 export const Invite = () => {
-  const [codeEnter, setCodeEnter] = useState(true);
-  const handleFormChange = () => {
-    setCodeEnter(!codeEnter);
-  };
+  const [codeEnter, setCodeEnter] = useState<boolean>(true);
   return (
     <Container>
       <Brand />
@@ -51,14 +48,18 @@ export const Invite = () => {
             <span>View and manage your forex trading portfolio</span>
           </Description>
           <EnterButton>
-            <Button type="primary" block onClick={() => handleFormChange()}>
+            <Button
+              type="primary"
+              block
+              onClick={() => setCodeEnter(!codeEnter)}
+            >
               Enter with code
             </Button>
           </EnterButton>
         </>
       ) : (
         <div>
-          <InviteForm />
+          <InviteForm codeEnter={codeEnter} setCodeEnter={setCodeEnter} />
         </div>
       )}
     </Container>
@@ -86,7 +87,13 @@ const InputWrapper = styled.div`
   border: 1px solid green;
 `;
 
-const InviteForm = () => {
+interface IProps {
+  codeEnter: boolean;
+  setCodeEnter: (value: boolean) => void;
+}
+
+const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
+  console.log(codeEnter);
   return (
     <>
       <Form>
@@ -98,13 +105,16 @@ const InviteForm = () => {
         >
           <Input size="large" />
         </Form.Item>
+        <br />
         <Form.Item>
           <Button type="primary" block>
             Submit
           </Button>
         </Form.Item>
         <Form.Item>
-          <Button block> Cancel </Button>
+          <Button block onClick={() => setCodeEnter(!codeEnter)}>
+            Cancel
+          </Button>
         </Form.Item>
       </Form>
     </>
