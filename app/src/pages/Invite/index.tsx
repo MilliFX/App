@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Space, Input } from "antd";
+import { Typography, Space, Input, Form } from "antd";
 import styled from "styled-components";
 import BackgroundSVG from "../../img/background.svg";
 import BrandSVG from "../../img/branding.svg";
@@ -57,8 +57,56 @@ export const Invite = () => {
           </EnterButton>
         </>
       ) : (
-        <div> form </div>
+        <div>
+          <InviteForm />
+        </div>
       )}
     </Container>
+  );
+};
+
+const Wrapper = styled.div`
+  width: 320px;
+  height: auto;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+const InputWrapper = styled.div`
+  width: 320px;
+  height: auto;
+  margin-bottom: 20px;
+  display: flex;
+  flex-diretion: column;
+  align-items: flex-start;
+  justify-content: center;
+  border: 1px solid green;
+`;
+
+const InviteForm = () => {
+  return (
+    <>
+      <Form>
+        <Form.Item
+          label="Enter Invitation Code"
+          hasFeedback
+          validateStatus="warning"
+          help="Please enter your invitation code"
+        >
+          <Input size="large" />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" block>
+            Submit
+          </Button>
+        </Form.Item>
+        <Form.Item>
+          <Button block> Cancel </Button>
+        </Form.Item>
+      </Form>
+    </>
   );
 };
