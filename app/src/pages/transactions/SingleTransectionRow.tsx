@@ -6,6 +6,7 @@ import {
   StyleLotsCol,
   StyleProfitCol,
 } from "./styles";
+import { formatCurrency } from "../../utils/formatCurrency";
 
 export interface ITransection {
   action: string;
@@ -31,7 +32,7 @@ const TransectionRow = ({ transection }: ITransectionRowProps) => {
         </StyleCurrencyCol>
         <StyleLotsCol>{transection.lots}</StyleLotsCol>
         <StyleProfitCol profit={transection.profit}>
-          {transection.profit}
+          {formatCurrency(transection.profit)}
         </StyleProfitCol>
       </StyleRow>
     </>
