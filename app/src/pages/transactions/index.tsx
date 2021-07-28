@@ -11,6 +11,8 @@ import {
   StyleHeroDataFigure,
 } from "./styles";
 
+import { formatCurrency } from "../../utils/formatCurrency";
+
 const Transactions = () => {
   return (
     <>
@@ -21,7 +23,7 @@ const Transactions = () => {
             <StyleHeroDataWrapper>
               <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
               <StyleHeroDataFigure profit={-155.56}>
-                -$155.56
+                {formatCurrency(-155.56)}
               </StyleHeroDataFigure>
             </StyleHeroDataWrapper>
           </StyleHeroWrapper>
