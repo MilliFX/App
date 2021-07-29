@@ -5,9 +5,11 @@ import { StyleAntLayout as Layout } from "./style";
 import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
 import * as FullStory from "@fullstory/browser";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Router, Switch } from "react-router-dom";
 import transections from "./pages/transactions/index";
-const { Header, Footer, Content } = Layout;
+import { customHistory, SentryRoute } from "@millifx/error-boundary";
+
+const { Content } = Layout;
 
 const sampleAccount: Account = {
   id: 5875672,
@@ -40,15 +42,16 @@ const AppWithRouter = () => {
   }
 
   return (
-    <BrowserRouter>
+    <Router history={customHistory}>
       <Layout>
         <Content>
           <Switch>
-            <Route path="/transections" component={transections} exact />
+            <SentryRoute path="/" component={App} />
+            <SentryRoute path="/transections" component={transections} exact />
           </Switch>
         </Content>
       </Layout>
-    </BrowserRouter>
+    </Router>
   );
 };
 
