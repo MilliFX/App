@@ -10,6 +10,7 @@ import * as Sentry from "@sentry/react";
 import { Invite } from "./pages/Invite";
 import More from "./pages/More";
 import RegisterInterest from "./pages/RegisterInterest/index";
+import transections from "./pages/transactions/index";
 
 const { Content } = Layout;
 
@@ -44,6 +45,7 @@ const AppWithRouter = () => {
               path="/registerinterest"
               component={RegisterInterest}
             />
+            <SentryRoute path="/transections" component={transections} exact />
           </Switch>
         </Content>
       </Layout>
