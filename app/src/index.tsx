@@ -4,7 +4,6 @@ import App from "./App";
 import { FULLSTORY_ORG_ID } from "./utils/constants";
 import * as FullStory from "@fullstory/browser";
 
-
 FULLSTORY_ORG_ID ? FullStory.init({ orgId: FULLSTORY_ORG_ID }) : null;
 
 ReactDOM.render(
