@@ -11,11 +11,9 @@ import {
   FxBookGetDataDaily,
   IFXBookGetDataDailyResponse,
 } from "../utils/api/MyFXBook/index";
-
-import { IChartDailyData } from "../utils/formatData";
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
-import { formatData } from "../utils/formatData";
+import { IFXBookDataDaily } from "../utils/api/MyFXBook/index";
 
 export interface ChartHandlerResponse {
   error: boolean;
@@ -72,6 +70,45 @@ export const ChartHandler = async (
     },
     body: JSON.stringify(response),
   };
+};
+
+import { bankersRound } from "bankers-round";
+
+export interface IChartDailyData {
+  date: string;
+  balance: number;
+  profit: number;
+  equity: number;
+}
+
+export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
+  // break  Array<Array<IFXBookDataDaily>> to Array<IFXBookDataDaily>
+  const dataDailyArray: Array<IFXBookDataDaily> = dataDaily.map(
+    (item) => item[0]
+  );
+
+  // initiate return variable
+  var result: Array<IChartDailyData> = [];
+
+  // loop dataDailyArray and get date, balance, profit and equity
+  for (let i = 0; i < dataDailyArray.length; i++) {
+    // round equity to two decimals
+    let roundedEquity = bankersRound(
+      dataDailyArray[i].balance + dataDailyArray[i].floatingPL,
+      2
+    );
+
+    let temp: IChartDailyData = {
+      date: dataDailyArray[i].date,
+      balance: dataDailyArray[i].balance,
+      profit: dataDailyArray[i].profit,
+      equity: roundedEquity,
+    };
+
+    result.push(temp);
+  }
+
+  return result;
 };
 
 export const handler: APIGatewayProxyHandler = middy(ChartHandler)
