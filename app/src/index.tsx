@@ -3,21 +3,12 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { FULLSTORY_ORG_ID } from "./utils/constants";
 import * as FullStory from "@fullstory/browser";
-import { Router, Switch } from "react-router-dom";
-import { customHistory, SentryRoute } from "@millifx/error-boundary";
-import { Invite } from "./pages/Invite";
 
 FULLSTORY_ORG_ID ? FullStory.init({ orgId: FULLSTORY_ORG_ID }) : null;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router history={customHistory}>
-      <Switch>
-        <SentryRoute path="/invite" component={Invite} />
-        <SentryRoute path="/test2" component={() => <div>Test2</div>} />
-        <SentryRoute path="/" component={App} />
-      </Switch>
-    </Router>
+    <App />
   </React.StrictMode>,
   document.getElementById("root")
 );
