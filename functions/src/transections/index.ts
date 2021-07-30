@@ -49,10 +49,7 @@ export const transectionHandler = async (
   };
 
   // if successfully logged in to the MyFXBook with a session token
-  if (
-    event.headers["fxbook_error"] === "false" &&
-    event.headers["fxbook_session"]
-  ) {
+  if (event.headers["fxbook_session"]) {
     var history: IFXBookGetHistoryResponse;
 
     // get daily gain data from MyFXBook server
@@ -73,7 +70,7 @@ export const transectionHandler = async (
   } else {
     // if log in to MyFXBook server failed
     response.error = true;
-    response.errorMessage = "Cannot login to the MyFXBook";
+    response.errorMessage = "Internal Error";
   }
 
   return {

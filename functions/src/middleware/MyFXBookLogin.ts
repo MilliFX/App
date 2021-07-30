@@ -20,7 +20,7 @@ export function myFXBookLoginMiddleware(): MiddlewareObject<
     ): Promise<void> => {
       var response: IFXBookResponse = await FxBookLogin();
 
-      if (response.error === false) {
+      if (response.error === true) {
         throw createHttpError(500, response.message);
       } else {
         handler.event.headers["fxbook_session"] = response.session;
