@@ -17,13 +17,13 @@ import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
 import { formatData } from "../utils/formatData";
 
-export interface DataHandlerResponse {
+export interface ChartHandlerResponse {
   error: boolean;
   data: Array<IChartDailyData>;
   errorMessage?: string;
 }
 
-export const dataHandler = async (
+export const ChartHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // get start end date from query string
@@ -38,28 +38,20 @@ export const dataHandler = async (
   }
 
   // initiate handler response
-  var response: DataHandlerResponse = {
+  var response: ChartHandlerResponse = {
     error: false,
     data: [],
   };
 
-  // if successfully logged in to the MyFXBook with a session token
-  if (
-    event.headers["fxbook_error"] === "false" &&
-    event.headers["fxbook_session"]
-  ) {
-    // initiate data-daily.json API response
-    var dataDaily: IFXBookGetDataDailyResponse;
+  var dataDaily: IFXBookGetDataDailyResponse;
 
-    // get daily gain data from MyFXBook server
+  if (event.headers["fxbook_session"]) {
     dataDaily = await FxBookGetDataDaily(
       event.headers["fxbook_session"],
       FXBOOK_TESTING_ACCOUNT_ID,
       startDate,
       endDate
     );
-
-    // if has data during the given period
     if (dataDaily.dataDaily.length > 0) {
       // format data and assign to response.data
       response.data = formatData(dataDaily.dataDaily);
@@ -69,9 +61,8 @@ export const dataHandler = async (
       response.errorMessage = "No data during this period";
     }
   } else {
-    // if log in to MyFXBook server failed
     response.error = true;
-    response.errorMessage = "Cannot login to the MyFXBook";
+    response.errorMessage = "Internal Error";
   }
 
   return {
@@ -83,7 +74,7 @@ export const dataHandler = async (
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(dataHandler)
+export const handler: APIGatewayProxyHandler = middy(ChartHandler)
   .use(domainValidationMiddleWare())
   .use(uuidValidationMiddleWare())
   .use(myFXBookLoginMiddleware());
