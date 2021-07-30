@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Row } from "antd";
 import transectionData from "./data";
-import DateRow from "./SingleDayRow";
+import DayRow from "../../components/SingleDayRow";
 import {
   StyleAntCol as Col,
   StyleHeroWrapper,
@@ -28,7 +28,7 @@ const Transactions = () => {
             </StyleHeroDataWrapper>
           </StyleHeroWrapper>
           {transectionData.map((date, i) => (
-            <DateRow data={date} key={i} />
+            <DayRow data={date} key={i} />
           ))}
         </Col>
       </Row>
