@@ -1,6 +1,6 @@
 import * as React from "react";
-import { ITransection } from "./SingleTransectionRow";
-import { default as TransectionRow } from "./SingleTransectionRow";
+import { ITransection } from "../SingleTransectionRow/";
+import { default as TransectionRow } from "../SingleTransectionRow";
 import { StyleDateTitle, StyleDateWrapper } from "./styles";
 
 export interface ITransections {
@@ -12,7 +12,7 @@ interface IDateRowProps {
   data: ITransections;
 }
 
-const DateRow = ({ data }: IDateRowProps) => {
+const DayRow = ({ data }: IDateRowProps) => {
   return (
     <>
       <StyleDateWrapper>
@@ -25,4 +25,4 @@ const DateRow = ({ data }: IDateRowProps) => {
   );
 };
 
-export default DateRow;
+export default DayRow;
