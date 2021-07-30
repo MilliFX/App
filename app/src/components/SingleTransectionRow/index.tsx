@@ -22,20 +22,18 @@ interface ITransectionRowProps {
 
 const TransectionRow = ({ transection }: ITransectionRowProps) => {
   return (
-    <>
-      <StyleRow>
-        <StyleActionCol action={transection.action}>
-          {transection.action}
-        </StyleActionCol>
-        <StyleCurrencyCol>
-          {transection.fromCurrency} &gt; {transection.toCurrency}
-        </StyleCurrencyCol>
-        <StyleLotsCol>{transection.lots}</StyleLotsCol>
-        <StyleProfitCol profit={transection.profit}>
-          {formatCurrency(transection.profit)}
-        </StyleProfitCol>
-      </StyleRow>
-    </>
+    <StyleRow>
+      <StyleActionCol action={transection.action}>
+        {transection.action}
+      </StyleActionCol>
+      <StyleCurrencyCol>
+        {transection.fromCurrency} &gt; {transection.toCurrency}
+      </StyleCurrencyCol>
+      <StyleLotsCol>{transection.lots}</StyleLotsCol>
+      <StyleProfitCol profit={transection.profit}>
+        {formatCurrency(transection.profit)}
+      </StyleProfitCol>
+    </StyleRow>
   );
 };
 
