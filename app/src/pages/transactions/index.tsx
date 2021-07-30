@@ -16,8 +16,6 @@ import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { UUID_FIELD } from "../../utils/constants";
 
-import { formatCurrency } from "../../utils/formatCurrency";
-
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
 
