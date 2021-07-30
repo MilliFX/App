@@ -4,7 +4,7 @@ import styled from "styled-components";
 import BackgroundSVG from "../../img/background.svg";
 import BrandSVG from "../../img/branding.svg";
 import { Button } from "../../components/Button/index.stories";
-// import { Link } from "../../components/Link/index.stories";
+import { InviteForm } from "./InviteForm";
 
 const Container = styled.div`
   background-image: url(${BackgroundSVG});
@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 `;
 const Brand = styled.div`
   background-image: url(${BrandSVG});
@@ -21,20 +21,24 @@ const Brand = styled.div`
   width: 159.66px;
   background-size: 100%;
   z-index: 0.5;
-  margin: 20px auto;
+  margin-top: 120px;
 `;
 
 const Description = styled.div`
   font-family: Barlow;
   font-style: normal;
   font-weight: normal;
-  padding: 40px;
+  width: 320px;
+  height: 24px;
   font-size: 16px;
   line-height: 24px;
   color: #505050;
+  margin-top: 88px;
 `;
 const EnterButton = styled.div`
   width: 240px;
+  margin-top: 40px;
+  height: 44px;
 `;
 
 export const Invite = () => {
@@ -58,65 +62,10 @@ export const Invite = () => {
           </EnterButton>
         </>
       ) : (
-        <div>
+        <>
           <InviteForm codeEnter={codeEnter} setCodeEnter={setCodeEnter} />
-        </div>
+        </>
       )}
     </Container>
-  );
-};
-
-const Wrapper = styled.div`
-  width: 320px;
-  height: auto;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InputWrapper = styled.div`
-  width: 320px;
-  height: auto;
-  margin-bottom: 20px;
-  display: flex;
-  flex-diretion: column;
-  align-items: flex-start;
-  justify-content: center;
-  border: 1px solid green;
-`;
-
-interface IProps {
-  codeEnter: boolean;
-  setCodeEnter: (value: boolean) => void;
-}
-
-const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
-  console.log(codeEnter);
-  return (
-    <>
-      <Form>
-        <Form.Item
-          label="Enter Invitation Code"
-          hasFeedback
-          validateStatus="warning"
-          help="Please enter your invitation code"
-        >
-          <Input size="large" />
-        </Form.Item>
-        <br />
-        <Form.Item>
-          <Button type="primary" block>
-            Submit
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button block onClick={() => setCodeEnter(!codeEnter)}>
-            Cancel
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
   );
 };
