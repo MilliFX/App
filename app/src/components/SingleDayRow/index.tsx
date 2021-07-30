@@ -14,14 +14,12 @@ interface IDateRowProps {
 
 const DayRow = ({ data }: IDateRowProps) => {
   return (
-    <>
-      <StyleDateWrapper>
-        <StyleDateTitle>{data.date}</StyleDateTitle>
-        {data.transections.map((transection, key) => (
-          <TransectionRow transection={transection} key={key} />
-        ))}
-      </StyleDateWrapper>
-    </>
+    <StyleDateWrapper>
+      <StyleDateTitle>{data.date}</StyleDateTitle>
+      {data.transections.map((transection, key) => (
+        <TransectionRow transection={transection} key={key} />
+      ))}
+    </StyleDateWrapper>
   );
 };
 
