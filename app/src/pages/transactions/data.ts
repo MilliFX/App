@@ -1,4 +1,4 @@
-import { ITransections } from "./SingleDayRow";
+import { ITransections } from "../../components/SingleDayRow";
 
 const transectionData: ITransections[] = [
   {
