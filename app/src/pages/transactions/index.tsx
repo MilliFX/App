@@ -15,24 +15,22 @@ import { formatCurrency } from "../../utils/formatCurrency";
 
 const Transactions = () => {
   return (
-    <>
-      <Row>
-        <Col span={24}>
-          <StyleHeroWrapper>
-            <StyleHeroTitle>Transections</StyleHeroTitle>
-            <StyleHeroDataWrapper>
-              <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
-              <StyleHeroDataFigure profit={-155.56}>
-                {formatCurrency(-155.56)}
-              </StyleHeroDataFigure>
-            </StyleHeroDataWrapper>
-          </StyleHeroWrapper>
-          {transectionData.map((date, i) => (
-            <DayRow data={date} key={i} />
-          ))}
-        </Col>
-      </Row>
-    </>
+    <Row>
+      <Col span={24}>
+        <StyleHeroWrapper>
+          <StyleHeroTitle>Transections</StyleHeroTitle>
+          <StyleHeroDataWrapper>
+            <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
+            <StyleHeroDataFigure profit={-155.56}>
+              {formatCurrency(-155.56)}
+            </StyleHeroDataFigure>
+          </StyleHeroDataWrapper>
+        </StyleHeroWrapper>
+        {transectionData.map((date, i) => (
+          <DayRow data={date} key={i} />
+        ))}
+      </Col>
+    </Row>
   );
 };
 
