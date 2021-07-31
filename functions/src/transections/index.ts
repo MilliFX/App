@@ -121,7 +121,7 @@ const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
 
   let sortedOutput = output.sort(
     (a: IFormattedDailyHistory, b: IFormattedDailyHistory) =>
-      moment(b.date).diff(a.date)
+      moment(b.date, "ddd, DD MMMM YYYY").diff(a.date)
   );
   return sortedOutput;
 };
