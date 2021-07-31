@@ -40,7 +40,7 @@ export const transectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // initiate handler response
-  var response: ITransectionHandlerResponse = {
+  let response: ITransectionHandlerResponse = {
     error: false,
     data: {
       history: [],
@@ -48,11 +48,9 @@ export const transectionHandler = async (
     },
   };
 
-  // if successfully logged in to the MyFXBook with a session token
   if (event.headers["fxbook_session"]) {
-    var history: IFXBookGetHistoryResponse;
+    let history: IFXBookGetHistoryResponse;
 
-    // get daily gain data from MyFXBook server
     history = await FxBookGetHistory(
       event.headers["fxbook_session"],
       FXBOOK_TESTING_ACCOUNT_ID
@@ -60,7 +58,6 @@ export const transectionHandler = async (
 
     // if has data during the given period
     if (history.history.length > 0) {
-      // format data and assign to response.data
       response.data.history = formatHistoryData(history.history);
     } else {
       // if there is no data during the given period
@@ -83,10 +80,10 @@ export const transectionHandler = async (
 };
 
 const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
-  var output: IFormattedDailyHistory[] = [];
+  let output: IFormattedDailyHistory[] = [];
 
   for (let i = 0; i < data.length; i++) {
-    var time = data[i].closeTime.split(" ")[0];
+    let time = data[i].closeTime.split(" ")[0];
     time = moment(time, "MM/DD/YYYY").format("ddd, DD MMMM YYYY");
     data[i].closeTime = time;
 
@@ -95,48 +92,48 @@ const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
         date: data[i].closeTime,
         transections: [],
       };
-      let tempTransection: ISingleTransection = {
-        action: data[i].action,
-        fromCurrency: data[i].symbol.substring(0, 3),
-        toCurrency: data[i].symbol.substring(3, 6),
-        lots: data[i].sizing.value,
-        profit: data[i].profit,
-      };
+      const tempTransection = createTransection(data[i]);
       temp.transections.push(tempTransection);
       output.push(temp);
     } else {
+      let isMatched = false;
       for (let j = 0; j < output.length; j++) {
-        if (data[i].closeTime !== output[j].date) {
-          let temp: IFormattedDailyHistory = {
-            date: data[i].closeTime,
-            transections: [],
-          };
-
-          let tempTransection: ISingleTransection = {
-            action: data[i].action,
-            fromCurrency: data[i].symbol.substring(0, 3),
-            toCurrency: data[i].symbol.substring(3, 6),
-            lots: data[i].sizing.value,
-            profit: data[i].profit,
-          };
-          temp.transections.push(tempTransection);
-          output.push(temp);
-        } else {
-          let tempTransection: ISingleTransection = {
-            action: data[i].action,
-            fromCurrency: data[i].symbol.substring(0, 3),
-            toCurrency: data[i].symbol.substring(3, 6),
-            lots: data[i].sizing.value,
-            profit: data[i].profit,
-          };
-
+        if (data[i].closeTime === output[j].date) {
+          const tempTransection: ISingleTransection = createTransection(
+            data[i]
+          );
           output[j].transections.push(tempTransection);
+          isMatched = true;
+          break;
         }
+      }
+      if (!isMatched) {
+        let temp: IFormattedDailyHistory = {
+          date: data[i].closeTime,
+          transections: [],
+        };
+        const tempTransection = createTransection(data[i]);
+        temp.transections.push(tempTransection);
+        output.push(temp);
       }
     }
   }
 
-  return output;
+  let sortedOutput = output.sort(
+    (a: IFormattedDailyHistory, b: IFormattedDailyHistory) =>
+      moment(b.date).diff(a.date)
+  );
+  return sortedOutput;
+};
+
+const createTransection = (data: IFXBookHistoryDaily): ISingleTransection => {
+  return {
+    action: data.action,
+    fromCurrency: data.symbol.substring(0, 3),
+    toCurrency: data.symbol.substring(3, 6),
+    lots: data.sizing.value,
+    profit: data.profit,
+  };
 };
 
 export const handler: APIGatewayProxyHandler = middy(transectionHandler)
