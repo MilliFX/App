@@ -24,3 +24,6 @@ yarn-error.log*
 
 # react
 /src/react-app-env.d.ts
+
+# Local ENV
+.env
