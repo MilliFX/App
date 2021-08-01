@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Typography, Space, Input, Form } from "antd";
+import { Typography, Space, Input, Form, Modal } from "antd";
 import styled from "styled-components";
 import BackgroundSVG from "../../img/background.svg";
 import BrandSVG from "../../img/branding.svg";
