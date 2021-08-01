@@ -1,4 +1,4 @@
-import { Form, Input } from "antd";
+import { Form, Input, Modal } from "antd";
 import { ValidateStatus } from "antd/lib/form/FormItem";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -28,7 +28,27 @@ const FormLabel = styled.div`
   padding: 0 0 8px;
   color: #fca311;
 `;
+const ModalMessage = styled.div`
+  width: 216px;
+  height: 48px;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  color: #505050;
+`;
 const helpMessage = "Please enter your invitation code";
+
+const modalConfig = {
+  title: "Invalid Invitation Code",
+  content: (
+    <>
+      <ModalMessage>The code you have entered is invalid.</ModalMessage>
+    </>
+  ),
+  onButtonProps: { size: "small" },
+};
 
 export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
   console.log(codeEnter);
@@ -49,6 +69,7 @@ export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
        call api success 
       */
       //call api return failed code
+      const modal = Modal.warning(modalConfig);
     }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
