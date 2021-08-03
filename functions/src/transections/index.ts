@@ -14,28 +14,12 @@ import {
   IFXBookHistoryDaily,
 } from "../utils/api/MyFXBook/getFxBookHistory";
 import moment from "moment";
+import {
+  ITransectionHandlerResponse,
+  IFormattedDailyHistory,
+  ISingleTransection,
+} from "@millifx/utils";
 
-interface ITransectionHandlerResponse {
-  error: boolean;
-  data: {
-    history: IFormattedDailyHistory[];
-    dailyGain: number;
-  };
-  errorMessage?: string;
-}
-
-interface IFormattedDailyHistory {
-  date: string;
-  transections: ISingleTransection[];
-}
-
-interface ISingleTransection {
-  action: string;
-  fromCurrency: string;
-  toCurrency: string;
-  lots: number;
-  profit: number;
-}
 export const transectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {

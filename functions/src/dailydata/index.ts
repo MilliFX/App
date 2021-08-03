@@ -14,12 +14,8 @@ import {
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
 import { IFXBookDataDaily } from "../utils/api/MyFXBook/index";
-
-export interface ChartHandlerResponse {
-  error: boolean;
-  data: Array<IChartDailyData>;
-  errorMessage?: string;
-}
+import { bankersRound } from "bankers-round";
+import { IDailyData, DailyDataHandlerResponse } from "@millifx/utils";
 
 export const ChartHandler = async (
   event: APIGatewayEvent
@@ -36,7 +32,7 @@ export const ChartHandler = async (
   }
 
   // initiate handler response
-  var response: ChartHandlerResponse = {
+  var response: DailyDataHandlerResponse = {
     error: false,
     data: [],
   };
@@ -72,15 +68,6 @@ export const ChartHandler = async (
   };
 };
 
-import { bankersRound } from "bankers-round";
-
-export interface IChartDailyData {
-  date: string;
-  balance: number;
-  profit: number;
-  equity: number;
-}
-
 export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
   // break  Array<Array<IFXBookDataDaily>> to Array<IFXBookDataDaily>
   const dataDailyArray: Array<IFXBookDataDaily> = dataDaily.map(
@@ -88,7 +75,7 @@ export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
   );
 
   // initiate return variable
-  var result: Array<IChartDailyData> = [];
+  var result: Array<IDailyData> = [];
 
   // loop dataDailyArray and get date, balance, profit and equity
   for (let i = 0; i < dataDailyArray.length; i++) {
@@ -98,7 +85,7 @@ export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
       2
     );
 
-    let temp: IChartDailyData = {
+    let temp: IDailyData = {
       date: dataDailyArray[i].date,
       balance: dataDailyArray[i].balance,
       profit: dataDailyArray[i].profit,
