@@ -17,16 +17,38 @@ const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const FormLabel = styled.div`
+const LabelNormal = styled.div`
   width: 320px;
-  height: 40px;
   font-family: Barlow;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 40px;
-  padding: 0 0 8px;
+  line-height: 19px;
+  margin-top: 40px;
+  margin-bottom: 8px;
+  color: #505050;
+`;
+
+const LabelWarning = styled.div`
+  width: 320px;
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  margin-top: 40px;
+  margin-bottom: 8px;
   color: #fca311;
+`;
+
+const InputWrapper = styled.div`
+  width: 320px;
+  margin-bottom: 40px;
+`;
+
+const ButtonWrapper = styled.div`
+  width: 320px;
+  margin-bottom: 8px;
 `;
 const ModalMessage = styled.div`
   width: 216px;
@@ -38,7 +60,14 @@ const ModalMessage = styled.div`
   line-height: 24px;
   color: #505050;
 `;
-const helpMessage = "Please enter your invitation code";
+const HelpMessage = styled.div`
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 18px;
+  color: #fca311;
+`;
 
 const modalConfig = {
   title: "Invalid Invitation Code",
@@ -51,60 +80,61 @@ const modalConfig = {
 };
 
 export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
-  console.log(codeEnter);
-  const [formStatus, setFormStatus] = useState<ValidateStatus>();
-  const [form] = Form.useForm();
+  const [formWarning, setFormWarning] = useState<boolean>(false);
   const [inputDisabled, setInputDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
-  const [code, setCode] = useState<string | number | undefined>(undefined);
+  const [inviteCode, setInviteCode] = useState<string | number | undefined>(
+    undefined
+  );
   const onCheck = () => {
-    console.log(code);
-    if (!code) {
-      setFormStatus("warning");
+    if (!inviteCode) {
+      setFormWarning(!formWarning);
     } else {
       setInputDisabled(!inputDisabled);
       setBtnLoading(!btnLoading);
       console.log("call api for login");
       /*
-       call api success 
+       call api success code
       */
       //call api return failed code
       const modal = Modal.warning(modalConfig);
     }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCode(e.target.value);
+    setInviteCode(e.target.value);
   };
   return (
     <Wrapper>
-      <Form form={form} name="inviteForm">
-        {formStatus ? <FormLabel>Enter Invitation Code</FormLabel> : " "}
-        <Form.Item
-          label={!formStatus ? "Enter Invitation Code" : ""}
-          hasFeedback
-          validateStatus={formStatus}
-          help={formStatus ? helpMessage : ""}
-        >
-          <Input
-            size="large"
-            type="password"
-            disabled={inputDisabled}
-            value={code}
-            onChange={handleInputChange}
-          />
-        </Form.Item>
-        <br />
-        <Form.Item>
-          <Button type="primary" block onClick={onCheck} loading={btnLoading}>
-            Submit
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button block onClick={() => setCodeEnter(!codeEnter)}>
-            Cancel
-          </Button>
-        </Form.Item>
-      </Form>
+      {formWarning ? (
+        <LabelWarning>Enter Invitation Code</LabelWarning>
+      ) : (
+        <LabelNormal>Enter Invitation Code</LabelNormal>
+      )}
+
+      <InputWrapper>
+        <Input
+          size="large"
+          type="password"
+          disabled={inputDisabled}
+          value={inviteCode}
+          onChange={handleInputChange}
+        />
+        {formWarning ? (
+          <HelpMessage> Please enter your invitation code </HelpMessage>
+        ) : (
+          ""
+        )}
+      </InputWrapper>
+      <ButtonWrapper>
+        <Button type="primary" block onClick={onCheck} loading={btnLoading}>
+          Submit
+        </Button>
+      </ButtonWrapper>
+      <ButtonWrapper>
+        <Button block onClick={() => setCodeEnter(!codeEnter)}>
+          Cancel
+        </Button>
+      </ButtonWrapper>
     </Wrapper>
   );
 };

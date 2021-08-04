@@ -8,7 +8,6 @@ import { InviteForm } from "./InviteForm";
 
 const Container = styled.div`
   background-image: url(${BackgroundSVG});
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,13 +17,13 @@ const Brand = styled.div`
   background-image: url(${BrandSVG});
   background-repeat: no-repeat;
   height: 80px;
-  width: 159.66px;
+  width: 160px;
   background-size: 100%;
   z-index: 0.5;
   margin-top: 120px;
 `;
 
-const Description = styled.div`
+const Slogan = styled.div`
   font-family: Barlow;
   font-style: normal;
   font-weight: normal;
@@ -48,9 +47,9 @@ export const Invite = () => {
       <Brand />
       {codeEnter ? (
         <>
-          <Description>
+          <Slogan>
             <span>View and manage your forex trading portfolio</span>
-          </Description>
+          </Slogan>
           <EnterButton>
             <Button
               type="primary"
