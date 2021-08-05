@@ -1,73 +1,16 @@
-import { Form, Input, Modal } from "antd";
-import { ValidateStatus } from "antd/lib/form/FormItem";
+import { Input, Modal } from "antd";
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Button } from "../../components/Button/index.stories";
-
-interface IProps {
-  codeEnter: boolean;
-  setCodeEnter: (value: boolean) => void;
-}
-const Wrapper = styled.div`
-  width: 320px;
-  height: auto;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-const LabelNormal = styled.div`
-  width: 320px;
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  margin-top: 40px;
-  margin-bottom: 8px;
-  color: #505050;
-`;
-
-const LabelWarning = styled.div`
-  width: 320px;
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 19px;
-  margin-top: 40px;
-  margin-bottom: 8px;
-  color: #fca311;
-`;
-
-const InputWrapper = styled.div`
-  width: 320px;
-  margin-bottom: 40px;
-`;
-
-const ButtonWrapper = styled.div`
-  width: 320px;
-  margin-bottom: 8px;
-`;
-const ModalMessage = styled.div`
-  width: 216px;
-  height: 48px;
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  color: #505050;
-`;
-const HelpMessage = styled.div`
-  font-family: Barlow;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 18px;
-  color: #fca311;
-`;
+import {
+  ButtonWrapper,
+  HelpMessage,
+  InputWrapper,
+  LabelNormal,
+  LabelWarning,
+  ModalMessage,
+  FormWrapper,
+} from "./styledComponent";
+import { InviteCodeProps } from "./type";
 
 const modalConfig = {
   title: "Invalid Invitation Code",
@@ -79,7 +22,7 @@ const modalConfig = {
   onButtonProps: { size: "small" },
 };
 
-export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
+const InviteForm = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
   const [formWarning, setFormWarning] = useState<boolean>(false);
   const [inputDisabled, setInputDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
@@ -104,7 +47,7 @@ export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
     setInviteCode(e.target.value);
   };
   return (
-    <Wrapper>
+    <FormWrapper>
       {formWarning ? (
         <LabelWarning>Enter Invitation Code</LabelWarning>
       ) : (
@@ -131,10 +74,12 @@ export const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
         </Button>
       </ButtonWrapper>
       <ButtonWrapper>
-        <Button block onClick={() => setCodeEnter(!codeEnter)}>
+        <Button block onClick={() => setIsEnteringCode(!isEnteringCode)}>
           Cancel
         </Button>
       </ButtonWrapper>
-    </Wrapper>
+    </FormWrapper>
   );
 };
+
+export default InviteForm;
