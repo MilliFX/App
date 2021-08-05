@@ -1,9 +1,9 @@
-import { DailyDataHandler, formatData } from "./index";
+import { TransectionHandler, formatHistoryData } from "./index";
 import { formatDataTestInput, formatDataTestOutput } from "./testData";
 
 const mockHost = "localhost:8888";
 const mockUUID = "7e10d278-b178-11eb-8529-0242ac130003";
-describe("DailyDataHandler()", () => {
+describe("TransectionHandler()", () => {
   it("should return", async () => {
     // Arrange
     // @ts-ignore
@@ -13,22 +13,17 @@ describe("DailyDataHandler()", () => {
         host: mockHost,
         "millifx-uuid": mockUUID,
       },
-      queryStringParameters: {
-        start: "2021-01-01",
-        end: "2021-06-23",
-      },
     };
 
-    const { statusCode } = await DailyDataHandler(event);
+    const { statusCode } = await TransectionHandler(event);
 
     expect(statusCode).toStrictEqual(200);
   });
 });
 
-describe("formatData()", () => {
+describe("formatHistoryData()", () => {
   it("should return", async () => {
-    const formattedData = formatData(formatDataTestInput);
-
+    const formattedData = formatHistoryData(formatDataTestInput);
     expect(formattedData).toStrictEqual(formatDataTestOutput);
   });
 });

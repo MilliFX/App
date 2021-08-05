@@ -17,7 +17,7 @@ import { IFXBookDataDaily } from "../utils/api/MyFXBook/index";
 import { bankersRound } from "bankers-round";
 import { IDailyData, DailyDataHandlerResponse } from "@millifx/utils";
 
-export const ChartHandler = async (
+export const DailyDataHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // get start end date from query string
@@ -98,7 +98,7 @@ export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
   return result;
 };
 
-export const handler: APIGatewayProxyHandler = middy(ChartHandler)
+export const handler: APIGatewayProxyHandler = middy(DailyDataHandler)
   .use(domainValidationMiddleWare())
   .use(uuidValidationMiddleWare())
   .use(myFXBookLoginMiddleware());

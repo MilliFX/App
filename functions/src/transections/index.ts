@@ -20,7 +20,7 @@ import {
   ISingleTransection,
 } from "@millifx/utils";
 
-export const transectionHandler = async (
+export const TransectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // initiate handler response
@@ -63,7 +63,7 @@ export const transectionHandler = async (
   };
 };
 
-const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
+export const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
   let output: IFormattedDailyHistory[] = [];
 
   for (let i = 0; i < data.length; i++) {
@@ -120,7 +120,7 @@ const createTransection = (data: IFXBookHistoryDaily): ISingleTransection => {
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(transectionHandler)
+export const handler: APIGatewayProxyHandler = middy(TransectionHandler)
   .use(domainValidationMiddleWare())
   .use(uuidValidationMiddleWare())
   .use(myFXBookLoginMiddleware());

@@ -7,13 +7,11 @@ export interface IFXBookGetHistoryResponse {
   history: IFXBookHistoryDaily[];
 }
 
-type actions = "BUY" | "SELL";
-
 export interface IFXBookHistoryDaily {
   openTime: string;
   closeTime: string;
   symbol: string;
-  action: actions;
+  action: string;
   sizing: {
     type: string;
     value: number;
