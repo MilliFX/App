@@ -13,9 +13,9 @@ import {
 } from "../utils/api/MyFXBook/index";
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
-import { IFXBookDataDaily } from "../utils/api/MyFXBook/index";
+import { FXBookDataDaily } from "../utils/api/MyFXBook/index";
 import { bankersRound } from "bankers-round";
-import { IDailyData, DailyDataHandlerResponse } from "@millifx/utils";
+import { DailyData, DailyDataHandlerResponse } from "@millifx/utils";
 
 export const DailyDataHandler = async (
   event: APIGatewayEvent
@@ -68,14 +68,14 @@ export const DailyDataHandler = async (
   };
 };
 
-export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
-  // break  Array<Array<IFXBookDataDaily>> to Array<IFXBookDataDaily>
-  const dataDailyArray: Array<IFXBookDataDaily> = dataDaily.map(
+export const formatData = (dataDaily: Array<Array<FXBookDataDaily>>) => {
+  // break  Array<Array<FXBookDataDaily>> to Array<FXBookDataDaily>
+  const dataDailyArray: Array<FXBookDataDaily> = dataDaily.map(
     (item) => item[0]
   );
 
   // initiate return variable
-  var result: Array<IDailyData> = [];
+  var result: Array<DailyData> = [];
 
   // loop dataDailyArray and get date, balance, profit and equity
   for (let i = 0; i < dataDailyArray.length; i++) {
@@ -85,7 +85,7 @@ export const formatData = (dataDaily: Array<Array<IFXBookDataDaily>>) => {
       2
     );
 
-    let temp: IDailyData = {
+    let temp: DailyData = {
       date: dataDailyArray[i].date,
       balance: dataDailyArray[i].balance,
       profit: dataDailyArray[i].profit,

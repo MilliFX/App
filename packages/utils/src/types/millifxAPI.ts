@@ -1,5 +1,5 @@
 // For dailydata handler
-export interface IDailyData {
+export interface DailyData {
   date: string;
   balance: number;
   profit: number;
@@ -7,26 +7,26 @@ export interface IDailyData {
 }
 export interface DailyDataHandlerResponse {
   error: boolean;
-  data: IDailyData[];
+  data: DailyData[];
   errorMessage?: string;
 }
 
 // For transections handler
-export interface ISingleTransection {
+export interface SingleTransection {
   action: string;
   fromCurrency: string;
   toCurrency: string;
   lots: number;
   profit: number;
 }
-export interface IFormattedDailyHistory {
+export interface FormattedDailyHistory {
   date: string;
-  transections: ISingleTransection[];
+  transections: SingleTransection[];
 }
-export interface ITransectionHandlerResponse {
+export interface TransectionHandlerResponse {
   error: boolean;
   data: {
-    history: IFormattedDailyHistory[];
+    history: FormattedDailyHistory[];
     dailyGain: number;
   };
   errorMessage?: string;

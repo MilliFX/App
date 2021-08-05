@@ -1,13 +1,13 @@
 import axios from "axios";
 import * as querystring from "querystring";
 
-export interface IFXBookGetHistoryResponse {
+export interface FXBookGetHistoryResponse {
   error: boolean;
   message: string;
-  history: IFXBookHistoryDaily[];
+  history: FXBookHistoryDaily[];
 }
 
-export interface IFXBookHistoryDaily {
+export interface FXBookHistoryDaily {
   openTime: string;
   closeTime: string;
   symbol: string;
@@ -30,7 +30,7 @@ export interface IFXBookHistoryDaily {
 export const FxBookGetHistory = (
   session: string,
   accountId: string
-): Promise<IFXBookGetHistoryResponse> => {
+): Promise<FXBookGetHistoryResponse> => {
   const postData: string = querystring.stringify({
     session: session,
     id: accountId,
@@ -41,7 +41,7 @@ export const FxBookGetHistory = (
   return new Promise((resolve, reject) => {
     axios.post(endPoint, postData).then(
       (resp: any) => {
-        resolve(resp.data as IFXBookGetHistoryResponse);
+        resolve(resp.data as FXBookGetHistoryResponse);
       },
 
       (err: Error) => {

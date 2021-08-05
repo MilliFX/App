@@ -4,10 +4,10 @@ import * as querystring from "querystring";
 export interface IFXBookGetDataDailyResponse {
   error: boolean;
   message: string;
-  dataDaily: [[IFXBookDataDaily]];
+  dataDaily: [[FXBookDataDaily]];
 }
 
-export interface IFXBookDataDaily {
+export interface FXBookDataDaily {
   date: string;
   balance: number;
   pips: number;

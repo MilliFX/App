@@ -10,21 +10,21 @@ import { myFXBookLoginMiddleware } from "../middleware/MyFXBookLogin";
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import {
   FxBookGetHistory,
-  IFXBookGetHistoryResponse,
-  IFXBookHistoryDaily,
+  FXBookGetHistoryResponse,
+  FXBookHistoryDaily,
 } from "../utils/api/MyFXBook/getFxBookHistory";
 import moment from "moment";
 import {
-  ITransectionHandlerResponse,
-  IFormattedDailyHistory,
-  ISingleTransection,
+  TransectionHandlerResponse,
+  FormattedDailyHistory,
+  SingleTransection,
 } from "@millifx/utils";
 
 export const TransectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // initiate handler response
-  let response: ITransectionHandlerResponse = {
+  let response: TransectionHandlerResponse = {
     error: false,
     data: {
       history: [],
@@ -33,7 +33,7 @@ export const TransectionHandler = async (
   };
 
   if (event.headers["fxbook_session"]) {
-    let history: IFXBookGetHistoryResponse;
+    let history: FXBookGetHistoryResponse;
 
     history = await FxBookGetHistory(
       event.headers["fxbook_session"],
@@ -63,8 +63,8 @@ export const TransectionHandler = async (
   };
 };
 
-export const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
-  let output: IFormattedDailyHistory[] = [];
+export const formatHistoryData = (data: FXBookHistoryDaily[]) => {
+  let output: FormattedDailyHistory[] = [];
 
   for (let i = 0; i < data.length; i++) {
     let time = data[i].closeTime.split(" ")[0];
@@ -72,7 +72,7 @@ export const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
     data[i].closeTime = time;
 
     if (output.length === 0) {
-      let temp: IFormattedDailyHistory = {
+      let temp: FormattedDailyHistory = {
         date: data[i].closeTime,
         transections: [],
       };
@@ -83,16 +83,14 @@ export const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
       let isMatched = false;
       for (let j = 0; j < output.length; j++) {
         if (data[i].closeTime === output[j].date) {
-          const tempTransection: ISingleTransection = createTransection(
-            data[i]
-          );
+          const tempTransection: SingleTransection = createTransection(data[i]);
           output[j].transections.push(tempTransection);
           isMatched = true;
           break;
         }
       }
       if (!isMatched) {
-        let temp: IFormattedDailyHistory = {
+        let temp: FormattedDailyHistory = {
           date: data[i].closeTime,
           transections: [],
         };
@@ -104,13 +102,13 @@ export const formatHistoryData = (data: IFXBookHistoryDaily[]) => {
   }
 
   let sortedOutput = output.sort(
-    (a: IFormattedDailyHistory, b: IFormattedDailyHistory) =>
+    (a: FormattedDailyHistory, b: FormattedDailyHistory) =>
       moment(b.date, "ddd, DD MMMM YYYY").diff(a.date)
   );
   return sortedOutput;
 };
 
-const createTransection = (data: IFXBookHistoryDaily): ISingleTransection => {
+const createTransection = (data: FXBookHistoryDaily): SingleTransection => {
   return {
     action: data.action,
     fromCurrency: data.symbol.substring(0, 3),
