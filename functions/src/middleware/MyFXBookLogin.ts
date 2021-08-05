@@ -1,14 +1,7 @@
-import * as querystring from "querystring";
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { HandlerLambda, MiddlewareObject } from "middy";
-import axios from "axios";
+import { login } from "../utils/api/MyFXBook";
 import createHttpError from "http-errors";
-
-export interface IFXBookResponse {
-  error: boolean;
-  message: string;
-  session: string;
-}
 
 export function myFXBookLoginMiddleware(): MiddlewareObject<
   APIGatewayEvent,
@@ -18,10 +11,10 @@ export function myFXBookLoginMiddleware(): MiddlewareObject<
     before: async (
       handler: HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>
     ): Promise<void> => {
-      var response: IFXBookResponse = await FxBookLogin();
+      const { data } = await login();
 
-      if (response.error === true) {
-        throw createHttpError(500, response.message);
+      if (data.error === true) {
+        throw createHttpError(500, data.message);
       } else {
         handler.event.headers["fxbook_session"] = response.session;
         return;
@@ -29,31 +22,3 @@ export function myFXBookLoginMiddleware(): MiddlewareObject<
     },
   };
 }
-
-const FxBookLogin = (): Promise<IFXBookResponse> => {
-  const fxBookLoginData: string = querystring.stringify({
-    email: process.env.FXBOOK_EMAIL,
-    password: process.env.FXBOOK_PASSWORD,
-  });
-
-  const options = {
-    host: process.env.FXBOOK_URL,
-    path: "/api/login.json",
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      "Content-Length": Buffer.byteLength(fxBookLoginData),
-    },
-  };
-  return new Promise((resolve, reject) => {
-    const loginEndPoint = options.host + options.path;
-    axios.post(loginEndPoint, fxBookLoginData).then(
-      (resp: any) => {
-        resolve(resp.data as IFXBookResponse);
-      },
-      (err: Error) => {
-        reject(err);
-      }
-    );
-  });
-};
