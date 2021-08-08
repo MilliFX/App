@@ -11,11 +11,7 @@ import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
 import { bankersRound } from "bankers-round";
 import { DailyData, DailyDataHandlerResponse } from "@millifx/utils";
-import {
-  DataDaily,
-  GetDataDailyResponse,
-} from "../utils/api/MyFXBook/getDataDaily/types";
-import { getDataDaily } from "../utils/api/MyFXBook";
+import { getDataDaily, DataDaily } from "../utils/api/MyFXBook";
 
 export const DailyDataHandler = async (
   event: APIGatewayEvent
