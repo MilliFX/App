@@ -1,2 +1,5 @@
-export * from "./getFxBookAccount";
-export * from "./getFxBookDataDaily";
+export * from "./getDailyGain";
+export * from "./getDataDaily";
+export * from "./getHistory";
+export * from "./getMyAccount";
+export * from "./login";
