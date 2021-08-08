@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Typography } from 'antd'
+import { LinkProps } from "antd/lib/typography/Link";
 
 
 const Component = Typography.Link;
@@ -14,8 +15,7 @@ export default {
   }
 };
 
-
-const Template = (args) => (
+const Template = (args:LinkProps) => (
   <Component
     {...args}
     disabled={args.disabled}
