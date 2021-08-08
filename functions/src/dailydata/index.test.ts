@@ -1,8 +1,9 @@
-import { dataHandler } from "./index";
+import { DailyDataHandler, formatData } from "./index";
+import { formatDataTestInput, formatDataTestOutput } from "./testData";
 
 const mockHost = "localhost:8888";
 const mockUUID = "7e10d278-b178-11eb-8529-0242ac130003";
-describe("hello()", () => {
+describe("DailyDataHandler()", () => {
   it("should return", async () => {
     // Arrange
     // @ts-ignore
@@ -18,11 +19,16 @@ describe("hello()", () => {
       },
     };
 
-    // Act
-    const { statusCode } = await dataHandler(event);
+    const { statusCode } = await DailyDataHandler(event);
 
     expect(statusCode).toStrictEqual(200);
+  });
+});
 
-    // Assert
+describe("formatData()", () => {
+  it("should return", async () => {
+    const formattedData = formatData(formatDataTestInput);
+
+    expect(formattedData).toStrictEqual(formatDataTestOutput);
   });
 });

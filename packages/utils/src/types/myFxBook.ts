@@ -1,4 +1,4 @@
-import { Daily, Trade } from "./index";
+import { Daily, Trade, Account } from "./index";
 
 export interface MyAccount extends Account {
   description: string;

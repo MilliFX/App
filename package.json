@@ -2,8 +2,8 @@
   "name": "@millifx/monorepo",
   "private": true,
   "workspaces": [
-    "functions",
     "packages/utils",
+    "functions",
     "packages/chart",
     "packages/error-boundary",
     "packages/*",

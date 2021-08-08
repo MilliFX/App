@@ -11,19 +11,13 @@ import {
   FxBookGetDataDaily,
   IFXBookGetDataDailyResponse,
 } from "../utils/api/MyFXBook/index";
-
-import { IChartDailyData } from "../utils/formatData";
 import { FXBOOK_TESTING_ACCOUNT_ID } from "../utils/const";
 import { GenerateDuration } from "../utils/generateDuration";
-import { formatData } from "../utils/formatData";
+import { FXBookDataDaily } from "../utils/api/MyFXBook/index";
+import { bankersRound } from "bankers-round";
+import { DailyData, DailyDataHandlerResponse } from "@millifx/utils";
 
-export interface DataHandlerResponse {
-  error: boolean;
-  data: Array<IChartDailyData>;
-  errorMessage?: string;
-}
-
-export const dataHandler = async (
+export const DailyDataHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // get start end date from query string
@@ -38,28 +32,20 @@ export const dataHandler = async (
   }
 
   // initiate handler response
-  var response: DataHandlerResponse = {
+  var response: DailyDataHandlerResponse = {
     error: false,
     data: [],
   };
 
-  // if successfully logged in to the MyFXBook with a session token
-  if (
-    event.headers["fxbook_error"] === "false" &&
-    event.headers["fxbook_session"]
-  ) {
-    // initiate data-daily.json API response
-    var dataDaily: IFXBookGetDataDailyResponse;
+  var dataDaily: IFXBookGetDataDailyResponse;
 
-    // get daily gain data from MyFXBook server
+  if (event.headers["fxbook_session"]) {
     dataDaily = await FxBookGetDataDaily(
       event.headers["fxbook_session"],
       FXBOOK_TESTING_ACCOUNT_ID,
       startDate,
       endDate
     );
-
-    // if has data during the given period
     if (dataDaily.dataDaily.length > 0) {
       // format data and assign to response.data
       response.data = formatData(dataDaily.dataDaily);
@@ -69,9 +55,8 @@ export const dataHandler = async (
       response.errorMessage = "No data during this period";
     }
   } else {
-    // if log in to MyFXBook server failed
     response.error = true;
-    response.errorMessage = "Cannot login to the MyFXBook";
+    response.errorMessage = "Internal Error";
   }
 
   return {
@@ -83,7 +68,37 @@ export const dataHandler = async (
   };
 };
 
-export const handler: APIGatewayProxyHandler = middy(dataHandler)
+export const formatData = (dataDaily: Array<Array<FXBookDataDaily>>) => {
+  // break  Array<Array<FXBookDataDaily>> to Array<FXBookDataDaily>
+  const dataDailyArray: Array<FXBookDataDaily> = dataDaily.map(
+    (item) => item[0]
+  );
+
+  // initiate return variable
+  var result: Array<DailyData> = [];
+
+  // loop dataDailyArray and get date, balance, profit and equity
+  for (let i = 0; i < dataDailyArray.length; i++) {
+    // round equity to two decimals
+    let roundedEquity = bankersRound(
+      dataDailyArray[i].balance + dataDailyArray[i].floatingPL,
+      2
+    );
+
+    let temp: DailyData = {
+      date: dataDailyArray[i].date,
+      balance: dataDailyArray[i].balance,
+      profit: dataDailyArray[i].profit,
+      equity: roundedEquity,
+    };
+
+    result.push(temp);
+  }
+
+  return result;
+};
+
+export const handler: APIGatewayProxyHandler = middy(DailyDataHandler)
   .use(domainValidationMiddleWare())
   .use(uuidValidationMiddleWare())
   .use(myFXBookLoginMiddleware());

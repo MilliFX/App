@@ -2,6 +2,7 @@ import * as querystring from "querystring";
 import { APIGatewayEvent, APIGatewayProxyResult } from "aws-lambda";
 import { HandlerLambda, MiddlewareObject } from "middy";
 import axios from "axios";
+import createHttpError from "http-errors";
 
 export interface IFXBookResponse {
   error: boolean;
@@ -17,13 +18,14 @@ export function myFXBookLoginMiddleware(): MiddlewareObject<
     before: async (
       handler: HandlerLambda<APIGatewayEvent, APIGatewayProxyResult>
     ): Promise<void> => {
-      var response: IFXBookResponse;
+      var response: IFXBookResponse = await FxBookLogin();
 
-      response = await FxBookLogin();
-
-      handler.event.headers["fxbook_error"] = response.error.toString();
-      handler.event.headers["fxbook_message"] = response.message;
-      handler.event.headers["fxbook_session"] = response.session;
+      if (response.error === true) {
+        throw createHttpError(500, response.message);
+      } else {
+        handler.event.headers["fxbook_session"] = response.session;
+        return;
+      }
     },
   };
 }
