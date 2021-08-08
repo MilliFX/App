@@ -3,7 +3,7 @@ import { GetDailyGainResponse } from "./types";
 
 export const getDailyGain = (
   session: string,
-  accountId: string,
+  accountId: number,
   start: string,
   end: string
 ): Promise<AxiosResponse<GetDailyGainResponse>> => {
