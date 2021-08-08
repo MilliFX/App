@@ -6,7 +6,7 @@ import {
 } from "aws-lambda";
 import middy from "middy";
 import { myFXBookLoginMiddleware } from "../../../../middleware/MyFXBookLogin";
-import { isAccountArchived } from "../../utils";
+import { isArchivedAccount, isCommissionAccount } from "../../utils";
 import { Income } from "./types";
 import bankersRound from "bankers-round";
 
@@ -18,7 +18,11 @@ export const innerHandler = async (
     const { data: accountsData } = await getMyAccounts(session);
 
     const activeAccounts = accountsData.accounts.filter((account) => {
-      return !account.demo && !isAccountArchived(account);
+      return (
+        !account.demo &&
+        !isArchivedAccount(account) &&
+        !isCommissionAccount(account)
+      );
     });
 
     const now = new Date();
