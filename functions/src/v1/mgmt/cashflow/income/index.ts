@@ -11,10 +11,7 @@ import { isAccountArchived } from "../../utils";
 export const innerHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
-  if (
-    event.headers["fxbook_error"] === "false" &&
-    event.headers["fxbook_session"]
-  ) {
+  if (event.headers["fxbook_session"]) {
     const session = event.headers["fxbook_session"];
     const { data } = await getMyAccounts(session);
 
@@ -44,7 +41,7 @@ export const innerHandler = async (
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        error: event.headers["fxbook_message"],
+        error: "Missing session header, please check MyFXBookLogin middleware",
       }),
     };
   }

@@ -16,7 +16,7 @@ export function myFXBookLoginMiddleware(): MiddlewareObject<
       if (data.error === true) {
         throw createHttpError(500, data.message);
       } else {
-        handler.event.headers["fxbook_session"] = response.session;
+        handler.event.headers["fxbook_session"] = data.session;
         return;
       }
     },
