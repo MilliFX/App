@@ -20,3 +20,5 @@ export const getDataDaily = (
     }
   );
 };
+
+export * from "./types";

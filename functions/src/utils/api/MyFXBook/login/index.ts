@@ -18,3 +18,5 @@ export const login = (): Promise<AxiosResponse<LoginResponse>> => {
     config
   );
 };
+
+export * from "./types";

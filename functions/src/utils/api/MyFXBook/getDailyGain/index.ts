@@ -20,3 +20,5 @@ export const getDailyGain = (
     }
   );
 };
+
+export * from "./types";
