@@ -31,7 +31,7 @@ export const FxBookGetDataDaily = (
     end: end,
   });
 
-  const endPoint: string = process.env.FXBOOK_URL + "/api/get-data-daily.json";
+  const endPoint: string = process.env.MYFXBOOK_API + "/get-data-daily.json";
 
   return new Promise((resolve, reject) => {
     axios.post(endPoint, postData).then(

@@ -36,7 +36,7 @@ export const FxBookGetHistory = (
     id: accountId,
   });
 
-  const endPoint: string = process.env.FXBOOK_URL + "/api/get-history.json";
+  const endPoint: string = process.env.MYFXBOOK_API + "/get-history.json";
 
   return new Promise((resolve, reject) => {
     axios.post(endPoint, postData).then(
