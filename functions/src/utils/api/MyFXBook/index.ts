@@ -1,3 +1,3 @@
 export * from "./getMyAccount";
-export * from "./getFxBookDataDaily";
+export * from "./getDataDaily";
 export * from "./login";
