@@ -3,7 +3,7 @@ import { GetHistoryResponse } from "./types";
 
 export const getHistory = (
   session: string,
-  accountId: string
+  accountId: number
 ): Promise<AxiosResponse<GetHistoryResponse>> => {
   return axios.post<GetHistoryResponse>(
     `${process.env.MYFXBOOK_API}/get-history.json`,

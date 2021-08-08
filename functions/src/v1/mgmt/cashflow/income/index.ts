@@ -1,4 +1,4 @@
-import { getMyAccounts, getDailyGain } from "../../../../utils/api/MyFXBook";
+import { getMyAccounts, getHistory } from "../../../../utils/api/MyFXBook";
 import {
   APIGatewayEvent,
   APIGatewayProxyHandler,
@@ -17,50 +17,71 @@ export const innerHandler = async (
     const session = event.headers["fxbook_session"];
     const { data: accountsData } = await getMyAccounts(session);
 
-    const activeAccounts = accountsData.accounts.filter((account) => {
+    const now = new Date();
+    const endDate = new Date(now.getFullYear(), now.getMonth(), 0);
+    const startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
+
+    /**
+     * Commission Accounts
+     *
+     * Monthly Income = getHistory & sum of past month
+     */
+    const commissionAccounts = accountsData.accounts.filter((account) => {
+      return (
+        !account.demo &&
+        !isArchivedAccount(account) &&
+        isCommissionAccount(account)
+      );
+    });
+
+    const commissionIncome = await Promise.all(
+      commissionAccounts.map(
+        async (account): Promise<Income> => {
+          const { data: historyData } = await getHistory(session, account.id);
+
+          let incomeFromLastMonth = 0;
+          for (let i = 0; i < historyData.history.length; i++) {
+            const history = historyData.history[i];
+            const historyDate = new Date(history.closeTime);
+            if (historyDate < endDate && historyDate > startDate) {
+              incomeFromLastMonth += history.profit;
+            }
+          }
+
+          return {
+            accountName: account.name,
+            monthly: bankersRound(incomeFromLastMonth),
+          };
+        }
+      )
+    );
+
+    /**
+     * Trading Accounts
+     *
+     * Monthly Income = Deposits & Monthly
+     */
+    const tradingAccounts = accountsData.accounts.filter((account) => {
       return (
         !account.demo &&
         !isArchivedAccount(account) &&
         !isCommissionAccount(account)
       );
     });
-
-    const now = new Date();
-    const endDate = new Date(now.getFullYear(), now.getMonth(), 0);
-    const startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
-    const endDateString = `${endDate.getFullYear()}-${endDate.getMonth()}-${endDate.getDate()}`;
-    const startDateString = `${startDate.getFullYear()}-${startDate.getMonth()}-${startDate.getDate()}`;
-
-    const incomesPromises = activeAccounts.map(
-      async (account): Promise<Income> => {
-        const { data: dailyGainData } = await getDailyGain(
-          session,
-          account.id,
-          startDateString,
-          endDateString
-        );
-
-        let incomeFromLastMonth = 0;
-        for (let i = 0; i < dailyGainData.dailyGain.length; i++) {
-          const dailyGain = dailyGainData.dailyGain[i][0];
-          incomeFromLastMonth += dailyGain.profit;
-        }
-
-        return {
-          accountName: account.name,
-          monthly: bankersRound(incomeFromLastMonth),
-        };
-      }
-    );
-
-    const incomes = await Promise.all(incomesPromises);
+    const tradingIncome = tradingAccounts.map((account) => {
+      const estimatedMonthlyIncome = (account.deposits * account.monthly) / 100;
+      return {
+        accountName: account.name,
+        monthly: bankersRound(estimatedMonthlyIncome),
+      };
+    });
 
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(incomes),
+      body: JSON.stringify([...commissionIncome, ...tradingIncome]),
     };
   } else {
     // if log in to MyFXBook server failed
