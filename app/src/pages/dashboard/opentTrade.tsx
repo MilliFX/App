@@ -1,15 +1,16 @@
 import * as React from "react";
-import { Card, Row, Col, Statistic } from "antd";
+import { Statistic } from "antd";
 import transectionData from "./data";
 import DayRow from "../../components/SingleDayRow";
-import {
-  TradeCard,
-  OpenTradeTitle,
-  BalanceTitle,
-  BalanceValue,
-  BalanceUpOrDown,
-} from "./styles";
+import { TradeCard, OpenTradeTitle } from "./styles";
 import "antd/dist/antd.css";
+
+const Trade = {
+  CardTitle: "Open Trades",
+  CardBackGroundColor: "#FFFFFF",
+  RunningTitle: "Running P/L",
+  RunningColor: "#02C39A",
+};
 
 const OpenTradeCard = () => {
   return (
@@ -17,26 +18,26 @@ const OpenTradeCard = () => {
       <TradeCard
         style={{
           width: 320,
-          height: 144,
+          height: 351,
           marginLeft: 20,
-          marginTop: 18,
-          backgroundColor: "#FFFFFF",
+          marginTop: 12,
+          backgroundColor: Trade.CardBackGroundColor,
           border: 1,
         }}
       >
-        <OpenTradeTitle>Open Trades</OpenTradeTitle>
+        <OpenTradeTitle>{Trade.CardTitle}</OpenTradeTitle>
         <Statistic
-          title="Running P/L"
+          title={Trade.RunningTitle}
           value={504.0}
           precision={2}
-          valueStyle={{ color: "#02C39A", fontSize: 16 }}
+          valueStyle={{ color: Trade.RunningColor, fontSize: 16 }}
           prefix="+ $"
         />
-        {/* {transectionData.length > 4
+        {transectionData.length > 1
           ? transectionData
-              .slice(0, 4)
+              .slice(0, 1)
               .map((date, i) => <DayRow data={date} key={i} />)
-          : transectionData.map((date, i) => <DayRow data={date} key={i} />)} */}
+          : transectionData.map((date, i) => <DayRow data={date} key={i} />)}
       </TradeCard>
     </>
   );

@@ -4,10 +4,23 @@ import {
   CustomCard,
   BalanceTitle,
   BalanceValue,
-  BalanceUpOrDown,
+  PositiveValue,
+  NegativeValue,
 } from "./styles";
 import "antd/dist/antd.css";
-import { CaretUpOutlined } from "@ant-design/icons";
+import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
+import { displayCurrency, upOrDown } from "../../utils/displayCurrency";
+
+const balance = {
+  cardBackGroundColor: "#FFFFFF",
+  cardTitle: "Balance",
+  balanceIncrease: 10.45,
+  profitIncrease: -2.32,
+  balanceValue: 12346,
+  positiveColor: "#02C39A",
+  negativeColor: "#FCA311",
+  secondaryTitle: "Daily Profit",
+};
 
 const BalanceCard = () => {
   return (
@@ -15,37 +28,58 @@ const BalanceCard = () => {
       <CustomCard
         style={{
           width: 320,
-          height: 144,
+          height: 138,
           marginLeft: 20,
-          marginTop: 18,
-          backgroundColor: "#FFFFFF",
+          marginTop: 12,
+          backgroundColor: balance.cardBackGroundColor,
           border: 1,
+          borderRadius: 2,
         }}
       >
         <Row>
           <Col span={8}>
-            <BalanceTitle>Balance</BalanceTitle>
+            <BalanceTitle>{balance.cardTitle}</BalanceTitle>
           </Col>
         </Row>
         <Row>
           <Col span={12}>
-            <BalanceValue>$12346.00</BalanceValue>
+            <BalanceValue>{displayCurrency(balance.balanceValue)}</BalanceValue>
           </Col>
           <Col span={8}>
             <Row>
-              <CaretUpOutlined style={{ fontSize: "16px", color: "#02C39A" }} />
-              <BalanceUpOrDown>+10.45%</BalanceUpOrDown>
+              {balance.balanceIncrease >= 0 ? (
+                <CaretUpOutlined
+                  style={{ fontSize: "16px", color: balance.positiveColor }}
+                />
+              ) : (
+                <CaretDownOutlined
+                  style={{ fontSize: "16px", color: balance.negativeColor }}
+                />
+              )}
+              {balance.balanceIncrease >= 0 ? (
+                <PositiveValue>
+                  {upOrDown(balance.balanceIncrease)}
+                </PositiveValue>
+              ) : (
+                <NegativeValue>
+                  {upOrDown(balance.balanceIncrease)}
+                </NegativeValue>
+              )}
             </Row>
           </Col>
         </Row>
         <Row>
           <Col span={8}>
-            <BalanceTitle>Daily Profit</BalanceTitle>
+            <BalanceTitle>{balance.secondaryTitle}</BalanceTitle>
           </Col>
         </Row>
         <Row>
           <Col span={8}>
-            <BalanceUpOrDown>-2.32</BalanceUpOrDown>
+            {balance.profitIncrease >= 0 ? (
+              <PositiveValue>{upOrDown(balance.profitIncrease)}</PositiveValue>
+            ) : (
+              <NegativeValue>{upOrDown(balance.profitIncrease)}</NegativeValue>
+            )}
           </Col>
         </Row>
       </CustomCard>

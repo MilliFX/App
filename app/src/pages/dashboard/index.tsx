@@ -5,15 +5,17 @@ import GreetingCard from "./greetingCard";
 import BalanceCard from "./balanceCard";
 import OpenTradeCard from "./opentTrade";
 import BottomCard from "./bottomCard";
-
+import { DashboardContainer } from "./styles";
 const Dashboard = () => {
   return (
     <>
-      <Logo />
-      <GreetingCard />
-      <BalanceCard />
-      <OpenTradeCard />
-      <BottomCard />
+      <DashboardContainer>
+        <Logo />
+        <GreetingCard />
+        <BalanceCard />
+        <OpenTradeCard />
+        <BottomCard />
+      </DashboardContainer>
     </>
   );
 };

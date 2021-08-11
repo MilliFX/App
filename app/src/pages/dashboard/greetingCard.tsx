@@ -2,9 +2,15 @@ import * as React from "react";
 import { Typography } from "antd";
 import { CustomCard, GreetingCardTitle, GreetingCardContent } from "./styles";
 import "antd/dist/antd.css";
-const greetingCardFirstLine = `Howdy 👋`;
-const greetingCardSecondLine = `We are MilliFX, a personal forex management platform. We are currently
-in development, but you can register to be notified of when we launch!`;
+
+const Greeting = {
+  CardBackgroundColor: "#F2FAFE",
+  borderStyle: "solid",
+  borderColor: "#3FADEC",
+  FirstPara: `Howdy 👋`,
+  SecondPara: `We are MilliFX, a personal forex management platform. We are currently
+in development, but you can register to be notified of when we launch!`,
+};
 
 const GreetingCard = () => {
   return (
@@ -15,15 +21,19 @@ const GreetingCard = () => {
           height: 144,
           marginLeft: 20,
           marginTop: 18,
-          backgroundColor: "#F2FAFE",
+          marginBottom: 12,
+          backgroundColor: Greeting.CardBackgroundColor,
           border: 1,
+          borderStyle: Greeting.borderStyle,
+          borderColor: Greeting.borderColor,
+          borderRadius: 2,
         }}
       >
         <Typography>
-          <GreetingCardTitle>{greetingCardFirstLine}</GreetingCardTitle>
+          <GreetingCardTitle>{Greeting.FirstPara}</GreetingCardTitle>
         </Typography>
         <Typography>
-          <GreetingCardContent>{greetingCardSecondLine}</GreetingCardContent>
+          <GreetingCardContent>{Greeting.SecondPara}</GreetingCardContent>
         </Typography>
       </CustomCard>
     </>
