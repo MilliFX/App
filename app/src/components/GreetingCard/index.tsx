@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Typography } from "antd";
 import { CustomCard, GreetingCardTitle, GreetingCardContent } from "./styles";
-import "antd/dist/antd.css";
 
-const Greeting = {
+const config = {
   CardBackgroundColor: "#F2FAFE",
   borderStyle: "solid",
   borderColor: "#3FADEC",
@@ -22,18 +21,18 @@ const GreetingCard = () => {
           marginLeft: 20,
           marginTop: 18,
           marginBottom: 12,
-          backgroundColor: Greeting.CardBackgroundColor,
+          backgroundColor: config.CardBackgroundColor,
           border: 1,
-          borderStyle: Greeting.borderStyle,
-          borderColor: Greeting.borderColor,
+          borderStyle: config.borderStyle,
+          borderColor: config.borderColor,
           borderRadius: 2,
         }}
       >
         <Typography>
-          <GreetingCardTitle>{Greeting.FirstPara}</GreetingCardTitle>
+          <GreetingCardTitle>{config.FirstPara}</GreetingCardTitle>
         </Typography>
         <Typography>
-          <GreetingCardContent>{Greeting.SecondPara}</GreetingCardContent>
+          <GreetingCardContent>{config.SecondPara}</GreetingCardContent>
         </Typography>
       </CustomCard>
     </>

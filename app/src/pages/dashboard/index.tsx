@@ -1,11 +1,11 @@
 import * as React from "react";
-import { Logo } from "./styles";
-import "antd/dist/antd.css";
-import GreetingCard from "./greetingCard";
-import BalanceCard from "./balanceCard";
-import OpenTradeCard from "./opentTrade";
-import BottomCard from "./bottomCard";
+import { Logo } from "../../components/Logo";
+import GreetingCard from "../../components/GreetingCard";
+import BalanceCard from "../../components/BalanceCard";
+import OpenTradeCard from "../../components/OpenTrade";
+import BottomCard from "../../components/BottomCard";
 import { DashboardContainer } from "./styles";
+
 const Dashboard = () => {
   return (
     <>

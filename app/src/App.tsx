@@ -47,7 +47,7 @@ const AppWithRouter = () => {
         <Content>
           <Switch>
             <SentryRoute path="/" exact component={() => <h1>Homepage</h1>} />
-            <SentryRoute path="/Dashboard" component={Dashboard} />
+            <SentryRoute path="/dashboard" component={Dashboard} />
           </Switch>
         </Content>
       </Layout>

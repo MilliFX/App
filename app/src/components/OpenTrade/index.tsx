@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Statistic } from "antd";
-import transectionData from "./data";
-import DayRow from "../../components/SingleDayRow";
+import transectionData from "../../pages/dashboard/data";
+import DayRow from "../SingleDayRow";
 import { TradeCard, OpenTradeTitle } from "./styles";
 import "antd/dist/antd.css";
 
-const Trade = {
+const config = {
   CardTitle: "Open Trades",
   CardBackGroundColor: "#FFFFFF",
   RunningTitle: "Running P/L",
@@ -21,16 +21,16 @@ const OpenTradeCard = () => {
           height: 351,
           marginLeft: 20,
           marginTop: 12,
-          backgroundColor: Trade.CardBackGroundColor,
+          backgroundColor: config.CardBackGroundColor,
           border: 1,
         }}
       >
-        <OpenTradeTitle>{Trade.CardTitle}</OpenTradeTitle>
+        <OpenTradeTitle>{config.CardTitle}</OpenTradeTitle>
         <Statistic
-          title={Trade.RunningTitle}
+          title={config.RunningTitle}
           value={504.0}
           precision={2}
-          valueStyle={{ color: Trade.RunningColor, fontSize: 16 }}
+          valueStyle={{ color: config.RunningColor, fontSize: 16 }}
           prefix="+ $"
         />
         {transectionData.length > 1
