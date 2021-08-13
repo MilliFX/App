@@ -19,7 +19,6 @@ import { getHistory, History } from "../utils/api/MyFXBook/getHistory";
 export const TransectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
-
   if (event.headers["fxbook_session"]) {
     const { data } = await getHistory(
       event.headers["fxbook_session"],
@@ -32,9 +31,9 @@ export const TransectionHandler = async (
       error: false,
       data: {
         history: resHistory,
-        dailyGain: resHistory[0].transections[0].profit
-      }
-    }
+        dailyGain: resHistory[0].transections[0].profit,
+      },
+    };
     return {
       statusCode: 200,
       headers: {
@@ -46,8 +45,8 @@ export const TransectionHandler = async (
     const res: TransectionHandlerResponse = {
       error: true,
       data: null,
-      errorMessage: "Internal Error"
-    }
+      errorMessage: "Internal Error",
+    };
     return {
       statusCode: 500,
       headers: {
