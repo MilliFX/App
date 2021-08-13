@@ -1,5 +1,4 @@
 import styled from "styled-components";
-
 export const CustomCard = styled.div`
   background-color: #ffffff;
   padding: 16px;
@@ -24,18 +23,11 @@ export const BalanceValue = styled.div`
   padding-bottom: 12px;
 `;
 
-export const PositiveValue = styled.div`
+export const PostiveOrNegative = styled.div<{ value: number }>`
   font-family: Barlow;
   font-size: 14px;
   line-height: 21px;
   font-weight: 500;
-  color: #02c39a;
-`;
-
-export const NegativeValue = styled.div`
-  font-family: Barlow;
-  font-size: 14px;
-  line-height: 21px;
-  font-weight: 500;
-  color: #fca311;
+  color: ${({ value }: any) =>
+    (value < 0 && "#FCA311") || (value > 0 && "#02C39A") || "#000000"}; ;
 `;

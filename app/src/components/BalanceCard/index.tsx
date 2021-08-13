@@ -4,8 +4,7 @@ import {
   CustomCard,
   BalanceTitle,
   BalanceValue,
-  PositiveValue,
-  NegativeValue,
+  PostiveOrNegative,
 } from "./styles";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import { displayCurrency, upOrDown } from "../../utils/displayCurrency";
@@ -13,12 +12,15 @@ import { displayCurrency, upOrDown } from "../../utils/displayCurrency";
 const config = {
   cardBackGroundColor: "#FFFFFF",
   cardTitle: "Balance",
-  balanceIncrease: 10.45,
-  profitIncrease: -2.32,
-  balanceValue: 12346,
   positiveColor: "#02C39A",
   negativeColor: "#FCA311",
   secondaryTitle: "Daily Profit",
+};
+
+const data = {
+  balanceIncrease: 10.45,
+  profitIncrease: -2.32,
+  balanceValue: 12346,
 };
 
 const BalanceCard = () => {
@@ -42,11 +44,11 @@ const BalanceCard = () => {
         </Row>
         <Row>
           <Col span={12}>
-            <BalanceValue>{displayCurrency(config.balanceValue)}</BalanceValue>
+            <BalanceValue>{displayCurrency(data.balanceValue)}</BalanceValue>
           </Col>
           <Col span={8}>
             <Row>
-              {config.balanceIncrease >= 0 ? (
+              {data.balanceIncrease >= 0 ? (
                 <CaretUpOutlined
                   style={{ fontSize: "16px", color: config.positiveColor }}
                 />
@@ -55,15 +57,11 @@ const BalanceCard = () => {
                   style={{ fontSize: "16px", color: config.negativeColor }}
                 />
               )}
-              {config.balanceIncrease >= 0 ? (
-                <PositiveValue>
-                  {upOrDown(config.balanceIncrease)}
-                </PositiveValue>
-              ) : (
-                <NegativeValue>
-                  {upOrDown(config.balanceIncrease)}
-                </NegativeValue>
-              )}
+              {
+                <PostiveOrNegative value={data.balanceIncrease}>
+                  {upOrDown(data.balanceIncrease)}
+                </PostiveOrNegative>
+              }
             </Row>
           </Col>
         </Row>
@@ -74,11 +72,11 @@ const BalanceCard = () => {
         </Row>
         <Row>
           <Col span={8}>
-            {config.profitIncrease >= 0 ? (
-              <PositiveValue>{upOrDown(config.profitIncrease)}</PositiveValue>
-            ) : (
-              <NegativeValue>{upOrDown(config.profitIncrease)}</NegativeValue>
-            )}
+            {
+              <PostiveOrNegative value={data.profitIncrease}>
+                {upOrDown(data.profitIncrease)}
+              </PostiveOrNegative>
+            }
           </Col>
         </Row>
       </CustomCard>
