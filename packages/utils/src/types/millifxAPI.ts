@@ -28,6 +28,6 @@ export interface TransectionHandlerResponse {
   data: {
     history: FormattedDailyHistory[];
     dailyGain: number;
-  };
+  } | null;
   errorMessage?: string;
 }
