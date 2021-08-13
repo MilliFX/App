@@ -10,15 +10,13 @@ import {
   StyleHeroDataFigure,
   DayRowWrapper,
 } from "./styles";
+import Skeleton from "@millifx/skeleton";
+import * as Sentry from "@sentry/react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { TransectionHandlerResponse } from "@millifx/utils";
 import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { UUID_FIELD } from "../../utils/constants";
-import Skeleton from "@millifx/skeleton";
-import * as Sentry from "@sentry/react";
-
-import { formatCurrency } from "../../utils/formatCurrency";
 
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
