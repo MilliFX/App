@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { ReactComponent as BrandSVG } from "../../img/branding.svg";
 import InviteForm from "../../components/Invitation/InviteForm";
 import InvitePage from "../../components/Invitation/InvitePage";
-import { Brand, SVGWrapper } from "./index.style";
+import { Brand, Wrapper } from "./index.style";
 
 export const Invite = () => {
   const [isEnteringCode, setIsEnteringCode] = useState(true);
   return (
-    <SVGWrapper>
+    <Wrapper>
       <Brand>
         <BrandSVG />
       </Brand>
@@ -22,7 +22,7 @@ export const Invite = () => {
           setIsEnteringCode={setIsEnteringCode}
         />
       )}
-    </SVGWrapper>
+    </Wrapper>
   );
 };
 
