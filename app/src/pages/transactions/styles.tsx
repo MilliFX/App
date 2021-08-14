@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { Col } from "antd";
+import { Row } from "antd";
 
-export const StyleAntCol = styled(Col)`
+export const StyleAntRow = styled(Row)`
+  min-height: 100vh;
   background-color: #e5e5e5;
 `;
 
@@ -38,4 +39,9 @@ export const StyleHeroDataFigure = styled.div<{ profit: number }>`
   font-weight: 600;
   color: ${({ profit }: any) =>
     (profit < 0 && "#FCA311") || (profit > 0 && "#02C39A") || "#000000"};
+`;
+
+export const DayRowWrapper = styled.div<{ bgColor: string }>`
+  padding: 0 20px;
+  background-color: ${(props) => props.bgColor};
 `;

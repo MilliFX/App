@@ -1,20 +1,21 @@
 import * as React from "react";
-import { Row } from "antd";
-import transectionData from "./data";
+import { Col } from "antd";
 import DayRow from "../../components/SingleDayRow";
 import {
-  StyleAntCol as Col,
+  StyleAntRow,
   StyleHeroWrapper,
   StyleHeroTitle,
   StyleHeroDataWrapper,
   StyleHeroDataTitle,
   StyleHeroDataFigure,
+  DayRowWrapper,
 } from "./styles";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { TransectionHandlerResponse } from "@millifx/utils";
 import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { UUID_FIELD } from "../../utils/constants";
+import Skeleton from "@millifx/skeleton";
 
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
@@ -23,7 +24,7 @@ const Transactions = () => {
     try {
       const axiosConfig: AxiosRequestConfig = {
         method: "get",
-        url: "http://localhost:3000/api/transections",
+        url: "/api/transections",
         headers: {
           "millifx-uuid": localStorage[UUID_FIELD],
         },
@@ -38,10 +39,26 @@ const Transactions = () => {
   useEffect(() => {
     fetchTransectionData();
   }, []);
-
-  if (data && data.data !== null && !data.error) {
+  if (data == undefined) {
     return (
-      <Row>
+      <StyleAntRow>
+        <Col span={24}>
+          <StyleHeroWrapper>
+            <StyleHeroTitle>Transections</StyleHeroTitle>
+            <StyleHeroDataWrapper>
+              <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
+              <Skeleton active={true} loading={true} />
+            </StyleHeroDataWrapper>
+          </StyleHeroWrapper>
+          <DayRowWrapper bgColor="#e5e5e5">
+            <Skeleton active={true} loading={true} />
+          </DayRowWrapper>
+        </Col>
+      </StyleAntRow>
+    );
+  } else if (data && data.data !== null && !data.error) {
+    return (
+      <StyleAntRow>
         <Col span={24}>
           <StyleHeroWrapper>
             <StyleHeroTitle>Transections</StyleHeroTitle>
@@ -52,11 +69,13 @@ const Transactions = () => {
               </StyleHeroDataFigure>
             </StyleHeroDataWrapper>
           </StyleHeroWrapper>
-          {data.data.history.map((date, i) => (
-            <DayRow data={date} key={i} />
-          ))}
+          <DayRowWrapper bgColor="#ffffff">
+            {data.data.history.map((date, i) => (
+              <DayRow data={date} key={i} />
+            ))}
+          </DayRowWrapper>
         </Col>
-      </Row>
+      </StyleAntRow>
     );
   } else {
     return <div>show error component</div>;
