@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import BackgroundSVG from "../../img/background.svg";
 
-export const SVGWrapper = styled.div`
+export const Wrapper = styled.div`
   background: url(${BackgroundSVG});
   display: flex;
   flex-direction: column;

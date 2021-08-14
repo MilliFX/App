@@ -62,10 +62,8 @@ const InviteForm = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
           value={inviteCode}
           onChange={handleInputChange}
         />
-        {formWarning ? (
+        {formWarning && (
           <HelpMessage> Please enter your invitation code </HelpMessage>
-        ) : (
-          ""
         )}
       </InputWrapper>
       <ButtonWrapper>
