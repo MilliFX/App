@@ -5,6 +5,7 @@ import InvitePage from "./InvitePage";
 import { Brand, SVGWrapper } from "./styledComponent";
 
 export const Invite = () => {
+<<<<<<< HEAD
   const [isEnteringCode, setIsEnteringCode] = useState(true);
   return (
     <SVGWrapper>
@@ -21,6 +22,31 @@ export const Invite = () => {
           isEnteringCode={isEnteringCode}
           setIsEnteringCode={setIsEnteringCode}
         />
+=======
+  const [codeEnter, setCodeEnter] = useState<boolean>(true);
+  return (
+    <Container>
+      <Brand />
+      {codeEnter ? (
+        <>
+          <Description>
+            <span>View and manage your forex trading portfolio</span>
+          </Description>
+          <EnterButton>
+            <Button
+              type="primary"
+              block
+              onClick={() => setCodeEnter(!codeEnter)}
+            >
+              Enter with code
+            </Button>
+          </EnterButton>
+        </>
+      ) : (
+        <div>
+          <InviteForm codeEnter={codeEnter} setCodeEnter={setCodeEnter} />
+        </div>
+>>>>>>> 418dd75 (add cancel func to return to initial page)
       )}
     </SVGWrapper>
   );
@@ -47,7 +73,13 @@ const InputWrapper = styled.div`
   border: 1px solid green;
 `;
 
-const InviteForm = () => {
+interface IProps {
+  codeEnter: boolean;
+  setCodeEnter: (value: boolean) => void;
+}
+
+const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
+  console.log(codeEnter);
   return (
     <>
       <Form>
@@ -59,13 +91,16 @@ const InviteForm = () => {
         >
           <Input size="large" />
         </Form.Item>
+        <br />
         <Form.Item>
           <Button type="primary" block>
             Submit
           </Button>
         </Form.Item>
         <Form.Item>
-          <Button block> Cancel </Button>
+          <Button block onClick={() => setCodeEnter(!codeEnter)}>
+            Cancel
+          </Button>
         </Form.Item>
       </Form>
     </>
