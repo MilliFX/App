@@ -10,6 +10,6 @@ export const StyleDateTitle = styled.div`
 `;
 
 export const StyleDateWrapper = styled.div`
-  padding: 20px 20px 0 20px;
+  padding: 20px 0 0 0;
   background-color: #ffffff;
 `;
