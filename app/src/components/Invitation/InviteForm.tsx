@@ -1,6 +1,6 @@
 import { Input, Modal } from "antd";
 import React, { useState } from "react";
-import { Button } from "../../components/Button/index.stories";
+import { Button } from "../Button/index.stories";
 import {
   ButtonWrapper,
   HelpMessage,
@@ -9,8 +9,8 @@ import {
   LabelWarning,
   ModalMessage,
   FormWrapper,
-} from "./styledComponent";
-import { InviteCodeProps } from "./type";
+} from "../../pages/Invite/index.style";
+import { InviteCodeProps } from "../../pages/Invite/types";
 
 const modalConfig = {
   title: "Invalid Invitation Code",
