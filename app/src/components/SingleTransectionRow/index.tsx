@@ -23,8 +23,8 @@ interface ITransectionRowProps {
 const TransectionRow = ({ transection }: ITransectionRowProps) => {
   return (
     <StyleRow>
-      <StyleActionCol action={transection.action}>
-        {transection.action}
+      <StyleActionCol action={transection.action.toUpperCase()}>
+        {transection.action.toUpperCase()}
       </StyleActionCol>
       <StyleCurrencyCol>
         {transection.fromCurrency} &gt; {transection.toCurrency}
