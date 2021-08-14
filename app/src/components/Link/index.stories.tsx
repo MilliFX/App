@@ -19,5 +19,9 @@ const Template = (args: LinkProps) => (
 );
 
 export const Link = Template.bind({});
-
+Link.args = {
+  children: 'A demo link',
+  disabled: false,
+  underline: false
+}
 
