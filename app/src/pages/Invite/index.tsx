@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ReactComponent as BrandSVG } from "../../img/branding.svg";
-import InviteForm from "./InviteForm";
-import InvitePage from "./InvitePage";
-import { Brand, SVGWrapper } from "./styledComponent";
+import InviteForm from "../../components/Invitation/InviteForm";
+import InvitePage from "../../components/Invitation/InvitePage";
+import { Brand, SVGWrapper } from "./index.style";
 
 export const Invite = () => {
   const [isEnteringCode, setIsEnteringCode] = useState(true);

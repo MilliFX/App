@@ -1,7 +1,7 @@
 import React from "react";
-import { Slogan, EnterButton } from "./styledComponent";
-import { Button } from "../../components/Button/index.stories";
-import { InviteCodeProps } from "./type";
+import { Slogan, EnterButton } from "../../pages/Invite/index.style";
+import { Button } from "../Button/index.stories";
+import { InviteCodeProps } from "../../pages/Invite/types";
 
 const InvitePage = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
   return (
