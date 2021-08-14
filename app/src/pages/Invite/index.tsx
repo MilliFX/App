@@ -1,8 +1,52 @@
 import React, { useState } from "react";
+<<<<<<< HEAD
 import { ReactComponent as BrandSVG } from "../../img/branding.svg";
 import InviteForm from "./InviteForm";
 import InvitePage from "./InvitePage";
 import { Brand, SVGWrapper } from "./styledComponent";
+=======
+import { Typography, Space, Input, Form } from "antd";
+import styled from "styled-components";
+import BackgroundSVG from "../../img/background.svg";
+import BrandSVG from "../../img/branding.svg";
+import { Button } from "../../components/Button/index.stories";
+import { InviteForm } from "./InviteForm";
+
+const Container = styled.div`
+  background-image: url(${BackgroundSVG});
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const Brand = styled.div`
+  background-image: url(${BrandSVG});
+  background-repeat: no-repeat;
+  height: 80px;
+  width: 159.66px;
+  background-size: 100%;
+  z-index: 0.5;
+  margin-top: 120px;
+`;
+
+const Description = styled.div`
+  font-family: Barlow;
+  font-style: normal;
+  font-weight: normal;
+  width: 320px;
+  height: 24px;
+  font-size: 16px;
+  line-height: 24px;
+  color: #505050;
+  margin-top: 88px;
+`;
+const EnterButton = styled.div`
+  width: 240px;
+  margin-top: 40px;
+  height: 44px;
+`;
+>>>>>>> 5644dbe (change layout and font)
 
 export const Invite = () => {
 <<<<<<< HEAD
@@ -43,66 +87,15 @@ export const Invite = () => {
           </EnterButton>
         </>
       ) : (
-        <div>
+        <>
           <InviteForm codeEnter={codeEnter} setCodeEnter={setCodeEnter} />
+<<<<<<< HEAD
         </div>
 >>>>>>> 418dd75 (add cancel func to return to initial page)
+=======
+        </>
+>>>>>>> 5644dbe (change layout and font)
       )}
     </SVGWrapper>
-  );
-};
-
-const Wrapper = styled.div`
-  width: 320px;
-  height: auto;
-  margin-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const InputWrapper = styled.div`
-  width: 320px;
-  height: auto;
-  margin-bottom: 20px;
-  display: flex;
-  flex-diretion: column;
-  align-items: flex-start;
-  justify-content: center;
-  border: 1px solid green;
-`;
-
-interface IProps {
-  codeEnter: boolean;
-  setCodeEnter: (value: boolean) => void;
-}
-
-const InviteForm = ({ codeEnter, setCodeEnter }: IProps) => {
-  console.log(codeEnter);
-  return (
-    <>
-      <Form>
-        <Form.Item
-          label="Enter Invitation Code"
-          hasFeedback
-          validateStatus="warning"
-          help="Please enter your invitation code"
-        >
-          <Input size="large" />
-        </Form.Item>
-        <br />
-        <Form.Item>
-          <Button type="primary" block>
-            Submit
-          </Button>
-        </Form.Item>
-        <Form.Item>
-          <Button block onClick={() => setCodeEnter(!codeEnter)}>
-            Cancel
-          </Button>
-        </Form.Item>
-      </Form>
-    </>
   );
 };
