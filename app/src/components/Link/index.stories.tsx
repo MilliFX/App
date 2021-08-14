@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Typography } from "antd";
+import { LinkProps } from "antd/lib/typography/Link";
 
 const Component = Typography.Link;
 export default {
@@ -13,12 +14,10 @@ export default {
   },
 };
 
-
-const Template = (args) => <Component {...args} disabled={args.disabled} />;
+const Template = (args: LinkProps) => (
+  <Component {...args} disabled={args.disabled} />
+);
 
 export const Link = Template.bind({});
-Link.args = {
-  children: "A demo link",
-  disabled: false,
-  underline: false,
-};
+
+
