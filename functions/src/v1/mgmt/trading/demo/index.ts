@@ -7,7 +7,7 @@ import {
 import middy from "middy";
 import { myFXBookLoginMiddleware } from "../../../../middleware/MyFXBookLogin";
 import { isArchivedAccount, isCommissionAccount } from "../../utils";
-import { Income } from "./types";
+import { DemoAccount, Income } from "./types";
 import bankersRound from "bankers-round";
 
 export const innerHandler = async (
@@ -17,71 +17,35 @@ export const innerHandler = async (
     const session = event.headers["fxbook_session"];
     const { data: accountsData } = await getMyAccounts(session);
 
-    const now = new Date();
-    const endDate = new Date(now.getFullYear(), now.getMonth(), 0);
-    const startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
-
     /**
-     * Commission Accounts
+     * Demo Accounts
      *
-     * Monthly Income = getHistory & sum of past month
      */
-    const commissionAccounts = accountsData.accounts.filter((account) => {
+    const demoAccounts = accountsData.accounts.filter((account) => {
       return (
-        !account.demo &&
-        !isArchivedAccount(account) &&
-        isCommissionAccount(account)
+        account.demo && account.commission < 0 && !isArchivedAccount(account)
       );
     });
+    console.log(demoAccounts);
 
-    const commissionIncome = await Promise.all(
-      commissionAccounts.map(
-        async (account): Promise<Income> => {
-          const { data: historyData } = await getHistory(session, account.id);
+    const demoAccountsFiltered: DemoAccount[]=[{account:'1',balance:2,equity:3}];
 
-          let incomeFromLastMonth = 0;
-          for (let i = 0; i < historyData.history.length; i++) {
-            const history = historyData.history[i];
-            const historyDate = new Date(history.closeTime);
-            if (historyDate < endDate && historyDate > startDate) {
-              incomeFromLastMonth += history.profit;
-            }
-          }
-
-          return {
-            accountName: account.name,
-            monthly: bankersRound(incomeFromLastMonth),
-          };
-        }
-      )
-    );
-
-    /**
-     * Trading Accounts
-     *
-     * Monthly Income = Deposits & Monthly
-     */
-    const tradingAccounts = accountsData.accounts.filter((account) => {
-      return (
-        !account.demo &&
-        !isArchivedAccount(account) &&
-        !isCommissionAccount(account)
-      );
+    demoAccounts.map((acc, index) => {
+      demoAccountsFiltered.push({
+        account: acc.accountId.toString(),
+        balance: acc.balance,
+        equity: acc.equity,
+      });
     });
-    const tradingIncome = tradingAccounts.map((account) => {
-      const estimatedMonthlyIncome = (account.deposits * account.monthly) / 100;
-      return {
-        accountName: account.name,
-        monthly: bankersRound(estimatedMonthlyIncome),
-      };
-    });
+    
 
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([...commissionIncome, ...tradingIncome]),
+      // body: JSON.stringify([...commissionIncome, ...tradingIncome]),
+      body: JSON.stringify(demoAccountsFiltered.splice(1)),
     };
   } else {
     // if log in to MyFXBook server failed
