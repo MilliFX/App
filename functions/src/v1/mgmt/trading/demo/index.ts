@@ -25,6 +25,7 @@ export const innerHandler = async (
         account.demo && account.commission < 0 && !isArchivedAccount(account)
       );
     });
+    console.log(demoAccounts);
 
     const demoAccountsFiltered: DemoAccount[] = demoAccounts.map((acc) => {
       return {
@@ -45,6 +46,7 @@ export const innerHandler = async (
         lastUpdateDate: acc.lastUpdateDate,
       };
     });
+    
 
     return {
       statusCode: 200,
