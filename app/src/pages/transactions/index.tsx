@@ -64,8 +64,8 @@ const Transactions = () => {
             <StyleHeroTitle>Transections</StyleHeroTitle>
             <StyleHeroDataWrapper>
               <StyleHeroDataTitle>Daily Profit</StyleHeroDataTitle>
-              <StyleHeroDataFigure profit={-155.56}>
-                {formatCurrency(-155.56)}
+              <StyleHeroDataFigure profit={data.data.history[0].transections[0].profit}>
+                {formatCurrency(data.data.history[0].transections[0].profit)}
               </StyleHeroDataFigure>
             </StyleHeroDataWrapper>
           </StyleHeroWrapper>
