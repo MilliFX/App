@@ -26,9 +26,8 @@ export const innerHandler = async (
         account.demo && account.commission < 0 && !isArchivedAccount(account)
       );
     });
-    console.log(demoAccounts);
 
-    const demoAccountsFiltered: DemoAccount[]=[{account:'1',balance:2,equity:3}];
+    const demoAccountsFiltered: DemoAccount[] = [];
 
     demoAccounts.map((acc, index) => {
       demoAccountsFiltered.push({
@@ -37,7 +36,6 @@ export const innerHandler = async (
         equity: acc.equity,
       });
     });
-    
 
     return {
       statusCode: 200,
@@ -45,7 +43,7 @@ export const innerHandler = async (
         "Content-Type": "application/json",
       },
       // body: JSON.stringify([...commissionIncome, ...tradingIncome]),
-      body: JSON.stringify(demoAccountsFiltered.splice(1)),
+      body: JSON.stringify(demoAccountsFiltered),
     };
   } else {
     // if log in to MyFXBook server failed
