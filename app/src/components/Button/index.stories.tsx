@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Button as Component } from "antd";
+import { Button as Component, ButtonProps } from "antd";
 import { CloseOutlined, SnippetsOutlined } from "@ant-design/icons";
 
 //customized control
@@ -20,7 +20,7 @@ export default {
   },
 };
 
-const Tamplate = (args) => (
+const Tamplate = (args: ButtonProps) => (
   <Component
     {...args}
     disabled={args.disabled}
@@ -29,12 +29,3 @@ const Tamplate = (args) => (
 );
 
 export const Button = Tamplate.bind({});
-
-Button.args = {
-  size: "middle",
-  type: "primary",
-  children: "Button",
-  disabled: false,
-  icon: false,
-  loading: false,
-};
