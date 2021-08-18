@@ -35,7 +35,6 @@ const InviteForm = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
     } else {
       setInputDisabled(!inputDisabled);
       setBtnLoading(!btnLoading);
-      console.log("call api for login");
       /*
        call api success code
       */
