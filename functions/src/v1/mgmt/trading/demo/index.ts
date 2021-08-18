@@ -19,7 +19,6 @@ export const innerHandler = async (
 
     /**
      * Demo Accounts
-     *
      */
     const demoAccounts = accountsData.accounts.filter((account) => {
       return (
@@ -27,14 +26,24 @@ export const innerHandler = async (
       );
     });
 
-    const demoAccountsFiltered: DemoAccount[] = [];
-
-    demoAccounts.map((acc, index) => {
-      demoAccountsFiltered.push({
-        account: acc.accountId.toString(),
+    const demoAccountsFiltered: DemoAccount[] = demoAccounts.map((acc) => {
+      return {
+        account: acc.accountId,
+        name: acc.name,
+        description: acc.description,
+        deposits: acc.deposits,
+        withdrawals: acc.withdrawals,
+        gain: acc.gain,
+        absGain: acc.absGain,
         balance: acc.balance,
         equity: acc.equity,
-      });
+        monthly: acc.monthly,
+        drawdown: acc.drawdown,
+        currency: acc.currency,
+        profitFactor: acc.profitFactor,
+        creationDate: acc.creationDate,
+        lastUpdateDate: acc.lastUpdateDate,
+      };
     });
 
     return {
@@ -42,7 +51,6 @@ export const innerHandler = async (
       headers: {
         "Content-Type": "application/json",
       },
-      // body: JSON.stringify([...commissionIncome, ...tradingIncome]),
       body: JSON.stringify(demoAccountsFiltered),
     };
   } else {
