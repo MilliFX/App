@@ -8,6 +8,7 @@ import * as FullStory from "@fullstory/browser";
 import { Router, Switch } from "react-router-dom";
 import { customHistory, SentryRoute } from "@millifx/error-boundary";
 import * as Sentry from "@sentry/react";
+import { Invite } from "./pages/Invite";
 
 const { Content } = Layout;
 
@@ -47,6 +48,7 @@ const AppWithRouter = () => {
         <Content>
           <Switch>
             <SentryRoute path="/" exact component={() => <h1>Homepage</h1>} />
+            <SentryRoute path="/invite" component={Invite} />
           </Switch>
         </Content>
       </Layout>
