@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { UUID_FIELD } from "../../utils/constants";
 import Skeleton from "@millifx/skeleton";
+import * as Sentry from "@sentry/react";
 
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
@@ -32,7 +33,7 @@ const Transactions = () => {
       const res = await axios(axiosConfig);
       setData(res.data);
     } catch (error) {
-      console.error(error);
+      Sentry.captureException(error);
     }
   };
 
