@@ -3,7 +3,10 @@ import { Slogan, EnterButton } from "../../pages/Invite/index.style";
 import { Button } from "../Button/index.stories";
 import { InviteCodeProps } from "../../pages/Invite/types";
 
-const InvitePage = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
+const InvitePage: React.FC<InviteCodeProps> = ({
+  isEnteringCode,
+  setIsEnteringCode,
+}: InviteCodeProps) => {
   return (
     <>
       <Slogan>

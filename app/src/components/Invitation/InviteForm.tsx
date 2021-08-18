@@ -22,7 +22,10 @@ const modalConfig = {
   onButtonProps: { size: "small" },
 };
 
-const InviteForm = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
+const InviteForm: React.FC<InviteCodeProps> = ({
+  isEnteringCode,
+  setIsEnteringCode,
+}: InviteCodeProps) => {
   const [formWarning, setFormWarning] = useState<boolean>(false);
   const [inputDisabled, setInputDisabled] = useState<boolean>(false);
   const [btnLoading, setBtnLoading] = useState<boolean>(false);
@@ -39,7 +42,7 @@ const InviteForm = ({ isEnteringCode, setIsEnteringCode }: InviteCodeProps) => {
        call api success code
       */
       //call api return failed code
-      const modal = Modal.warning(modalConfig);
+      Modal.warning(modalConfig);
     }
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

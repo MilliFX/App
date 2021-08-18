@@ -34,8 +34,6 @@ const AppWithSession = () => (
 );
 
 const AppWithRouter = () => {
-  const { name, gain } = sampleAccount;
-
   const { uuid } = useSession();
   console.log("SessionConsumer Detected UUID", uuid);
   if (uuid) {

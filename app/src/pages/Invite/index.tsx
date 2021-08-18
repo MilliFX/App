@@ -4,7 +4,7 @@ import InviteForm from "../../components/Invitation/InviteForm";
 import InvitePage from "../../components/Invitation/InvitePage";
 import { Brand, Wrapper } from "./index.style";
 
-export const Invite = () => {
+export const Invite: React.FC = () => {
   const [isEnteringCode, setIsEnteringCode] = useState(true);
   return (
     <Wrapper>
