@@ -18,6 +18,7 @@ import { useState, useEffect } from "react";
 import axios, { AxiosRequestConfig } from "axios";
 import { UUID_FIELD } from "../../utils/constants";
 import Skeleton from "@millifx/skeleton";
+import * as Sentry from "@sentry/react";
 
 import { formatCurrency } from "../../utils/formatCurrency";
 
