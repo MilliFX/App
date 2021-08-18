@@ -16,7 +16,6 @@ export const innerHandler = async (
   if (event.headers["fxbook_session"]) {
     const session = event.headers["fxbook_session"];
     const { data: accountsData } = await getMyAccounts(session);
-    console.log(accountsData);
     const now = new Date();
     const endDate = new Date(now.getFullYear(), now.getMonth(), 0);
     const startDate = new Date(endDate.getFullYear(), endDate.getMonth(), 1);
