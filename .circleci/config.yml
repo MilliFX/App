@@ -16,7 +16,7 @@ jobs:
           - v1-dependencies-{{ checksum "package.json" }}
           - v1-dependencies-
       - run: yarn install
-      - run: NODE_OPTIONS=--max_old_space_size=8192 yarn build
+      - run: yarn build
       - run: yarn lint
       - run: yarn format
       - run: yarn test
