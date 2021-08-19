@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Button as Component, ButtonProps } from "antd";
-import { CloseOutlined, SnippetsOutlined } from "@ant-design/icons";
+import { CloseOutlined } from "@ant-design/icons";
 
 //customized control
 export default {

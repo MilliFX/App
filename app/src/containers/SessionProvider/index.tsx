@@ -4,7 +4,7 @@ import { initialState, SessionState } from "./state";
 import { useState } from "react";
 import { useUUID } from "./useUUID";
 
-export const SessionProvider: React.FC = ({ children }) => {
+export const SessionProvider: React.FC= ({children}) => {
   const uuid = useUUID();
 
   const [session] = useState<SessionState>({
