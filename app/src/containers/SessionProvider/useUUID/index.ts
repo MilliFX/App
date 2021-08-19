@@ -3,7 +3,7 @@ import { v1 as uuidv1 } from "uuid";
 
 const UUID_FIELD = "uuid";
 
-export const useUUID = () => {
+export const useUUID: () => string = () => {
   const uuid: string = localStorage[UUID_FIELD]
     ? localStorage[UUID_FIELD]
     : uuidv1();
