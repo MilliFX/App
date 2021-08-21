@@ -18,7 +18,6 @@ import { UUID_FIELD } from "../../utils/constants";
 import Skeleton from "@millifx/skeleton";
 import * as Sentry from "@sentry/react";
 
-
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
 
