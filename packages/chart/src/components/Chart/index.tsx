@@ -10,8 +10,8 @@ interface ChartProps {
 }
 
 enum Duration {
-  week= "week",
-  month = "month"
+  week = "week",
+  month = "month",
 }
 
 const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
@@ -46,20 +46,21 @@ const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
       name: "Balance",
       data: getBalance(data),
     },
-    { 
-      name: "Equity", 
-      data: getEquity(data) },
+    {
+      name: "Equity",
+      data: getEquity(data),
+    },
   ]);
 
   const byPeriod = (duration: Duration) => {
-    const lastDay =  moment(data[data.length-1].date);
+    const lastDay = moment(data[data.length - 1].date);
     switch (duration) {
       case "week":
         const dayOfWeek = lastDay.day();
-        const lastMondayOfWeek = lastDay.subtract(dayOfWeek-1, "days");
+        const lastMondayOfWeek = lastDay.subtract(dayOfWeek - 1, "days");
         const weeklyData = data.filter((item) => {
           const day = moment(item.date);
-          if(day.diff(lastMondayOfWeek) >= 0){
+          if (day.diff(lastMondayOfWeek) >= 0) {
             return item;
           }
         });
@@ -82,17 +83,18 @@ const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
             name: "Balance",
             data: getBalance(weeklyData),
           },
-          { 
-            name: "Equity", 
-            data: getEquity(weeklyData) },
+          {
+            name: "Equity",
+            data: getEquity(weeklyData),
+          },
         ]);
         break;
       case "month":
-        const startOfMonth  = lastDay.startOf("month");
+        const startOfMonth = lastDay.startOf("month");
         console.log(startOfMonth);
         const monthlyData = data.filter((item) => {
           const day = moment(item.date);
-          if(day.diff(startOfMonth) >= 0){
+          if (day.diff(startOfMonth) >= 0) {
             return item;
           }
         });
@@ -115,13 +117,14 @@ const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
             name: "Balance",
             data: getBalance(monthlyData),
           },
-          { 
-            name: "Equity", 
-            data: getEquity(monthlyData) },
+          {
+            name: "Equity",
+            data: getEquity(monthlyData),
+          },
         ]);
         break;
     }
-  }
+  };
   return (
     <>
       <AChart
@@ -131,7 +134,8 @@ const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
         width="100%"
         height="500"
       />
-      <button onClick={() => byPeriod(Duration.week)}>W</button><button onClick={() => byPeriod(Duration.month)}>M</button>
+      <button onClick={() => byPeriod(Duration.week)}>W</button>
+      <button onClick={() => byPeriod(Duration.month)}>M</button>
     </>
   );
 };
