@@ -15,11 +15,15 @@ export const innerHandler = async (
     const session = event.headers["fxbook_session"];
     const { data: accountsData } = await getMyAccounts(session);
 
-    const accounts: MyAccount[] = accountsData.accounts.filter((account)=>{
-            if(!account.name.includes("Archived") && !account.demo && account.commission < 0){
-                return account;
-            }
-        });
+    const accounts: MyAccount[] = accountsData.accounts.filter((account) => {
+      if (
+        !account.name.includes("Archived") &&
+        !account.demo &&
+        account.commission < 0
+      ) {
+        return account;
+      }
+    });
 
     return {
       statusCode: 200,

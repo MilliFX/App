@@ -1,5 +1,4 @@
 export interface Income {
-    accountName: string;
-    monthly: number;
-  }
-  
+  accountName: string;
+  monthly: number;
+}
