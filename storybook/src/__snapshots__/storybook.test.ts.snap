@@ -12,18 +12,12 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
 <form
   className="ant-form ant-form-horizontal"
   id="basic"
+  onReset={[Function]}
   onSubmit={[Function]}
 >
   <div
     className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
+    style={Object {}}
   >
     <div
       className="ant-col ant-col-8 ant-form-item-label"
@@ -63,14 +57,7 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
   </div>
   <div
     className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
+    style={Object {}}
   >
     <div
       className="ant-col ant-col-8 ant-form-item-label"
@@ -147,14 +134,7 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
   </div>
   <div
     className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
+    style={Object {}}
   >
     <div
       className="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
@@ -199,14 +179,7 @@ exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
   </div>
   <div
     className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
+    style={Object {}}
   >
     <div
       className="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
