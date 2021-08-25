@@ -55,71 +55,70 @@ const Chart: React.FC<ChartProps> = ({ data }: ChartProps) => {
   const byPeriod = (duration: Duration) => {
     const lastDay = moment(data[data.length - 1].date);
     if (duration === "week") {
-        const dayOfWeek = lastDay.day();
-        const lastMondayOfWeek = lastDay.subtract(dayOfWeek - 1, "days");
-        const weeklyData = data.filter((item) => {
-          const day = moment(item.date);
-          if (day.diff(lastMondayOfWeek) >= 0) {
-            return item;
-          }
-        });
-        setOptions({
-          chart: {
-            id: "basic-line",
+      const dayOfWeek = lastDay.day();
+      const lastMondayOfWeek = lastDay.subtract(dayOfWeek - 1, "days");
+      const weeklyData = data.filter((item) => {
+        const day = moment(item.date);
+        if (day.diff(lastMondayOfWeek) >= 0) {
+          return item;
+        }
+      });
+      setOptions({
+        chart: {
+          id: "basic-line",
+        },
+        colors: ["#E71F18", "#3FADEC"],
+        yaxis: {
+          labels: {
+            show: false,
           },
-          colors: ["#E71F18", "#3FADEC"],
-          yaxis: {
-            labels: {
-              show: false,
-            },
+        },
+        xaxis: {
+          categories: getXaxis(weeklyData),
+        },
+      });
+      setSeries([
+        {
+          name: "Balance",
+          data: getBalance(weeklyData),
+        },
+        {
+          name: "Equity",
+          data: getEquity(weeklyData),
+        },
+      ]);
+    } else if (duration === "month") {
+      const startOfMonth = lastDay.startOf("month");
+      const monthlyData = data.filter((item) => {
+        const day = moment(item.date);
+        if (day.diff(startOfMonth) >= 0) {
+          return item;
+        }
+      });
+      setOptions({
+        chart: {
+          id: "basic-line",
+        },
+        colors: ["#E71F18", "#3FADEC"],
+        yaxis: {
+          labels: {
+            show: false,
           },
-          xaxis: {
-            categories: getXaxis(weeklyData),
-          },
-        });
-        setSeries([
-          {
-            name: "Balance",
-            data: getBalance(weeklyData),
-          },
-          {
-            name: "Equity",
-            data: getEquity(weeklyData),
-          },
-        ]);
-      }
-      else if (duration === "month"){
-        const startOfMonth = lastDay.startOf("month");
-        const monthlyData = data.filter((item) => {
-          const day = moment(item.date);
-          if (day.diff(startOfMonth) >= 0) {
-            return item;
-          }
-        });
-        setOptions({
-          chart: {
-            id: "basic-line",
-          },
-          colors: ["#E71F18", "#3FADEC"],
-          yaxis: {
-            labels: {
-              show: false,
-            },
-          },
-          xaxis: {
-            categories: getXaxis(monthlyData),
-          },
-        });
-        setSeries([
-          {
-            name: "Balance",
-            data: getBalance(monthlyData),
-          },
-          {
-            name: "Equity",
-            data: getEquity(monthlyData),
-          },
-        ]);
+        },
+        xaxis: {
+          categories: getXaxis(monthlyData),
+        },
+      });
+      setSeries([
+        {
+          name: "Balance",
+          data: getBalance(monthlyData),
+        },
+        {
+          name: "Equity",
+          data: getEquity(monthlyData),
+        },
+      ]);
     }
   };
   return (
