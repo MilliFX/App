@@ -8,8 +8,6 @@ import { Router, Switch } from "react-router-dom";
 import { customHistory, SentryRoute } from "@millifx/error-boundary";
 import * as Sentry from "@sentry/react";
 import { Invite } from "./pages/Invite";
-import More from "./pages/More";
-import RegisterInterest from "./pages/RegisterInterest/index";
 
 const { Content } = Layout;
 
@@ -39,11 +37,6 @@ const AppWithRouter = () => {
           <Switch>
             <SentryRoute path="/" exact component={() => <h1>Homepage</h1>} />
             <SentryRoute path="/invite" component={Invite} />
-            <SentryRoute path="/more" component={More} />
-            <SentryRoute
-              path="/registerinterest"
-              component={RegisterInterest}
-            />
           </Switch>
         </Content>
       </Layout>
