@@ -19,4 +19,3 @@ const Template = (args: LinkProps) => (
 );
 
 export const Link = Template.bind({});
-
