@@ -2,10 +2,14 @@ import styled from "styled-components";
 export const CloseButton = styled.a`
   color: #505050;
 `;
+
+export const OutWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+`;
 export const Wrapper = styled.div`
   margin-top: 40px;
-  margin-right: 20px;
-  margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
