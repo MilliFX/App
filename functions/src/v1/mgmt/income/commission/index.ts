@@ -7,7 +7,7 @@ import {
 import middy from "middy";
 import { myFXBookLoginMiddleware } from "../../../../middleware/MyFXBookLogin";
 import { isArchivedAccount, isCommissionAccount } from "../../utils";
-import { Income } from "./types";
+import { Income } from "../types";
 import bankersRound from "bankers-round";
 
 export const innerHandler = async (
@@ -33,7 +33,7 @@ export const innerHandler = async (
       );
     });
 
-    const commissionIncome = await Promise.all(
+    const incomes = await Promise.all(
       commissionAccounts.map(
         async (account): Promise<Income> => {
           const { data: historyData } = await getHistory(session, account.id);
@@ -42,7 +42,11 @@ export const innerHandler = async (
           for (let i = 0; i < historyData.history.length; i++) {
             const history = historyData.history[i];
             const historyDate = new Date(history.closeTime);
-            if (historyDate < endDate && historyDate > startDate) {
+            if (
+              historyDate < endDate &&
+              historyDate > startDate &&
+              history.profit >= 0
+            ) {
               incomeFromLastMonth += history.profit;
             }
           }
@@ -55,32 +59,12 @@ export const innerHandler = async (
       )
     );
 
-    /**
-     * Trading Accounts
-     *
-     * Monthly Income = Deposits & Monthly
-     */
-    const tradingAccounts = accountsData.accounts.filter((account) => {
-      return (
-        !account.demo &&
-        !isArchivedAccount(account) &&
-        !isCommissionAccount(account)
-      );
-    });
-    const tradingIncome = tradingAccounts.map((account) => {
-      const estimatedMonthlyIncome = (account.deposits * account.monthly) / 100;
-      return {
-        accountName: account.name,
-        monthly: bankersRound(estimatedMonthlyIncome),
-      };
-    });
-
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify([...commissionIncome, ...tradingIncome]),
+      body: JSON.stringify([...incomes]),
     };
   } else {
     // if log in to MyFXBook server failed
