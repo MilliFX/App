@@ -12,16 +12,6 @@ import {
 } from "../../pages/Invite/index.style";
 import { InviteCodeProps } from "../../pages/Invite/types";
 
-const modalConfig = {
-  title: "Invalid Invitation Code",
-  content: (
-    <>
-      <ModalMessage>The code you have entered is invalid.</ModalMessage>
-    </>
-  ),
-  onButtonProps: { size: "small" },
-};
-
 const InviteForm: React.FC<InviteCodeProps> = ({
   isEnteringCode,
   setIsEnteringCode,
@@ -47,6 +37,20 @@ const InviteForm: React.FC<InviteCodeProps> = ({
   };
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInviteCode(e.target.value);
+  };
+  const modalConfig = {
+    title: "Invalid Invitation Code",
+    content: (
+      <>
+        <ModalMessage>The code you have entered is invalid.</ModalMessage>
+      </>
+    ),
+    onButtonProps: { size: "small" },
+    afterClose: () => {
+      setInputDisabled(false);
+      setBtnLoading(false);
+      setFormWarning(false);
+    },
   };
   return (
     <FormWrapper>
