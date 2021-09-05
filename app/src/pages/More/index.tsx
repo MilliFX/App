@@ -24,7 +24,7 @@ const More: React.FC = () => {
       <BottomWrapper>
         <Navigation>
           <NavigationItem>
-            <NavigationLink href="/">
+            <NavigationLink href="/registerinterest">
               <AlertOutlined />
               <span>Register your interest</span>
             </NavigationLink>
