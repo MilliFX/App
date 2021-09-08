@@ -37,7 +37,7 @@ export const StyleHeroDataFigure = styled.div<{ profit: number }>`
   font-size: 20px;
   line-height: 1.5;
   font-weight: 600;
-  color: ${({ profit }: any) =>
+  color: ${({ profit }) =>
     (profit < 0 && "#FCA311") || (profit > 0 && "#02C39A") || "#000000"};
 `;
 

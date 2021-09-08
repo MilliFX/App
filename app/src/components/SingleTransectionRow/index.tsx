@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import {
   StyleRow,
   StyleActionCol,
@@ -20,7 +20,7 @@ interface TransectionRowProps {
   transection: Transection;
 }
 
-const TransectionRow = ({ transection }: TransectionRowProps) => {
+const TransectionRow: React.FC<TransectionRowProps> = ({ transection }) => {
   return (
     <StyleRow>
       <StyleActionCol action={transection.action.toUpperCase()}>

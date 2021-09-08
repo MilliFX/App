@@ -1,4 +1,4 @@
-export const formatCurrency = (currency: number) => {
+export const formatCurrency = (currency: number): string => {
   let output: string;
 
   if (currency < 0) {

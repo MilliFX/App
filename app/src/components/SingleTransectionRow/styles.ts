@@ -14,7 +14,7 @@ export const StyleActionCol = styled.div<{ action: string }>`
   flex: 0 0 25%;
   width: 25%;
 
-  color: ${({ action }: any) =>
+  color: ${({ action }) =>
     (action === "SELL" && "#02C39A") ||
     (action === "BUY" && "#FCA311") ||
     "#000000"};
@@ -36,6 +36,6 @@ export const StyleProfitCol = styled.div<{ profit: number }>`
   flex: 0 0 30%;
   width: 30%;
   text-align: right;
-  color: ${({ profit }: any) =>
+  color: ${({ profit }) =>
     (profit < 0 && "#FCA311") || (profit > 0 && "#02C39A") || "#000000"};
 `;

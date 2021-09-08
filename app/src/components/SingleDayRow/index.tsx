@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import { Transection } from "../SingleTransectionRow/";
 import { default as TransectionRow } from "../SingleTransectionRow";
 import { StyleDateTitle, StyleDateWrapper } from "./styles";
@@ -12,7 +12,7 @@ interface DateRowProps {
   data: Transections;
 }
 
-const DayRow = ({ data }: DateRowProps) => {
+const DayRow: React.FC<DateRowProps> = ({ data }) => {
   return (
     <StyleDateWrapper>
       <StyleDateTitle>{data.date}</StyleDateTitle>

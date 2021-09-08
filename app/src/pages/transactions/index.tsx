@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { Col } from "antd";
 import DayRow from "../../components/SingleDayRow";
 import {
@@ -11,25 +11,20 @@ import {
   DayRowWrapper,
 } from "./styles";
 import Skeleton from "@millifx/skeleton";
-import * as Sentry from "@sentry/react";
 import { formatCurrency } from "../../utils/formatCurrency";
 import { TransectionHandlerResponse } from "@millifx/utils";
-import { useState, useEffect } from "react";
-import axios, { AxiosRequestConfig } from "axios";
-import { UUID_FIELD } from "../../utils/constants";
+import { fetchTransectionData } from "../../api";
 
-const Transactions = () => {
+const Transactions: React.FC = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
 
   const getData = async () => {
     const { data } = await fetchTransectionData();
     setData(data);
-    return data;
   };
 
   useEffect(() => {
-    const data = getData();
-    console.log(data);
+    getData();
   }, []);
   if (!data) {
     return (
