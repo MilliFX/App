@@ -21,26 +21,17 @@ import { UUID_FIELD } from "../../utils/constants";
 const Transactions = () => {
   const [data, setData] = useState<TransectionHandlerResponse>();
 
-  const fetchTransectionData = async () => {
-    try {
-      const axiosConfig: AxiosRequestConfig = {
-        method: "get",
-        url: "/api/transections",
-        headers: {
-          "millifx-uuid": localStorage[UUID_FIELD],
-        },
-      };
-      const res = await axios(axiosConfig);
-      setData(res.data);
-    } catch (error) {
-      Sentry.captureException(error);
-    }
+  const getData = async () => {
+    const { data } = await fetchTransectionData();
+    setData(data);
+    return data;
   };
 
   useEffect(() => {
-    fetchTransectionData();
+    const data = getData();
+    console.log(data);
   }, []);
-  if (data == undefined) {
+  if (!data) {
     return (
       <StyleAntRow>
         <Col span={24}>
@@ -57,7 +48,7 @@ const Transactions = () => {
         </Col>
       </StyleAntRow>
     );
-  } else if (data && data.data !== null && !data.error) {
+  } else if (data.data !== null && !data.error) {
     return (
       <StyleAntRow>
         <Col span={24}>
