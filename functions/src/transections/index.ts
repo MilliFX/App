@@ -20,7 +20,7 @@ export const TransectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
   // initiate handler response
-  const response: TransectionHandlerResponse = {
+  let response: TransectionHandlerResponse = {
     error: false,
     data: {
       history: [],
@@ -36,6 +36,7 @@ export const TransectionHandler = async (
 
     // if has data during the given period
     if (data.history.length > 0) {
+      //@ts-ignore
       response.data.history = formatHistoryData(data.history);
     } else {
       // if there is no data during the given period
