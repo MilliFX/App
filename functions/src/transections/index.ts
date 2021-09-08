@@ -48,7 +48,7 @@ export const TransectionHandler = async (
       errorMessage: "Internal Error",
     };
     return {
-      statusCode: 500,
+      statusCode: 403,
       headers: {
         "Content-Type": "application/json",
       },

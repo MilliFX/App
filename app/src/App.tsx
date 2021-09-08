@@ -6,8 +6,9 @@ import { SessionProvider } from "./containers/SessionProvider";
 import { useSession } from "./containers/SessionProvider/hook";
 import * as FullStory from "@fullstory/browser";
 import { Router, Switch } from "react-router-dom";
-import transections from "./pages/transactions/index";
+import transections from "./pages/Transactions/index";
 import { customHistory, SentryRoute } from "@millifx/error-boundary";
+import { Invite } from "./pages/Invite";
 
 const { Content } = Layout;
 
@@ -47,6 +48,7 @@ const AppWithRouter = () => {
         <Content>
           <Switch>
             <SentryRoute path="/" exact component={() => <h1>Homepage</h1>} />
+            <SentryRoute path="/invite" component={Invite} />
             <SentryRoute path="/transections" component={transections} />
           </Switch>
         </Content>

@@ -1,18 +1,18 @@
 import * as React from "react";
-import { ITransection } from "../SingleTransectionRow/";
+import { Transection } from "../SingleTransectionRow/";
 import { default as TransectionRow } from "../SingleTransectionRow";
 import { StyleDateTitle, StyleDateWrapper } from "./styles";
 
-export interface ITransections {
+export interface Transections {
   date: string;
-  transections: ITransection[];
+  transections: Transection[];
 }
 
-interface IDateRowProps {
-  data: ITransections;
+interface DateRowProps {
+  data: Transections;
 }
 
-const DayRow = ({ data }: IDateRowProps) => {
+const DayRow = ({ data }: DateRowProps) => {
   return (
     <StyleDateWrapper>
       <StyleDateTitle>{data.date}</StyleDateTitle>

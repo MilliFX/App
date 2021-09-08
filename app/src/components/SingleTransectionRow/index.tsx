@@ -8,7 +8,7 @@ import {
 } from "./styles";
 import { formatCurrency } from "../../utils/formatCurrency";
 
-export interface ITransection {
+export interface Transection {
   action: string;
   fromCurrency: string;
   toCurrency: string;
@@ -16,11 +16,11 @@ export interface ITransection {
   profit: number;
 }
 
-interface ITransectionRowProps {
-  transection: ITransection;
+interface TransectionRowProps {
+  transection: Transection;
 }
 
-const TransectionRow = ({ transection }: ITransectionRowProps) => {
+const TransectionRow = ({ transection }: TransectionRowProps) => {
   return (
     <StyleRow>
       <StyleActionCol action={transection.action.toUpperCase()}>
