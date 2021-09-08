@@ -42,7 +42,7 @@ const More: React.FC = () => {
             </NavigationLink>
           </NavigationItem>
           <NavigationItem>
-            <NavigationLink>
+            <NavigationLink href="/about">
               <InfoCircleOutlined />
               <span>About MilliFX</span>
             </NavigationLink>
