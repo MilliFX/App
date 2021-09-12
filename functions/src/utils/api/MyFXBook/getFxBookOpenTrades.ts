@@ -31,7 +31,7 @@ export interface IFXBookSingleSizing {
 
 export const FxBookGetOpenTrades = (
     session: string,
-    accountId: string
+    accountId: number
   ): Promise<IFXBookGetOpenTradesResponse> => {
     const postData: string = querystring.stringify({
       session: session,
