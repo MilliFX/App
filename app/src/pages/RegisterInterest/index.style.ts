@@ -24,7 +24,7 @@ export const HeaderWithCloseButton = styled.div`
   width: 100%;
 `;
 
-export const HeaderTitle = styled.h1`
+export const HeaderTitle = styled.div`
   font-family: Barlow;
   font-style: normal;
   font-weight: 600;
