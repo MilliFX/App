@@ -9,6 +9,8 @@
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea
+.vscode/
 
 # Generated files
 .idea/**/contentModel.xml
@@ -97,3 +99,6 @@ yarn-debug.log*
 yarn-error.log*
 # Local Netlify folder
 .netlify
+
+# Local ENV
+.env

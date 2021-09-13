@@ -1,3 +1,36 @@
-@primary-color: red;
-@link-color: red;
-@font-family: sans-serif;
+// Ref: https://github.com/ant-design/ant-design/blob/master/components/style/themes/default.less 
+@primary-color:#E71F18;
+@link-color: #E71F18;
+@font-family: Barlow;
+
+// Overwrite base
+@font-size-base: 16px;
+
+
+// New base
+@height-base-button: 44px;
+@height-sm-button: 32px;
+@border-color-base-default:#E7EBEF;
+@text-color-default: #505050;
+
+// Overwrite Button Middle
+@btn-height-base: @height-base-button; // 44px
+@btn-padding-horizontal-base: @padding-md + 4px; // 20px
+@btn-line-height: @line-height-base - 0.3715; // 1.2
+@btn-font-weight: 500;
+
+// Overwrite Button Small
+@btn-font-size-sm: @font-size-base - 2px; // 14px
+@btn-height-sm: @height-sm-button; // 32px
+@btn-padding-horizontal-sm: @padding-xs + 5px; // 13px
+
+// Overwrite Button Default
+@btn-default-border: @border-color-base-default;
+@btn-default-color: @text-color-default;
+
+
+// Overwrite Link Active and Hover color
+@link-hover-color: #C81B15; // hover
+@link-active-color: #A91712; //active
+
+

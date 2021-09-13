@@ -6,13 +6,15 @@
   "description": "Serverless functions for MilliFX",
   "sideEffects": false,
   "main": "dist/cjs/index.js",
+  "module": "dist/es/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "scripts": {
-    "build": "yarn run build:function && yarn run build:types",
-    "build:function": "tsc --project tsconfig.json",
+    "build": "yarn run build:cjs && yarn run build:es && yarn run build:types",
+    "build:cjs": "tsc --project tsconfig.json",
+    "build:es": "tsc --project tsconfig.es.json",
     "build:types": "tsc --project tsconfig.types.json",
     "test": "jest --watchAll=false",
     "format": "prettier --write src/**/*.ts{,x}",
@@ -32,5 +34,12 @@
   },
   "peerDependencies": {
     "typescript": "^4.0.0"
+  },
+  "dependencies": {
+    "@types/uuid": "^8.3.0",
+    "axios": "^0.21.1",
+    "bankers-round": "^1.0.6",
+    "middy": "^0.36.0",
+    "moment": "^2.29.1"
   }
 }

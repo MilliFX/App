@@ -1,1 +1,5 @@
-export { default } from "./containers/ErrorBoundary";
+export {
+  default,
+  customHistory,
+  SentryRoute,
+} from "./containers/ErrorBoundary";

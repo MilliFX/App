@@ -1,233 +1,317 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots @millifx/app/components/InvitationForm Default 1`] = `
-<form
-  className="ant-form ant-form-horizontal"
-  id="basic"
-  onSubmit={[Function]}
+exports[`Storyshots @millifx/app/components/Button Button 1`] = `
+<button
+  className="ant-btn"
+  onClick={[Function]}
+  type="button"
+/>
+`;
+
+exports[`Storyshots @millifx/app/components/Link Link 1`] = `
+<a
+  className="ant-typography"
+  style={
+    Object {
+      "WebkitLineClamp": undefined,
+    }
+  }
 >
-  <div
-    className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
-  >
-    <div
-      className="ant-col ant-col-8 ant-form-item-label"
-      style={Object {}}
-    >
-      <label
-        className="ant-form-item-required"
-        htmlFor="basic_username"
-        title="Username"
-      >
-        Username
-      </label>
-    </div>
-    <div
-      className="ant-col ant-col-16 ant-form-item-control"
-      style={Object {}}
-    >
-      <div
-        className="ant-form-item-control-input"
-      >
-        <div
-          className="ant-form-item-control-input-content"
-        >
-          <input
-            className="ant-input"
-            id="basic_username"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value=""
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
-  >
-    <div
-      className="ant-col ant-col-8 ant-form-item-label"
-      style={Object {}}
-    >
-      <label
-        className="ant-form-item-required"
-        htmlFor="basic_password"
-        title="Password"
-      >
-        Password
-      </label>
-    </div>
-    <div
-      className="ant-col ant-col-16 ant-form-item-control"
-      style={Object {}}
-    >
-      <div
-        className="ant-form-item-control-input"
-      >
-        <div
-          className="ant-form-item-control-input-content"
-        >
-          <span
-            className="ant-input-affix-wrapper ant-input-password"
-            onMouseUp={[Function]}
-          >
-            <input
-              action="click"
-              className="ant-input"
-              id="basic_password"
-              onBlur={[Function]}
-              onChange={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              style={null}
-              type="password"
-              value=""
-            />
-            <span
-              className="ant-input-suffix"
-            >
-              <span
-                aria-label="eye-invisible"
-                className="anticon anticon-eye-invisible ant-input-password-icon"
-                onClick={[Function]}
-                onMouseDown={[Function]}
-                onMouseUp={[Function]}
-                role="img"
-                tabIndex={-1}
-              >
-                <svg
-                  aria-hidden="true"
-                  data-icon="eye-invisible"
-                  fill="currentColor"
-                  focusable="false"
-                  height="1em"
-                  viewBox="64 64 896 896"
-                  width="1em"
-                >
-                  <path
-                    d="M942.2 486.2Q889.47 375.11 816.7 305l-50.88 50.88C807.31 395.53 843.45 447.4 874.7 512 791.5 684.2 673.4 766 512 766q-72.67 0-133.87-22.38L323 798.75Q408 838 512 838q288.3 0 430.2-300.3a60.29 60.29 0 000-51.5zm-63.57-320.64L836 122.88a8 8 0 00-11.32 0L715.31 232.2Q624.86 186 512 186q-288.3 0-430.2 300.3a60.3 60.3 0 000 51.5q56.69 119.4 136.5 191.41L112.48 835a8 8 0 000 11.31L155.17 889a8 8 0 0011.31 0l712.15-712.12a8 8 0 000-11.32zM149.3 512C232.6 339.8 350.7 258 512 258c54.54 0 104.13 9.36 149.12 28.39l-70.3 70.3a176 176 0 00-238.13 238.13l-83.42 83.42C223.1 637.49 183.3 582.28 149.3 512zm246.7 0a112.11 112.11 0 01146.2-106.69L401.31 546.2A112 112 0 01396 512z"
-                  />
-                  <path
-                    d="M508 624c-3.46 0-6.87-.16-10.25-.47l-52.82 52.82a176.09 176.09 0 00227.42-227.42l-52.82 52.82c.31 3.38.47 6.79.47 10.25a111.94 111.94 0 01-112 112z"
-                  />
-                </svg>
-              </span>
-            </span>
-          </span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
-  >
-    <div
-      className="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
-      style={Object {}}
-    >
-      <div
-        className="ant-form-item-control-input"
-      >
-        <div
-          className="ant-form-item-control-input-content"
-        >
-          <label
-            className="ant-checkbox-wrapper ant-checkbox-wrapper-checked"
-          >
-            <span
-              className="ant-checkbox ant-checkbox-checked"
-              style={Object {}}
-            >
-              <input
-                checked={true}
-                className="ant-checkbox-input"
-                id="basic_remember"
-                onBlur={[Function]}
-                onChange={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyPress={[Function]}
-                onKeyUp={[Function]}
-                type="checkbox"
-              />
-              <span
-                className="ant-checkbox-inner"
-              />
-            </span>
-            <span>
-              Remember me
-            </span>
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    className="ant-row ant-form-item"
-    style={
-      Object {
-        "marginBottom": undefined,
-        "marginLeft": undefined,
-        "marginRight": undefined,
-        "marginTop": undefined,
-      }
-    }
-  >
-    <div
-      className="ant-col ant-col-16 ant-col-offset-8 ant-form-item-control"
-      style={Object {}}
-    >
-      <div
-        className="ant-form-item-control-input"
-      >
-        <div
-          className="ant-form-item-control-input-content"
-        >
-          <button
-            className="ant-btn ant-btn-primary"
-            onClick={[Function]}
-            type="submit"
-          >
-            <span>
-              Submit
-            </span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</form>
+  
+</a>
+`;
+
+exports[`Storyshots @millifx/chart Chart 1`] = `
+Array [
+  <p>
+    Convert the following list to a chart
+  </p>,
+  <ul>
+    <li>
+      01/31/2021
+       
+      30000
+       
+      30000
+       
+      0
+    </li>
+    <li>
+      02/01/2021
+       
+      30031.48
+       
+      30035.69
+       
+      31.48
+    </li>
+    <li>
+      02/02/2021
+       
+      30047.99
+       
+      30075.97
+       
+      16.51
+    </li>
+    <li>
+      02/03/2021
+       
+      30090.98
+       
+      30190.899999999998
+       
+      42.99
+    </li>
+    <li>
+      02/04/2021
+       
+      30150.48
+       
+      30202.05
+       
+      59.5
+    </li>
+    <li>
+      02/05/2021
+       
+      30202.12
+       
+      30216.66
+       
+      51.64
+    </li>
+    <li>
+      02/08/2021
+       
+      30209.05
+       
+      30232.87
+       
+      6.93
+    </li>
+    <li>
+      02/09/2021
+       
+      30246.14
+       
+      30288.329999999998
+       
+      37.09
+    </li>
+    <li>
+      02/10/2021
+       
+      30273.85
+       
+      30391.01
+       
+      27.71
+    </li>
+    <li>
+      02/11/2021
+       
+      30320.57
+       
+      30471.329999999998
+       
+      46.72
+    </li>
+    <li>
+      02/12/2021
+       
+      30343.93
+       
+      30585.93
+       
+      23.36
+    </li>
+    <li>
+      02/15/2021
+       
+      30358.2
+       
+      30896.52
+       
+      14.27
+    </li>
+    <li>
+      02/16/2021
+       
+      30460.45
+       
+      30775.84
+       
+      102.25
+    </li>
+    <li>
+      02/17/2021
+       
+      30498.51
+       
+      31225.91
+       
+      38.06
+    </li>
+    <li>
+      02/18/2021
+       
+      30520.23
+       
+      30990.85
+       
+      21.72
+    </li>
+    <li>
+      02/19/2021
+       
+      30533.24
+       
+      31535.050000000003
+       
+      13.01
+    </li>
+    <li>
+      02/22/2021
+       
+      30618.4
+       
+      31973.02
+       
+      85.16
+    </li>
+    <li>
+      02/23/2021
+       
+      30614.04
+       
+      33538.33
+       
+      -4.36
+    </li>
+    <li>
+      02/24/2021
+       
+      30716.57
+       
+      33926.35
+       
+      102.53
+    </li>
+    <li>
+      02/25/2021
+       
+      30798.21
+       
+      33817.409999999996
+       
+      81.64
+    </li>
+    <li>
+      02/26/2021
+       
+      30889.1
+       
+      33948.52
+       
+      90.89
+    </li>
+    <li>
+      03/01/2021
+       
+      31048.29
+       
+      34056.17
+       
+      159.19
+    </li>
+    <li>
+      03/02/2021
+       
+      31103.22
+       
+      34201.11
+       
+      54.93
+    </li>
+    <li>
+      03/03/2021
+       
+      31125.94
+       
+      33999.69
+       
+      22.72
+    </li>
+    <li>
+      03/04/2021
+       
+      31154.47
+       
+      34006.97
+       
+      28.53
+    </li>
+    <li>
+      03/05/2021
+       
+      31236.02
+       
+      31236.02
+       
+      81.55
+    </li>
+  </ul>,
+  " ",
+]
 `;
 
 exports[`Storyshots @millifx/error-boundary Generic Error 1`] = `
 <span>
   Oops...Something went wrong. Please try again later.
 </span>
+`;
+
+exports[`Storyshots @millifx/skeleton Skeleton 1`] = `
+<div
+  className="ant-skeleton ant-skeleton-active"
+>
+  <div
+    className="ant-skeleton-content"
+  >
+    <h3
+      className="ant-skeleton-title"
+      style={
+        Object {
+          "width": "38%",
+        }
+      }
+    />
+    <ul
+      className="ant-skeleton-paragraph"
+    >
+      <li
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <li
+        style={
+          Object {
+            "width": undefined,
+          }
+        }
+      />
+      <li
+        style={
+          Object {
+            "width": "61%",
+          }
+        }
+      />
+    </ul>
+  </div>
+</div>
 `;

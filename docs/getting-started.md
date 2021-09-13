@@ -70,8 +70,8 @@ To Simulate Continuous Integrations
 
 > yarn ci
 
-## Continuous Delivery
+## Continuous Deployment
 
-To Simulate Continuous Delivery
+To Simulate Continuous Deployment
 
 > yarn cd
