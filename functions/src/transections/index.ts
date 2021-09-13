@@ -24,7 +24,6 @@ export const TransectionHandler = async (
       event.headers["fxbook_session"],
       FXBOOK_TESTING_ACCOUNT_ID
     );
-
     const resHistory = formatHistoryData(data.history);
 
     const res: TransectionHandlerResponse = {
