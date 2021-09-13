@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { v1 as uuidv1 } from "uuid";
-
-const UUID_FIELD = "uuid";
+import { UUID_FIELD } from "../../../utils/constants";
 
 export const useUUID: () => string = () => {
   const uuid: string = localStorage[UUID_FIELD]

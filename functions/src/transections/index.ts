@@ -19,43 +19,41 @@ import { getHistory, History } from "../utils/api/MyFXBook/getHistory";
 export const TransectionHandler = async (
   event: APIGatewayEvent
 ): Promise<APIGatewayProxyResult> => {
-  // initiate handler response
-  let response: TransectionHandlerResponse = {
-    error: false,
-    data: {
-      history: [],
-      dailyGain: 0,
-    },
-  };
-
   if (event.headers["fxbook_session"]) {
     const { data } = await getHistory(
       event.headers["fxbook_session"],
       FXBOOK_TESTING_ACCOUNT_ID
     );
+    const resHistory = formatHistoryData(data.history);
 
-    // if has data during the given period
-    if (data.history.length > 0) {
-      //@ts-ignore
-      response.data.history = formatHistoryData(data.history);
-    } else {
-      // if there is no data during the given period
-      response.error = true;
-      response.errorMessage = "No data during this period";
-    }
+    const res: TransectionHandlerResponse = {
+      error: false,
+      data: {
+        history: resHistory,
+        dailyGain: resHistory[0].transections[0].profit,
+      },
+    };
+    return {
+      statusCode: 200,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(res),
+    };
   } else {
-    // if log in to MyFXBook server failed
-    response.error = true;
-    response.errorMessage = "Internal Error";
+    const res: TransectionHandlerResponse = {
+      error: true,
+      data: null,
+      errorMessage: "Internal Error",
+    };
+    return {
+      statusCode: 403,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(res),
+    };
   }
-
-  return {
-    statusCode: 200,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(response),
-  };
 };
 
 export const formatHistoryData = (data: History[]) => {
